@@ -1,0 +1,70 @@
+{
+  "author": "Mohamed Oumoumad",
+  "description": "compiles selected images to one mp4 file",
+  "version": "0.0.1",
+  "script": "sequenceToMp4.py",
+  "params": [
+    {
+      "type": "inputFilePath",
+      "name": "ffmpeg executer",
+      "default": "",
+      "tooltip": "the path to your ffmpeg executable, if you already have it in your PATH environement variable, then just put 'ffmpeg'"
+    },
+    {
+      "type": "inputField",
+      "name": "Frame rate",
+      "default": "24",
+      "tooltip": "the frame rate (fps) of the output video"
+    },
+    {
+      "type": "inputField",
+      "name": "Scale",
+      "default": "1",
+      "tooltip": "this value is multiplied with the input image resolution"
+    },
+    {
+      "type": "inputList",
+      "name": "Output transfer characteristics",
+      "default": "iec61966_2_1",
+      "list": [
+        "bt709",
+        "gamma",
+        "gamma22",
+        "gamma28",
+        "smpte170m",
+        "smpte240m",
+        "linear",
+        "log",
+        "log_sqrt",
+        "iec61966_2_4",
+        "bt1361",
+        "iec61966_2_1 (sRGB)",
+        "bt2020_10bit",
+        "bt2020_12bit",
+        "smpte2084",
+        "smpte428_1"
+      ],
+      "tooltip": "assign color transfer characteristics"
+    },
+    {
+      "type": "inputSlider",
+      "name": "CRF value",
+      "default": "25",
+      "min": 0,
+      "max": 51,
+      "tooltip": "Constant Rate Factor 0 is lossless, and 51 is worst possible. A lower value is a higher quality and a subjectively sane range is 18-28. Consider 18 to be visually lossless or nearly so: it should look the same or nearly the same as the input but it isn't technically lossless."
+    },
+    {
+      "type": "inputFilePath",
+      "name": "Audio",
+      "default": "",
+      "tooltip": "Audio to be added to the resulting mp4 video"
+    },
+    {
+      "type": "inputDirectory",
+      "name": "Output directory",
+      "default": "",
+      "tooltip": "you can choose another directory to put the output file on, if left empty by default the output will be in the same directory as the input images"
+    }
+  ]
+}

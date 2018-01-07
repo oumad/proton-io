@@ -1,0 +1,88 @@
+{
+  "author": "Mohamed Oumoumad",
+  "description": "Convert any image to jpeg, requires imagemagick, can be downloaded here : http://imagemagick.org/script/download.php make sure to enable legacy commands like (convert etc) while installing.",
+  "version": "0.0.1",
+  "script": "exec.py",
+  "params": [
+    {
+      "type": "inputFilePath",
+      "name": "magick executer",
+      "default": "",
+      "tooltip": "the path to your magick executable, if you already have it in your PATH environement variable, then just put 'magick', if left empty the one in libs/ will be used"
+    },
+    {
+      "type": "inputField",
+      "name": "Background color",
+      "default": "black",
+      "tooltip": "format types : name (ex : 'white'), hex (ex : '#ddddff'), or rgb int (ex : 'rgb(255,255,255)')"
+    },
+    {
+      "type": "inputSlider",
+      "name": "Quality",
+      "default": "92",
+      "min": 1,
+      "max": 100,
+      "tooltip": "1 (lowest image quality and highest compression) to 100 (best quality but least effective compression)."
+    },
+    {
+      "type": "inputField",
+      "name": "Tiles",
+      "default": "",
+      "tooltip": "choose how much tiles you want horizontally and vertically. with this format columnsXrows (ex : '3x2' means it'll put 3 culumns and 2 rows), if left empty, imagemagick will try to make the best guess for the number of images given, you can also specify just column or just rows, (ex : x3 or 2x)"
+    },
+    {
+      "type": "inputField",
+      "name": "margin",
+      "default": "+2+2",
+      "tooltip": "spacing between each image, + for positive and - for negative space (ex : -5-5 means images will overlap each other with 5px horizontally and vertically)"
+    },
+    {
+      "type": "inputField",
+      "name": "Max size",
+      "default": "",
+      "tooltip": "(widthxheight ex: 1280x720) Specify a maximum box size, the images will shrink to fit the box if they are bigger, but won't change if they are smaller"
+    },
+    {
+      "type": "inputCheckbox",
+      "name": "Display image name",
+      "default": false,
+      "tooltip": "when checked each image will have a label with the image name"
+    },
+    {
+      "type": "inputCheckbox",
+      "name": "Display image resolution",
+      "default": false,
+      "tooltip": "when checked each image will have a label with the image size"
+    },
+    {
+      "type": "inputField",
+      "name": "Text color",
+      "default": "white",
+      "tooltip": "color of the image text label and title. format types : name (ex : 'grey'), hex (ex : '#ddddff'), or rgb int (ex : 'rgb(255,255,255)')"
+    },
+    {
+      "type": "inputField",
+      "name": "Text size",
+      "default": "24",
+      "tooltip": "size of the text label in pixels"
+    },
+    {
+      "type": "inputField",
+      "name": "Pack title",
+      "default": "",
+      "tooltip": "You can have a title appear on top of the images pack"
+    },
+    {
+      "type": "inputField",
+      "name": "Output name",
+      "default": "",
+      "tooltip": "input the file name, if left empty the source name will be used"
+    },
+    {
+      "type": "inputDirectory",
+      "name": "Output directory",
+      "default": "",
+      "tooltip": "you can specify another directory, if left empty the file will be at the same directory as the source"
+    }
+  ]
+}

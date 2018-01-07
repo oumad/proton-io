@@ -1,0 +1,86 @@
+{
+  "author": "Mohamed Oumoumad",
+  "description": "Render a maya scene without opening it",
+  "version": "0.0.1",
+  "script": "exec.py",
+  "params": [
+    {
+      "type": "inputFilePath",
+      "name": "maya Render exe",
+      "default": "C:\\Program Files\\Autodesk\\Maya2017\\bin\\Render.exe",
+      "tooltip": "The path to your Render executable from maya bin directory, if you already have it in your PATH environement variable, then just put 'Render'"
+    },
+    {
+      "type": "inputField",
+      "name": "Renderer",
+      "default": "",
+      "tooltip": "The Renderer that will be used (ex : 'arnold' or 'turtle') if left empty the one stored in the file will be used"
+    },
+    {
+      "type": "inputDirectory",
+      "name": "Set project",
+      "default": "D:\\Projects\\carTransformation",
+      "tooltip": "Use this Maya project to load the file"
+    },
+    {
+      "type": "inputField",
+      "name": "Camera name",
+      "default": "",
+      "tooltip": "Specify which camera to be rendered, if left empty the renderable one in the file will be used"
+    },
+    {
+      "type": "inputField",
+      "name": "Starting frame",
+      "default": "",
+      "tooltip": "Starting frame for an animation sequence"
+    },
+    {
+      "type": "inputField",
+      "name": "End frame",
+      "default": "",
+      "tooltip": "End frame for an animation sequence"
+    },
+    {
+      "type": "inputField",
+      "name": "By frame",
+      "default": "",
+      "tooltip": "By frame (or step) for an animation sequence"
+    },
+    {
+      "type": "inputField",
+      "name": "X resolution",
+      "default": "",
+      "tooltip": "Set X resolution, if left empty the one in the file will be used"
+    },
+    {
+      "type": "inputField",
+      "name": "Y resolution",
+      "default": "",
+      "tooltip": "Set Y resolution, if left empty the one in the file will be used"
+    },
+    {
+      "type": "inputField",
+      "name": "Resolution persentage",
+      "default": "100",
+      "tooltip": "Set the persentage of the resolution to be used"
+    },
+    {
+      "type": "inputField",
+      "name": "file format",
+      "default": "exr",
+      "tooltip": "Output image file format"
+    },
+    {
+      "type": "inputField",
+      "name": "Output name",
+      "default": "",
+      "tooltip": "input the file name, if left empty the one specified in the file will be used"
+    },
+    {
+      "type": "inputDirectory",
+      "name": "Output directory",
+      "default": "",
+      "tooltip": "Directory in which to store rendered image file, if left empty the one in the file will be used"
+    }
+  ]
+}

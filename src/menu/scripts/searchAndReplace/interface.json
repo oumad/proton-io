@@ -1,0 +1,20 @@
+{
+  "author": "Mohamed Oumoumad",
+  "description": "Rename selected files by search and replace",
+  "version": "0.0.1",
+  "script": "searchAndReplace.py",
+  "params": [
+    {
+      "type": "inputField",
+      "name": "search string",
+      "default": "",
+      "tooltip": "the text that will be matched"
+    },
+    {
+      "type": "inputField",
+      "name": "replace with",
+      "default": "",
+      "tooltip": "the text it will be replaced with"
+    }
+  ]
+}

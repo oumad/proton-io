@@ -1,0 +1,68 @@
+{
+  "author": "Mohamed Oumoumad",
+  "description": "Render a comp from an AE project file",
+  "version": "0.0.1",
+  "script": "exec.py",
+  "params": [
+    {
+      "type": "inputFilePath",
+      "name": "aerender executer",
+      "default": "C:\\Program Files\\Adobe\\Adobe After Effects CC 2017\\Support Files\\aerender.exe",
+      "tooltip": "the path to your aerender executable, if you already have it in your PATH environement variable, then just put 'aerender'"
+    },
+    {
+      "type": "inputField",
+      "name": "Comp name",
+      "default": "Comp 1",
+      "tooltip": "input the name of the composition you want to render"
+    },
+    {
+      "type": "inputField",
+      "name": "Start frame",
+      "default": "",
+      "tooltip": "input the frame you want to start rendering from, if left empty, the composition work area will be used"
+    },
+    {
+      "type": "inputField",
+      "name": "End frame",
+      "default": "",
+      "tooltip": "input the frame you want to end the rendering at, if left empty, the composition work area will be used"
+    },
+    {
+      "type": "inputField",
+      "name": "frame increment",
+      "default": "1",
+      "tooltip": "input the template name for the render settings"
+    },
+    {
+      "type": "inputField",
+      "name": "Render settings",
+      "default": "",
+      "tooltip": "the number of frames to advance before rendering a new frame"
+    },
+    {
+      "type": "inputField",
+      "name": "Output Module",
+      "default": "",
+      "tooltip": "input the template name for the output module"
+    },
+    {
+      "type": "inputField",
+      "name": "Output name",
+      "default": "frames_[####]",
+      "tooltip": "input the name of the rendered file(s)"
+    },
+    {
+      "type": "inputDirectory",
+      "name": "Output directory",
+      "default": "[projectFolder]",
+      "tooltip": "you can choose another directory to put the output file on, '[projectFolder]' represents the project file's directory"
+    },
+    {
+      "type": "inputCheckbox",
+      "name": "use current AE instance",
+      "default": false,
+      "tooltip": "when checked aerender will render the project using the already opened AE instance, otherwise it will open a new instance"
+    }
+  ]
+}

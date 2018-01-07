@@ -1,0 +1,47 @@
+header{
+	position: fixed;
+	width:100%;
+	z-index:20;
+	top:0px;
+}
+
+#nav-wrap{
+  font-family:Helvetica;
+  display: block;
+  color:#cccccc;
+  height:30px;
+  background-color:#484848;
+  font-size:18px;
+  font-weight:lighter;
+  -webkit-app-region: drag;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+#nav-title{
+  float:left;
+  padding :5px;
+  -webkit-user-select: none;
+}
+#nav-buttons{
+  float:right;
+  -webkit-app-region: no-drag;
+}
+
+.nav-buttons{
+	float:left;
+	width:30px;
+	height:30px;
+	text-align:center;
+	font-size:1.4em;
+	color:#c7c7c7;
+	cursor:pointer;
+}
+
+.nav-buttons:hover {
+	background-color:#191919;
+}
