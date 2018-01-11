@@ -3,7 +3,7 @@
 def main(script,myDir,mySel,magickExec,composeType,background,scale,size,quality,outName,outDir) :
     import subprocess
     #print script,myDir,mySel,aerenderExec,compName,startf,endf,outName,outDir
-    print script,myDir,mySel,magickExec,background,scale,size,quality,outName,outDir
+    print script,myDir,mySel,magickExec,composeType,background,scale,size,quality,outName,outDir
     mySel = open(mySel,"r")
     mySel = mySel.read()
     mySel = mySel.split(',')
@@ -24,7 +24,7 @@ def main(script,myDir,mySel,magickExec,composeType,background,scale,size,quality
 
     #resolving file name from source
     pre, ext = os.path.splitext(mySel[0])
-
+    print ("compose type = " + composeType)
     outFile = pre + '_{}.jpeg'.format(composeType)
 
     args.extend(['-compose',composeType])

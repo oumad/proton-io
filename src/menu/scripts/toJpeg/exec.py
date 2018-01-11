@@ -58,6 +58,7 @@ if __name__ == '__main__':
             import re
 
             try:
+                print (sys.argv)
                 main(*sys.argv)
                 raw_input("Press ENTER to exit")
             except:

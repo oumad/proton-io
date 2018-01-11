@@ -3,6 +3,11 @@
   "description": "Render a comp from an AE project file",
   "version": "0.0.1",
   "script": "exec.py",
+  "command": "",
+  "process": "python",
+  "getDir": true,
+  "getSel": true,
+
   "params": [
     {
       "type": "inputFilePath",

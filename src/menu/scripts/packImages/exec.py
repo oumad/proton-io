@@ -1,7 +1,7 @@
 
 
 def main(script,myDir,mySel,magickExec,background,quality,tiles,margin,maxSize,displayName,DisplaySize,textColor,textSize,title,outName,outDir) :
-    import subprocess
+    from subprocess import Popen, PIPE, STDOUT
     #print script,myDir,mySel,aerenderExec,compName,startf,endf,outName,outDir
     print script,myDir,mySel,magickExec,background,quality,outName,outDir
     mySel = open(mySel,"r")
@@ -78,7 +78,12 @@ def main(script,myDir,mySel,magickExec,background,quality,tiles,margin,maxSize,d
 
     print args
     #execute the args
-    subprocess.Popen(args)
+    #subprocess.Popen(args)
+
+    p = Popen(args, shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT)
+    output = p.stdout.read()
+    print output
+    return output
 
 
 

@@ -2,7 +2,11 @@
   "author": "Mohamed Oumoumad",
   "description": "compiles selected images to one mp4 file",
   "version": "0.0.1",
-  "script": "sequenceToMp4.py",
+  "script": "exec.py",
+  "command": "",
+  "process": "python",
+  "getDir": false,
+  "getSel": true,
   "params": [
     {
       "type": "inputFilePath",

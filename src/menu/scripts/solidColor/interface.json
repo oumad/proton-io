@@ -1,0 +1,58 @@
+{
+  "author": "Mohamed Oumoumad",
+  "description": "Creates a plain solid color image at the desired size and format, requires imagemagick, it is provided in libs/ but can also be downloaded here : http://imagemagick.org/script/download.php make sure to enable legacy commands like (convert etc) while installing.",
+  "version": "0.0.1",
+  "script": "exec.py",
+  "command": "",
+  "process": "python",
+  "params": [
+    {
+      "type": "inputFilePath",
+      "name": "magick executer",
+      "default": "",
+      "tooltip": "the path to your magick executable, if you already have it in your PATH environement variable, then just put 'magick', if left empty the one in libs/ will be used"
+    },
+    {
+      "type": "inputField",
+      "name": "Solid Color",
+      "default": "black",
+      "tooltip": "format types : name (ex : 'white'), hex (ex : '#ddddff'), or rgb int (ex : 'rgb(255,255,255)')"
+    },
+    {
+      "type": "inputField",
+      "name": "Size",
+      "default": "1920x1080",
+      "tooltip": "input height and width (ex : 1920x1080)"
+    },
+    {
+      "type": "inputList",
+      "name": "Blend type",
+      "default": "jpeg",
+      "list": [
+        "jpeg",
+        "jpg",
+        "png",
+        "tga",
+        "tiff",
+        "exr",
+        "psd",
+        "gif",
+        "dpx",
+        "svg"
+      ],
+      "tooltip": "choose the file format you want the solid color image to be"
+    },
+    {
+      "type": "inputField",
+      "name": "Output name",
+      "default": "",
+      "tooltip": "input the file name, if left empty the solid will be named like this : color_solid (ex : red_solid)"
+    },
+    {
+      "type": "inputDirectory",
+      "name": "Output directory",
+      "default": "",
+      "tooltip": "you can specify a directory, if left empty the file will be at directory where you execute the script"
+    }
+  ]
+}

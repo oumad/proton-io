@@ -13,7 +13,7 @@ const fs = require('fs')
 //directory of the scripts folder
 const scriptsDir = path.join(__dirname,'scripts')
 const selectedScriptDir = path.join(scriptsDir,selectedScript)
-const scriptFileName = path.join(scriptsDir,selectedScript,`exec.py`)
+const scriptFileName = path.join(scriptsDir,selectedScript,myScripts[selectedScript].script)
 const scriptJson = path.join(scriptsDir,selectedScript,`interface.json`)
 
 String.prototype.replaceAll = function(search, replacement) {
@@ -188,7 +188,7 @@ function inputSlider(inputName,defaultVal,min,max,tooltip){
 }
 
 //
-function apply(){
+function apply(obj){
   $('#parameters-container').append(
     $('<div>').attr('id','end-buttons').append(
       $('<div>').attr('id','apply').text('apply').button()
@@ -198,8 +198,13 @@ function apply(){
         //const scriptFileName =`${__dirname}\\scripts\\sequenceToMp4.py`
         //declaring flags array
         var flags = [];
+        if (obj.script != ''){
+          flags.push(scriptFileName)
+        }
+        if (obj.command != ''){
+          flags.push(obj.command)
+        }
 
-        flags.push(scriptFileName)
         console.log(scriptFileName)
         var selectedFilesEscaped = []
 
@@ -224,27 +229,10 @@ function apply(){
             console.log( index + ": " + `"${inputValue}"`);
         });
         console.log(flags)
-        var scrollValue = 100;
-        const scrollInc = 1000;
-        const child = require('child_process').spawn('python', flags,{shell: true, detached: true,windowsVerbatimArguments: true});
-        child.stdout.on('data', function (data) {
-          $("#debugger-output").append(`<span>${data}<span/><br>`)
-          .scrollTop(scrollValue);
-          scrollValue+=scrollInc;
-          console.log(data)
-        });
-        child.stderr.on('data', function (data) {
-          console.log(`err : ${data}`)
-          $("#debugger-output").append(`<span>${data}<span/><br>`)
-          .scrollTop(scrollValue);
-          scrollValue+=scrollInc;
-        });
-        child.on('close', function (code) {
-          console.log('server was stopped with code : ' + code);
-          $("#debugger-output").append('server was stopped with code : ' + code)
-          .scrollTop(scrollValue);
-          scrollValue+=scrollInc;
-        });
+
+        //execute command
+        myExecute(obj.process,flags)
+
         //window.close();
         if (!$('#debugger-mode input').prop("checked")){
           window.close();
@@ -308,4 +296,28 @@ function scriptDebugger() {
       .prop('checked', false)
       )
     $("#debugger-close").on('click',()=>{$("#debugger-wrap").css("display","none")})
+}
+
+function myExecute(myProcess,flags){
+  var scrollValue = 100;
+  const scrollInc = 1000;
+  const child = require('child_process').spawn(myProcess, flags,{shell: true, detached: true,windowsVerbatimArguments: true});
+        child.stdout.on('data', function (data) {
+          $("#debugger-output").append(`<span>${data}<span/><br>`)
+          .scrollTop(scrollValue);
+          scrollValue+=scrollInc;
+          console.log(data)
+        });
+        child.stderr.on('data', function (data) {
+          console.log(`err : ${data}`)
+          $("#debugger-output").append(`<span>${data}<span/><br>`)
+          .scrollTop(scrollValue);
+          scrollValue+=scrollInc;
+        });
+        child.on('close', function (code) {
+          console.log('server was stopped with code : ' + code);
+          $("#debugger-output").append('server was stopped with code : ' + code)
+          .scrollTop(scrollValue);
+          scrollValue+=scrollInc;
+        });
 }

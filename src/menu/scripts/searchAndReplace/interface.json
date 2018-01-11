@@ -2,7 +2,11 @@
   "author": "Mohamed Oumoumad",
   "description": "Rename selected files by search and replace",
   "version": "0.0.1",
-  "script": "searchAndReplace.py",
+  "script": "exec.py",
+  "command": "",
+  "process": "python",
+  "getDir": false,
+  "getSel": true,
   "params": [
     {
       "type": "inputField",

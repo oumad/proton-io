@@ -29,24 +29,6 @@ global.myOptions = {option1 : 'hello'}
 const iconPath = path.join(__dirname, 'icons/logo_30px.png');
 let appIcon = null
 let mainWindow
-let prefWindow
-
-
-function preferencesWindow(){
-  prefWindow = new BrowserWindow({
-    width:800,
-    height:600,
-    //frame:false,
-    titleBarStyle: 'hidden',
-    autoHideMenuBar: true,
-    icon: iconPath,
-  })
-  prefWindow.loadURL(url.format({
-    pathname : path.join(__dirname,'prefs.html'),
-    protocol : 'file',
-    slashes : true
-  }));
-}
 
 app.on('ready', () => {
   const electronScreen = electron.screen
@@ -83,14 +65,6 @@ app.on('ready', () => {
       {label: 'reload scripts',
         click: function () {
           mainWindow.webContents.send("reload-scripts")
-        }
-      },
-      {
-      type: 'separator'
-      },
-      {label: 'Preferences',
-        click: function () {
-          preferencesWindow()
         }
       }
   ])
@@ -168,5 +142,20 @@ ipcMain.on('menu-open',function(event, arg){
     event.sender.send('current-path', path);
     global.currentDir = path;
     //console.log(path);
+  });
+})
+
+ipcMain.on('get-selected-files',function(event,arg){
+   myFunction(1, function (error, result) {
+    if (error){
+      console.log(error)
+    }
+    event.returnValue = result;
+  });
+})
+
+ipcMain.on('get-current-dir',function(event,arg){
+  currentPath().then(path => {
+    event.returnValue = path;
   });
 })
