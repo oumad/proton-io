@@ -2,9 +2,11 @@
   "author": "Mohamed Oumoumad",
   "description": "Creates a plain solid color image at the desired size and format, requires imagemagick, it is provided in libs/ but can also be downloaded here : http://imagemagick.org/script/download.php make sure to enable legacy commands like (convert etc) while installing.",
   "version": "0.0.1",
-  "script": "exec.py",
-  "command": "",
   "process": "python",
+  "command": "",
+  "script": "exec.py",
+  "getDir": false,
+  "getSel": true,
   "params": [
     {
       "type": "inputFilePath",

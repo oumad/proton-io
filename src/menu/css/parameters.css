@@ -141,7 +141,7 @@ label{
 
 #debugger-wrap{
   position:fixed;
-  background-color:rgba(0, 0, 0, 0.65);
+  background-color:rgba(0, 0, 0, 0.80);
   height:100%;
   width:100%;
   display: none;
@@ -155,10 +155,36 @@ label{
   left:30px;
 }
 
+
+
+#debugger-contain{
+  overflow-y:scroll;
+  overflow-x: hidden;
+  height:85%;
+  width:90%;
+}
+
+#debugger-buttons{
+  position:fixed;
+  z-index:10;
+}
+
 #debugger-output{
-  width:100%;
-  background-color:#060606;
-  height:100%;
-  color:#7d7d7d;
+  color:#bdbdbd;
   font-size:12px;
+  position:absolute;
+  top:24px;
+  white-space: pre-wrap;
+}
+
+#debugger-output .stderr{
+  color:#b16054;
+}
+
+.debugger-buttons{
+  cursor:pointer;
+}
+
+#debugger-mode label{
+  cursor:pointer;
 }

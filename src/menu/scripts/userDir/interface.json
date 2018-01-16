@@ -2,9 +2,9 @@
   "author": "Mohamed Oumoumad",
   "description": "open user profile folder",
   "version": "0.0.1",
-  "script": "",
-  "command": "%UserProfile%",
   "process": "start",
+  "command": "%UserProfile%",
+  "script": "",
   "getDir": false,
   "getSel": false,
   "params": []

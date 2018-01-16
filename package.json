@@ -30,7 +30,7 @@
             },
             "electronPackagerConfig": {
                 "packageManager": "npm",
-                "asar":"true"
+                "asar": "true"
             },
             "electronWinstallerConfig": {
                 "name": "my_proton"
@@ -54,7 +54,8 @@
         "electron-context-menu": "^0.9.1",
         "electron-edge-js": "^8.2.9",
         "electron-squirrel-startup": "^1.0.0",
-        "node-gyp": "^3.6.2"
+        "node-gyp": "^3.6.2",
+        "tree-kill": "^1.2.0"
     },
     "devDependencies": {
         "babel-plugin-transform-async-to-generator": "^6.24.1",

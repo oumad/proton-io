@@ -2,9 +2,9 @@
   "author": "Mohamed Oumoumad",
   "description": "compiles selected images to one mp4 file",
   "version": "0.0.1",
-  "script": "exec.py",
-  "command": "",
   "process": "python",
+  "command": "",
+  "script": "exec.py",
   "getDir": false,
   "getSel": true,
   "params": [

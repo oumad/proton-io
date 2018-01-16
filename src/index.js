@@ -1,4 +1,5 @@
 const path = require('path')
+const fs = require('fs')
 const url = require('url')
 const electron = require('electron')
 const BrowserWindow = electron.BrowserWindow
@@ -20,21 +21,41 @@ require('electron-context-menu')({
     }]
 });
 
-//global.myOptions = commandLineArgs(optionDefinitions)
-global.myOptions = {option1 : 'hello'}
+//define a global variable ofr the config object
+global.myConfig = JSON.parse(fs.readFileSync(path.join(__dirname,'config.json'), 'utf8'))
 
-//console.log(myOptions)
 
 
 const iconPath = path.join(__dirname, 'icons/logo_30px.png');
-let appIcon = null
+let appTray = null
 let mainWindow
+let prefWindow
 
+
+//function for the preferences window
+function preferencesWindow(){
+  prefWindow = new BrowserWindow({
+    width:800,
+    height:600,
+    //frame:false,
+    titleBarStyle: 'hidden',
+    autoHideMenuBar: true,
+    icon: iconPath,
+  })
+  prefWindow.loadURL(url.format({
+    pathname : path.join(__dirname,'prefs.html'),
+    protocol : 'file',
+    slashes : true
+  }));
+}
+
+
+//function to create the window of the main scripts menu with tray icon
 app.on('ready', () => {
   const electronScreen = electron.screen
   mainWindow = new BrowserWindow({
-    width:800,
-    height:600,
+    width:400,
+    height:500,
     frame:false,
     show: false,
     alwaysOnTop: true,
@@ -55,23 +76,41 @@ app.on('ready', () => {
     slashes : true
   }));
 
-  appIcon = new Tray(iconPath)
+  appTray = new Tray(iconPath)
   const contextMenu = Menu.buildFromTemplate([
-      {label: 'quit',
+      {label: 'Quit',
       click: function () {
         app.quit()
         }
       },
-      {label: 'reload scripts',
+      {label: 'Reload scripts',
         click: function () {
+          //send the event to reload the renderer js
           mainWindow.webContents.send("reload-scripts")
+        }
+      },
+      {
+      type: 'separator'
+      },
+      {label: 'Preferences',
+        click: function () {
+          //show the preferences window
+          preferencesWindow()
+        }
+      },
+      {
+        label : 'Restart',
+        click: function () {
+          //restart the whole app
+          app.relaunch()
+          app.quit()
         }
       }
   ])
-  appIcon.setToolTip('Proton watcher.')
-  appIcon.setContextMenu(contextMenu)
+  appTray.setToolTip('Proton watcher.')
+  appTray.setContextMenu(contextMenu)
 
-  globalShortcut.register('Ctrl+Tab', () => {
+  globalShortcut.register(global.myConfig.mainHotkey, () => {
     if(mainWindow.isVisible()) {
       mainWindow.hide()
     } else {

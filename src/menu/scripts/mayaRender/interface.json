@@ -2,9 +2,9 @@
   "author": "Mohamed Oumoumad",
   "description": "Render a maya scene without opening it",
   "version": "0.0.1",
-  "script": "exec.py",
-  "command": "",
   "process": "python",
+  "command": "",
+  "script": "exec.py",
   "getDir": true,
   "getSel": true,
   "params": [

@@ -3,49 +3,111 @@
   <head>
     <meta charset="utf-8">
     <title>proton preferences</title>
-    <style>
-      body {
-          background-color: grey;
-      }
-      .prefs-wrap{
-        height: 80%;
-      }
-      .prefs-save{
-        height: 20%;
-      }
-    </style>
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <link rel="stylesheet" href="menu/css/jquery-ui.css">
+    <link rel="stylesheet" href="menu/css/jquery-ui.theme.css">
+    <link rel="stylesheet" href="menu/css/jquery-ui.structure.css">
+    <link rel="stylesheet" href="menu/css/prefs.css">
+    <script src="menu/js/jquery.js"></script>
+    <script src="menu/js/jquery-ui.min.js"></script>
+    <script src="menu/js/jquery.ui.combobox.js"></script>
+    <script src="menu/js/mousetrap.min.js"></script>
+    <script src="menu/js/mousetrap-record.min.js"></script>
+
+    <script>if (window.module) module = window.module;</script>
+    <script src="menu/js/prefs.js"></script>
   </head>
   <body>
     <div class="prefs-wrap">
-      <div class="scripts-path-contain">
-        <div class="scripts-path">
-          <label for="scripts-path">Choose a script path</label>
-          <input type="text" name="scripts-path" value="">
-          <div class="directory-input">
-            <span class= "ui-icon ui-icon-document"></span>
-          </div>
-        </div>
-      </div>
+
       <div class="user-hotkeys-contain">
         <div class="menu-hotkeys">
-          <div class="menu-hotkey-recorder">
+          <div class="label">
+            Menu display hotkey
+          </div>
+          <div class="menu-hotkey-recorder hotkey-recorder">
+            <!--
             <input type="text" name="" value="">
             <button type="button" name="button">Edit</button>
+            -->
+            <div class="hotkey-input">Alt+tab</div>
+            <div class="keyboard-hotkeys-icon" ></div>
+          </div>
+          <div class="description">
+            Record the hotkey you want to register to display protonio menu anywhere in your screen
           </div>
         </div>
-        <div class="script-hotkeys">
-          <div class="script-hotkey-recorder">
-            <input type="text" name="" value="">
-            <button type="button" name="button">Edit</button>
-          </div>
-          <div class="script-hotkey-switch">
+        <div class="separator">
 
+        </div>
+
+        
+        <div class="script-hotkeys">
+          <div class="label">
+            Direct execution hotkey
+          </div>
+          
+          <select class="script-hotkey-recorder hotkey-recorder" name="speed" id="directKeydown">
+            <option value="shiftKey" >SHIFT</option>
+            <option value="metaKey" >META</option>
+            <option value="ctrlKey">CTRL</option>
+            <option value="altKey" >ALT</option>
+          </select>
+          <!--
+          <div class="script-hotkey-recorder hotkey-recorder">
+
+            <div class="hotkey-input">Ctrl</div>
+            <div class="keyboard-hotkeys-icon" ></div>
+          </div>
+          -->
+          <div class="description">
+            The key you hold down while choosing a script to execute it directly with its saved default parameters
+          </div>
+          
+        </div>
+      </div>
+
+      <div class="user-paths-contain">
+        <div class="user-path" id="scripts-path">
+          <div class="label">
+            Scripts path
+          </div>
+          <div class="user-path-input-contain">
+            <!--
+            <label for="scripts-path">Choose a script path</label>
+            -->
+            <input type="text" name="scripts-path" value="">
+            <button class="directory-input">
+              <span class= "ui-icon ui-icon-folder-open"></span>
+            </button>
+          </div>
+          <div class="description">
+            Here you can choose a custom path to retrieve your scripts from instead of the default one, useful when you want a centralized scripts source for a team in the network for example.
+          </div>
+        </div>
+          <div class="user-path" id="libraries-path">
+          <div class="label">
+            Libraries path
+          </div>
+          <div class="user-path-input-contain">
+            <!--
+            <label for="scripts-path">Choose a script path</label>
+            -->
+            <input type="text" name="libraries-path" value="">
+            <button class="directory-input">
+              <span class= "ui-icon ui-icon-folder-open"></span>
+            </button>
+          </div>
+          <div class="description">
+            Here you can choose a custom path for the libraries that are used by your scripts (like ffmpeg, imagemagick etc...)
           </div>
         </div>
       </div>
     </div>
     <div class="prefs-save">
       <button type="button" name="button">save</button>
+      <button type="button" name="button">revert</button>
+      <button type="button" name="button">cancel</button>
     </div>
   </body>
 </html>

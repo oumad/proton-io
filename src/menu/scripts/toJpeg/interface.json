@@ -2,9 +2,9 @@
   "author": "Mohamed Oumoumad",
   "description": "Convert any image to jpeg, requires imagemagick, can be downloaded here : http://imagemagick.org/script/download.php make sure to enable legacy commands like (convert etc) while installing. You can also use ffmpeg instead",
   "version": "0.0.1",
-  "script": "exec.py",
-  "command": "",
   "process": "python",
+  "command": "",
+  "script": "exec.py",
   "getDir": false,
   "getSel": true,
   "params": [
@@ -17,7 +17,7 @@
     {
       "type": "inputField",
       "name": "background color",
-      "default": "black",
+      "default": "white",
       "tooltip": "format types : name (ex : 'white'), hex (ex : '#ddddff'), or rgb int (ex : 'rgb(255,255,255)')"
     },
     {

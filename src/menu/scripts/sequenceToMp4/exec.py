@@ -113,12 +113,17 @@ if __name__ == '__main__':
             import subprocess
             #dir_path = os.path.dirname(os.path.realpath(__file__))
             #sys.path.append("{}/dependencies/python".format(dir_path))
+            main(*sys.argv)
+
+            """
             try:
                 main(*sys.argv)
                 #raw_input("Press ENTER to exit")
-            except:
-                print sys.exc_info()[0]
-                import traceback
-                print traceback.format_exc()
+            except Exception as e:
+                print e
+                #print sys.exc_info()[0]
+                #print traceback.format_exc()
+                print >> sys.stderr, traceback.print_exc()
                 print "Press Enter to continue ..."
                 raw_input("Press ENTER to exit")
+            """

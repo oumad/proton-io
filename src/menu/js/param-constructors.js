@@ -7,14 +7,20 @@ const currentDir = getGlobal('currentDir').stdout || 'None'
 const selectedScript = getGlobal('menuReturns').script
 //get returned script name from the menu
 const myScripts = getGlobal('menuReturns').myScripts
+// get the config.json 
+const myConfig = getGlobal('myConfig')
+
+
 const path = require('path')
 const fs = require('fs')
+const kill = require('tree-kill')
+
 
 //directory of the scripts folder
-const scriptsDir = path.join(__dirname,'scripts')
+const scriptsDir = myConfig.scriptsPath || path.join(__dirname,'scripts')
 const selectedScriptDir = path.join(scriptsDir,selectedScript)
 const scriptFileName = path.join(scriptsDir,selectedScript,myScripts[selectedScript].script)
-const scriptJson = path.join(scriptsDir,selectedScript,`interface.json`)
+const scriptJson = path.join(scriptsDir,selectedScript,myConfig.interfaceFile) || path.join(scriptsDir,selectedScript,`interface.json`)
 
 String.prototype.replaceAll = function(search, replacement) {
     var target = this;
@@ -143,7 +149,7 @@ function inputList(listName,defaultVal,list,tooltip){
         $('<select>')
         .attr('name',inputNameNoSpace))
 
-      var i=0;
+      let i=0;
       for (i=0; i < list.length; i++ ){
           $(`#${inputNameNoSpace} select`).append(
             $('<option>')
@@ -198,15 +204,16 @@ function apply(obj){
         //const scriptFileName =`${__dirname}\\scripts\\sequenceToMp4.py`
         //declaring flags array
         var flags = [];
-        if (obj.script != ''){
-          flags.push(scriptFileName)
-        }
         if (obj.command != ''){
           flags.push(obj.command)
         }
+        if (obj.script != ''){
+          flags.push(scriptFileName)
+        }
+
 
         console.log(scriptFileName)
-        var selectedFilesEscaped = []
+        let selectedFilesEscaped = []
 
         for (var f=0;f<selectedFiles.length; f++){
           const selectedFile = selectedFiles[f]
@@ -252,7 +259,7 @@ function save(){
       //const scriptFileName = `${scriptsDir}\\${selectedScript}`
       var scriptFile = require(scriptJson);
 
-      $('input,select').each(function( index ) {
+      $('input,select').not("#debugger-mode input").each(function( index ) {
         //console.log($( this ).val());
         scriptFile.params[index].default = $( this ).val();
       });
@@ -276,12 +283,11 @@ function cancel(){
   )
 }
 
-
+//debugger builder
 function scriptDebugger() {
   $('#parameters-container').append($('<div>').attr('id','end-options'))
 
     $('#end-options').append(
-
       $('<div>').addClass("end-options").attr('id','debugger-mode').append(
       $('<label>')
       .attr('for',"debugger-box")
@@ -289,35 +295,61 @@ function scriptDebugger() {
       .text("Debugger")
     )
   )
-    $('#debugger-mode').append(
-      $('<input>')
-      .attr('name',"debugger-box")
-      .attr('type','checkbox')
-      .prop('checked', false)
-      )
-    $("#debugger-close").on('click',()=>{$("#debugger-wrap").css("display","none")})
+
+  $('#debugger-mode').append(
+    $('<input>')
+    .attr('name',"debugger-box")
+    .attr('type','checkbox')
+    .prop('checked', false)
+    )
+
+  //debugger events
+  $("#debugger-close").on('click',()=>{$("#debugger-wrap").css("display","none")})
+  $("#debugger-clear").on('click',()=>{$("#debugger-output").empty()})
+  $("#debugger-mode label").on('click',()=>{$("#debugger-wrap").css("display","block")})
 }
 
+
+//Execution function
 function myExecute(myProcess,flags){
+  //execute with debugger output
+  outputExecution(myProcess,flags)
+  // stop script when the button stop is pressed
+  $("#debugger-stop").on('click',()=>{
+    $("#debugger-output").append(`<span class="internal-stdout">Attempting to kill the process..<span/><br>`)
+      kill(child.pid);
+  })
+
+  $("#debugger-start-detached").on('click',()=>{
+    //detached execution
+    const childDetached = require('child_process').spawn(myProcess, flags,{shell:true,detached:true,windowsVerbatimArguments: true});
+  })
+  $("#debugger-restart").on('click',()=>{
+    outputExecution(myProcess,flags)
+  })
+}
+
+
+//function to execute the command and receive outputs for the debugger
+function outputExecution(myProcess,flags){
   var scrollValue = 100;
   const scrollInc = 1000;
-  const child = require('child_process').spawn(myProcess, flags,{shell: true, detached: true,windowsVerbatimArguments: true});
+  const child = require('child_process').spawn(myProcess, flags,{shell:true,windowsVerbatimArguments: true});
         child.stdout.on('data', function (data) {
-          $("#debugger-output").append(`<span>${data}<span/><br>`)
-          .scrollTop(scrollValue);
-          scrollValue+=scrollInc;
-          console.log(data)
+          $("#debugger-output").append(`<span class="stdout">${data}<span/><br>`)
+          //.scrollTop(scrollValue);
+          //scrollValue+=scrollInc;
         });
         child.stderr.on('data', function (data) {
-          console.log(`err : ${data}`)
-          $("#debugger-output").append(`<span>${data}<span/><br>`)
-          .scrollTop(scrollValue);
-          scrollValue+=scrollInc;
+          //console.log(`err : ${data}`)
+          $("#debugger-output").append(`<span class="stderr">${data}<span/><br>`)
+          //.scrollTop(scrollValue);
+          //scrollValue+=scrollInc;
         });
         child.on('close', function (code) {
-          console.log('server was stopped with code : ' + code);
-          $("#debugger-output").append('server was stopped with code : ' + code)
-          .scrollTop(scrollValue);
-          scrollValue+=scrollInc;
+          //console.log('command was stopped with code : ' + code);
+          $("#debugger-output").append('Process was ended with code : ' + code)
+          //.scrollTop(scrollValue);
+          //scrollValue+=scrollInc;
         });
 }

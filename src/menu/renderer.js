@@ -6,8 +6,9 @@ const ipcRenderer = require('electron').ipcRenderer
 const electronScreen = require('electron').screen
 const BrowserWindow = remote.BrowserWindow
 const { spawn } = require('child_process');
+const {getGlobal} = require('electron').remote
 
-
+const myConfig = getGlobal("myConfig")
 
 //promises
 ipcRenderer.on('selected-files',(event,result) => {
@@ -21,13 +22,15 @@ ipcRenderer.on('reload-scripts',(event,date) => {
   location.reload();
 })
 
-const scriptSource = path.join(__dirname,"scripts")
+const scriptSource = myConfig.scriptsPath || path.join(__dirname,"scripts")
 
 function getDirectories(path) {
   return fs.readdirSync(path).filter(function (file) {
     return fs.statSync(path+'/'+file).isDirectory();
   });
 }
+
+
 const scriptDirs = getDirectories(scriptSource);
 
 let myScripts = {}
@@ -36,6 +39,7 @@ let myScripts = {}
 let i=0;
 for (i=0; i < scriptDirs.length; i++ ){
   $('#combobox').append($('<option>').attr('value',scriptDirs[i]).html(scriptDirs[i]))
+  //read interface json files
   myScripts[scriptDirs[i]] = JSON.parse(fs.readFileSync(path.join(__dirname,'scripts',scriptDirs[i],`interface.json`), 'utf8'))
 }
 
@@ -53,9 +57,10 @@ $(document).ready(function(){
 
       // check if there are parameters or not
       if (paramsNum == 0 ){
-        myDirectExecute(selectedScript)
-      }else if(event.ctrlKey) {
-        myParamExecute(selectedScript)
+        myDirectExecute(selectedScript,event)
+      }else if(event[myConfig.directKeydown]) {
+        //console.log(event)
+        myParamExecute(selectedScript,event)
       }else{
         ipcRenderer.send('menu-open',{script : selectedScript , myScripts : myScripts})
         //build interface for the parameters
@@ -70,7 +75,7 @@ $(document).ready(function(){
 
 function secondWindow(paramsNum){
     const secondWindowWidth = 560;
-    const secondWindowHeight = (30*paramsNum) + 90;
+    const secondWindowHeight = (30*paramsNum) + 110;
     let secondWindow = new BrowserWindow({
       width:secondWindowWidth,
       height:secondWindowHeight,
@@ -100,13 +105,13 @@ function myDirectExecute(selectedScript){
   // execute the script directly using the command in the interface.json without building a window
   let myArgs = []
 
-  //append command
-  myArgs.push(myScripts[selectedScript].command)
-
-  //check if interface requests Directory
-  if (myScripts[selectedScript].getDir){
-    const selectedDir = ipcRenderer.sendSync('get-current-dir')
-    myArgs.push(selectedDir)
+  //append command if exist
+  if (myScripts[selectedScript].command != ''){
+    myArgs.push(myScripts[selectedScript].command)
+  }
+  //append script if exists
+  if (myScripts[selectedScript].script != ''){
+    myArgs.push(myScripts[selectedScript].script)
   }
 
   //check if interface requests Directory
@@ -115,14 +120,24 @@ function myDirectExecute(selectedScript){
     myArgs.push(selectedDir)
   }
 
+  //check if interface requests Directory
+  if (myScripts[selectedScript].getDir){
+    const selectedDir = ipcRenderer.sendSync('get-current-dir')
+    myArgs.push(selectedDir)
+  }
 
-  const child = spawn(myScripts[selectedScript].process, myArgs,{shell: true, detached: true,windowsVerbatimArguments: true});
+  if(event.shiftKey){
+    const child = spawn(myScripts[selectedScript].process, myArgs,{shell: true, detached: true,windowsVerbatimArguments: true});
+  }else {
+    const child = spawn(myScripts[selectedScript].process, myArgs,{shell: true,windowsVerbatimArguments: true});
+  }
+  
 }
 
 
 function myParamExecute(selectedScript){
 
-  let flags = []
+  let myArgs = []
   let execPath
   const scriptName = myScripts[selectedScript].script
   const scriptDir = path.join(scriptSource,selectedScript)
@@ -135,32 +150,37 @@ function myParamExecute(selectedScript){
     execPath = path.join(scriptSource,selectedScript,scriptName)
   }
 
-  flags.push(execPath)
+  myArgs.push(execPath)
 
   if (myScripts[selectedScript].getDir){
     const selectedDir = ipcRenderer.sendSync('get-current-dir')
-    flags.push(`"${selectedDir.stdout }"`)
+    myArgs.push(`"${selectedDir.stdout }"`)
   }else{
-    flags.push("None")
+    myArgs.push("None")
   }
 
   if (myScripts[selectedScript].getSel){
     const selectedFiles = ipcRenderer.sendSync('get-selected-files')
     //make selectedFiles list file
     const storedFilePath = storeSelectedFilePaths(selectedFiles,scriptDir)
-    flags.push(storedFilePath)
+    myArgs.push(storedFilePath)
     //flags.push(`"${storedFilePath}"`)
   }else{
-    flags.push("None")
+    myArgs.push("None")
   }
 
-
-  for (i=0; i < myScripts[selectedScript].params.length; i++ ){
-    const myParam = myScripts[selectedScript].params[i].default || "None"
-    flags.push(`"${myParam}"`)
+  if (myScripts[selectedScript].params.length>0){
+    for (i=0; i < myScripts[selectedScript].params.length; i++ ){
+      const myParam = myScripts[selectedScript].params[i].default || "None"
+      myArgs.push(`"${myParam}"`)
+    }
   }
-  console.log(flags)
-  const child = spawn(myScripts[selectedScript].process, flags,{shell: true, detached: true,windowsVerbatimArguments: true});
+ 
+  console.log(myScripts[selectedScript].process,myArgs)
+
+
+  const child = spawn(myScripts[selectedScript].process, myArgs,{shell: true, detached: true,windowsVerbatimArguments: true});
+
 }
 
 //store selected file paths in a file

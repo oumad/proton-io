@@ -58,13 +58,16 @@ if __name__ == '__main__':
             import os
             import sys
             import re
+            main(*sys.argv)
 
+            """
             try:
                 main(*sys.argv)
-                raw_input("Press ENTER to exit")
+                #raw_input("Press ENTER to exit")
             except:
                 print sys.exc_info()[0]
                 import traceback
                 print traceback.format_exc()
                 print "Press Enter to continue ..."
                 raw_input("Press ENTER to exit")
+            """
