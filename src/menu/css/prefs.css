@@ -103,6 +103,24 @@ select{
   height: 20%;
 }
 .prefs-save button{
-  width:70px;
   height:28px;
+}
+
+.keyboard-recording-icon{
+    background: #e84919;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+.keyboard-recording-text{
+  font-size:0.6em;
+  margin-left:1px;
+}
+.recording{
+  display:none;
+  cursor:pointer;
+}
+
+.directory-input span{
+  pointer-events: none;
 }

@@ -1,4 +1,9 @@
+const path = require('path')
+const fs = require('fs')
+const kill = require('tree-kill')
 const {dialog,getGlobal} = require('electron').remote
+const ipcRenderer = require('electron').ipcRenderer
+
 //get selected Files in explorer
 const selectedFiles = getGlobal('selectedFiles') || 'None'
 //get current directory in explorer
@@ -11,12 +16,10 @@ const myScripts = getGlobal('menuReturns').myScripts
 const myConfig = getGlobal('myConfig')
 
 
-const path = require('path')
-const fs = require('fs')
-const kill = require('tree-kill')
 
 
-//directory of the scripts folder
+
+//directory of the scripts folder to get from config.json or hardcoded
 const scriptsDir = myConfig.scriptsPath || path.join(__dirname,'scripts')
 const selectedScriptDir = path.join(scriptsDir,selectedScript)
 const scriptFileName = path.join(scriptsDir,selectedScript,myScripts[selectedScript].script)
@@ -193,7 +196,25 @@ function inputSlider(inputName,defaultVal,min,max,tooltip){
 
 }
 
-//
+//color input
+function InputColor(inputName,defaultVal,tooltip){
+  const inputNameNoSpace = inputName.replaceAll(' ','-')
+  $('#parameters-container').append(
+    $('<div>').addClass(`color-group`).attr('id',inputNameNoSpace)
+  );
+    $(`#${inputNameNoSpace}`).append(
+      $('<label>')
+      .attr('for',inputNameNoSpace)
+      .attr('title',tooltip)
+      .text(inputName));
+    $(`#${inputNameNoSpace}`).append(
+      $('<input>')
+      .attr('name',inputNameNoSpace)
+      .attr('type','color')
+      .attr('value',defaultVal))
+}
+
+//apply button construction and click event
 function apply(obj){
   $('#parameters-container').append(
     $('<div>').attr('id','end-buttons').append(
@@ -241,16 +262,16 @@ function apply(obj){
         myExecute(obj.process,flags)
 
         //window.close();
-        if (!$('#debugger-mode input').prop("checked")){
-          window.close();
-        }else{
+        if ($('#debugger-mode input').prop("checked")){
           $("#debugger-wrap").css("display","block")
+          //window.close();
         }
       })
     )
   )
 }
 
+//save button construction and click event
 function save(){
   $('#end-buttons').append(
     $('<div>').attr('id','save').text('save').button()
@@ -268,11 +289,13 @@ function save(){
         if (err) return console.log(err);
         console.log(JSON.stringify(scriptFile, null, 2));
         console.log('writing to ' + scriptJson);
+        ipcRenderer.send('reload-scripts')
       });
     })
   )
 }
 
+//cancel button construction and click event
 function cancel(){
   $('#end-buttons').append(
     $('<div>').attr('id','cancel').text('cancel').button()
@@ -285,6 +308,7 @@ function cancel(){
 
 //debugger builder
 function scriptDebugger() {
+  //debugger dom construction
   $('#parameters-container').append($('<div>').attr('id','end-options'))
 
     $('#end-options').append(
@@ -309,12 +333,14 @@ function scriptDebugger() {
   $("#debugger-mode label").on('click',()=>{$("#debugger-wrap").css("display","block")})
 }
 
+//defining a global variable for child process
+var child;
 
 //Execution function
 function myExecute(myProcess,flags){
   //execute with debugger output
   outputExecution(myProcess,flags)
-  // stop script when the button stop is pressed
+  // kill the child process when the button stop is pressed
   $("#debugger-stop").on('click',()=>{
     $("#debugger-output").append(`<span class="internal-stdout">Attempting to kill the process..<span/><br>`)
       kill(child.pid);
@@ -325,6 +351,7 @@ function myExecute(myProcess,flags){
     const childDetached = require('child_process').spawn(myProcess, flags,{shell:true,detached:true,windowsVerbatimArguments: true});
   })
   $("#debugger-restart").on('click',()=>{
+    //execution with output
     outputExecution(myProcess,flags)
   })
 }
@@ -332,24 +359,27 @@ function myExecute(myProcess,flags){
 
 //function to execute the command and receive outputs for the debugger
 function outputExecution(myProcess,flags){
-  var scrollValue = 100;
-  const scrollInc = 1000;
-  const child = require('child_process').spawn(myProcess, flags,{shell:true,windowsVerbatimArguments: true});
-        child.stdout.on('data', function (data) {
-          $("#debugger-output").append(`<span class="stdout">${data}<span/><br>`)
-          //.scrollTop(scrollValue);
-          //scrollValue+=scrollInc;
-        });
-        child.stderr.on('data', function (data) {
-          //console.log(`err : ${data}`)
-          $("#debugger-output").append(`<span class="stderr">${data}<span/><br>`)
-          //.scrollTop(scrollValue);
-          //scrollValue+=scrollInc;
-        });
-        child.on('close', function (code) {
-          //console.log('command was stopped with code : ' + code);
-          $("#debugger-output").append('Process was ended with code : ' + code)
-          //.scrollTop(scrollValue);
-          //scrollValue+=scrollInc;
-        });
+  //display loader
+  $(".loader").css({"display":"block"})
+  //execute the command
+  child = require('child_process').spawn(myProcess, flags,{shell:true,windowsVerbatimArguments: true});
+  //Get output
+  child.stdout.on('data', function (data) {
+    $("#debugger-output").append(`<span class="stdout">${data}<span/><br>`)
+  });
+  child.stderr.on('data', function (data) {
+    $("#debugger-output").append(`<span class="stderr">${data}<span/><br>`)
+  });
+  //when command is closed (Finished or crashed or stopped)
+  child.on('close', function (code) {
+    $("#debugger-output").append('Process was ended with code : ' + code)
+    //hide loader
+    $(".loader").css({"display":"none"})
+    //check if code is successful
+    if(code == 0 && !$('#debugger-mode input').prop("checked")){
+      window.close();
+    }else{
+      $("#debugger-wrap").css("display","block")
+    }
+  });
 }

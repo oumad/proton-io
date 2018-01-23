@@ -22,6 +22,7 @@
     <div id="nav-wrap">
         <div id="nav-title">
         </div>
+        <div class="loader"></div>
         <div id="nav-buttons">
           <div class="nav-buttons" id="nav-buttons-info">
             ?
@@ -97,6 +98,7 @@
       //const remote = require('electron').remote
 
       function buildInterface(obj){
+
         console.log(obj)
         //script info:
         $('#nav-buttons-info').on('click',()=>{
@@ -126,12 +128,20 @@
             inputDirectory(paramObj.name,paramObj.default,paramObj.tooltip)
           }else if(paramObj.type == 'inputCheckbox'){
             inputCheckbox(paramObj.name,paramObj.default,paramObj.tooltip)
+          }else if(paramObj.type == 'inputColor'){
+            InputColor(paramObj.name,paramObj.default,paramObj.tooltip)
           }
         }
         apply(obj)
         save()
         cancel()
         scriptDebugger()
+        //start the execution when user hits ENTER
+        $(document).keypress(function(e) {
+          if(e.which == 13) {
+              $("#apply").trigger("click")
+          }
+        });
       }
 
       $(function(){

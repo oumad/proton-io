@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Proton Builder</title>
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <link rel="stylesheet" href="menu/css/jquery-ui.css">
+    <link rel="stylesheet" href="menu/css/jquery-ui.theme.css">
+    <link rel="stylesheet" href="menu/css/jquery-ui.structure.css">
+    <link rel="stylesheet" href="menu/css/protonBuilder.css">
+    <script src="menu/js/jquery.js"></script>
+    <script src="menu/js/jquery-ui.min.js"></script>
+
+    <script>if (window.module) module = window.module;</script>
+    <script src="menu/js/protonBuilder.js"></script>
+  </head>
+  <body>
+    <div class="builder-wrap">
+
+      <div class="builder-contain" id="builder-general">
+        
+        <div class="input-item" id="proton-type">
+          <div class="label">
+            Proton type
+          </div>
+          <select name="protonType">
+            <option value="direct" selected="selected">Direct</option>
+            <option value="parameteric" >Parameteric</option>
+          </select>
+          <div class="description">
+            Choose if the proton you're creating will be a direct command, or if it'll have parameters
+          </div>
+        </div>
+        
+        <div class="input-item" id="proton-name">
+          <div class="label">
+            Proton name
+          </div>
+          <input type="text" name="protonName" >
+          <div class="description">
+            This is the name that will appear in the protons menu list
+          </div>
+        </div>
+
+        <div class="input-item" id="proton-getDir">
+
+          <div class="checkbox-input">
+            <input type="checkBox" name="proton-getDir" >
+            <div class="label">Get current directory</div>
+          </div>
+          <div class="description">
+            Check this to get the active directory path (this will be an argument to your command)
+          </div>
+        </div>
+
+        <div class="input-item" id="proton-getSel">
+          <div class="checkbox-input">
+            <input type="checkBox" name="proton-getSel" >
+            <div class="label">Get selected files</div>
+          </div>
+          <div class="description">
+            Check this to get the selected file paths (a .txt containing the list of the selected file paths will be added as an argument to the command)
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="builder-contain" id="builder-direct">
+          <div class="input-item" id="proton-command">
+            <div class="label">
+              Proton Command
+            </div>
+            <input type="text" name="protonCommand" >
+            <div class="description">
+              The command to execute. This can also be a path to an exe or a script, or simply a directory or a URL for quick access
+            </div>
+          </div>
+      </div>
+
+      <div class="builder-contain" id="builder-parameteric">
+          <div>
+            NOT YET IMPLEMENTED
+          </div>
+      </div>
+        <!--
+        <div class="input-item" id="proton-author">
+          <div class="label">
+            Author (optional)
+          </div>
+          <input type="text" name="protonName" >
+          <div class="description">
+            Input the author name, this appears when clicking the question mark on the generated parameters window
+          </div>
+        </div>
+        <div class="input-item" id="proton-description">
+          <div class="label">
+            Description (optional)
+          </div>
+          <textarea></textarea>
+          <div class="description">
+            You can give a description to your proton, this appears when clicking the question mark on the generated parameters window
+          </div>
+        </div>
+
+        <div class="input-item" id="proton-version">
+          <div class="label">
+            Version (optional)
+          </div>
+          <input type="text" name="protonName" >
+          <div class="description">
+            Version your proton, this appears when clicking the question mark on the generated parameters window
+          </div>
+        -->
+
+    </div>
+
+
+    <div class="builder-save">
+      <button type="button" name="save" id="save">Create</button>
+      <button type="button" name="revert" id="revert">Edit</button>
+      <button type="button" name="cancel" id="cancel">cancel</button>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,84 @@
+body {
+  min-width:382px;
+  background-color: #333333;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+}
+.builder-wrap{
+  height: 80%;
+}
+
+.builder-contain{
+  background-color:#171717;
+  padding:4px;
+  border-radius:4px;
+  margin:4px 0px;
+  display:flex;
+}
+
+.input-item{
+  margin:4px;
+}
+
+.separator{
+ margin:10px;;
+}
+input{
+  background-color:#404040;
+  border-color:#252525;
+  border-radius :4px;
+  border-style:solid;
+  padding:2px;
+  border-width: 1px;
+}
+button{
+  background-color:#989898;
+  border-color:#252525;
+  border-radius :4px;
+  border-style:solid;
+  padding:2px 4px;
+  border-width: 1px;
+  cursor:pointer;
+}
+
+.checkbox-input{
+  display:flex;
+}
+
+.description{
+  font-size:0.6em;
+  color:#737373;
+}
+
+.label{
+  margin-bottom:2px;
+  color:#a2a2a2;
+  font-size:0.8em;
+}
+
+select{
+  height:22px;
+  border-radius:4px;
+  background-color:#404040;
+  color:#bbbab9;
+  border-color:#252525;
+  font-size:1em;
+}
+
+#proton-command,#proton-command input{
+  width:100%;
+  margin-right:8px;
+}
+
+.builder-save{
+  text-align: center;
+  height: 20%;
+}
+.builder-save button{
+  height:28px;
+}
+
+#builder-parameteric{
+  color:#ffb85c;
+  display:none;
+}

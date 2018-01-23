@@ -44,7 +44,7 @@ for (i=0; i < scriptDirs.length; i++ ){
 }
 
 //script builder option TO DO
-$('#combobox').append($('<option>').attr('value',"new").html("new"))
+//$('#combobox').append($('<option>').attr('value',"new").html("new"))
 
 
 $(document).ready(function(){
@@ -80,6 +80,7 @@ function secondWindow(paramsNum){
       width:secondWindowWidth,
       height:secondWindowHeight,
       frame:false,
+      icon : path.join(__dirname,"icons",'logo_30px.png')
     })
     const {x,y} = electronScreen.getCursorScreenPoint();
     secondWindow.setPosition(x-(secondWindowWidth/2), y-(secondWindowHeight/2));
@@ -126,17 +127,19 @@ function myDirectExecute(selectedScript){
     myArgs.push(selectedDir)
   }
 
-  if(event.shiftKey){
+  const child = spawn(myScripts[selectedScript].process, myArgs,{shell: true, detached: true,windowsVerbatimArguments: true});
+
+  /*
+  if(event[myConfig.directKeydown]){
     const child = spawn(myScripts[selectedScript].process, myArgs,{shell: true, detached: true,windowsVerbatimArguments: true});
   }else {
     const child = spawn(myScripts[selectedScript].process, myArgs,{shell: true,windowsVerbatimArguments: true});
   }
-  
+  */
 }
 
 
 function myParamExecute(selectedScript){
-
   let myArgs = []
   let execPath
   const scriptName = myScripts[selectedScript].script

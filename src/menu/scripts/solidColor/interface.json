@@ -15,20 +15,26 @@
       "tooltip": "the path to your magick executable, if you already have it in your PATH environement variable, then just put 'magick', if left empty the one in libs/ will be used"
     },
     {
-      "type": "inputField",
+      "type": "inputColor",
       "name": "Solid Color",
-      "default": "black",
-      "tooltip": "format types : name (ex : 'white'), hex (ex : '#ddddff'), or rgb int (ex : 'rgb(255,255,255)')"
+      "default": "#ffffff",
+      "tooltip": "format type is hex (ex : '#ddddff')"
+    },
+    {
+      "type": "inputCheckbox",
+      "name": "Use selected image size",
+      "default": "false",
+      "tooltip": "When checked the size of the selected image will be used"
     },
     {
       "type": "inputField",
       "name": "Size",
       "default": "1920x1080",
-      "tooltip": "input height and width (ex : 1920x1080)"
+      "tooltip": "input height and width (ex : 1920x1080), this will be ignored if 'use selected image size' is checked"
     },
     {
       "type": "inputList",
-      "name": "Blend type",
+      "name": "Format",
       "default": "jpeg",
       "list": [
         "jpeg",

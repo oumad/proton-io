@@ -1,6 +1,9 @@
-def main(script, myDir, mySel, magickExec, myColor, size, fileFormat, outName, outDir):
+def main(script, myDir, mySel, magickExec, myColor,selectedSize, size, fileFormat, outName, outDir):
     import subprocess
 
+    mySel = open(mySel,"r")
+    mySel = mySel.read()
+    mySel = mySel.split(',')
     # start creating the arguments list
     args = []
 
@@ -26,12 +29,18 @@ def main(script, myDir, mySel, magickExec, myColor, size, fileFormat, outName, o
 
 
     # check if arguments exist to add
-    # set solid size
-    if size != 'None':
-        args.extend(['-size', size])
-    # set solid color
-    if myColor != 'None':
-        args.extend(['xc:{}'.format(myColor)])
+
+    # get size from selected image or manual input
+    if selectedSize == "true":
+        args.extend([mySel[0],"-fill",myColor,"-draw",'color 0,0 reset'])
+    else :
+        # set solid size
+        if size != 'None':
+            args.extend(['-size', size])
+        # set solid color
+        if myColor != 'None':
+            args.extend(['xc:{}'.format(myColor)])
+
 
     if (outDir != 'None'):
         # create the directory if it doesn't exist
@@ -52,6 +61,7 @@ if __name__ == '__main__':
     import os
     import sys
     import re
+    print sys.argv
     main(*sys.argv)
     
     """

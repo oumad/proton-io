@@ -1,7 +1,7 @@
 {
-  "scriptsPath":"",
-  "libsPath":"",
-  "mainHotkey":"ctrl+tab",
-  "directKeydown":"ctrlKey",
-  "interfaceFile" : "interface.json"
+  "directKeydown": "ctrlKey",
+  "interfaceFile": "interface.json",
+  "libsPath": "",
+  "mainHotkey": "ctrl+tab",
+  "scriptsPath": ""
 }

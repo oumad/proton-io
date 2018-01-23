@@ -1,14 +1,19 @@
-const {getGlobal} = require('electron').remote
+const {dialog,getGlobal} = require('electron').remote
+const myWindow = require('electron').remote.BrowserWindow.getFocusedWindow();
+const ipcRenderer = require('electron').ipcRenderer
 const path = require("path")
+
 const myConfig = getGlobal("myConfig")
 
-//initial myConfig velues 
 
-const scriptsPath = myConfig.scriptsPath || path.join(__dirname,"menu","scripts")
-const libsPath = myConfig.libsPath || path.join(__dirname,"menu","libs")
+
+//initial config.json values 
 const mainHotkey = myConfig.mainHotkey || "ctrl+tab"
 const directKeydown = myConfig.directKeydown || "ctrlKey"
+const scriptsPath = myConfig.scriptsPath || path.join(__dirname,"menu","scripts")
+const libsPath = myConfig.libsPath || path.join(__dirname,"menu","libs")
 
+//Set config.json values to the DOM
 function setInitialValues(){
 	//set initial values from config.json
 	$("#scripts-path input").val(scriptsPath)
@@ -17,14 +22,37 @@ function setInitialValues(){
 	$("#directKeydown").val(directKeydown)
 }
 
+//what happens when key recording starts
+function startRecording(){
+	$(".menu-hotkey-recorder").css({"box-shadow":"0px 0px 10px 2px #c18325"})
+	$(".keyboard-hotkeys-icon").css({"display":"none"})
+	$(".recording").css({"display":"block"})
+}
+
+//what happens when key recording stops
+function stopRecording(){
+	Mousetrap.stopRecord()
+	$(".keyboard-hotkeys-icon").css({"display":"block"})
+	$(".recording").css({"display":"none"})
+	$(".menu-hotkey-recorder").css({"box-shadow":"0px 0px 0px 0px #c18325"})
+}
+
+
+
+//on documents ready
 $(function(){
 	setInitialValues()
 	//when the keyboard icon is clicked
 	$(".keyboard-hotkeys-icon").on('click',(event) =>{
-		//console.log($(event.target).siblings(".hotkey-input").text("yayy"))
-		//const hotkeyField = $(event.target).siblings(".hotkey-input")
+		//show the dom highlights
+		startRecording()
+		//start capturing the input keys
 		recordSequence()
-		$(".menu-hotkey-recorder").css({"box-shadow":"0px 0px 10px 2px #c18325"})
+	})
+
+	//when recording icon or text is clicked
+	$(".recording").on("click",()=>{
+		stopRecording()
 	})
 
 	//record user keyboard input for the hotkey
@@ -34,8 +62,32 @@ $(function(){
 	        //alert('You pressed: ' + sequence.join(' '));
 	        console.log(sequence)
 	        $(".menu-hotkey-recorder .hotkey-input").text(sequence.join(' '))
-	        $(".menu-hotkey-recorder").css({"box-shadow":"0px 0px 0px 0px #c18325"})
+			stopRecording()
 	    });
 	}
+
+	//set initial values when revert is clicked
+	$("#revert").on("click",()=>{setInitialValues()})
+	//close the window when cancel is clicked
+	$("#cancel").on("click",()=>{myWindow.close()})
+
+	//Directory user selection
+  	$(".directory-input").on('click',(event)=>{
+        dialog.showOpenDialog({properties: ['openDirectory']},(selected)=>{
+          $(event.target).siblings(".directory-input-field").val(selected[0])//.attr('value',selected[0])
+        })
+      })
+
+	//send current values to the main process to write them to config.json and restart the app
+	$("#save").on("click",()=>{
+		//get the values from the DOM objects
+		myConfig.mainHotkey = $(".hotkey-input").text()
+		myConfig.directKeydown = $("#directKeydown").val()
+		myConfig.scriptsPath = $("#scripts-path input").val()
+		myConfig.libsPath = $("#libraries-path input").val()
+
+		//send the new myConfig object to the main process
+		ipcRenderer.send('myConfig-edit',{myConfig : myConfig})
+	})
 })
 

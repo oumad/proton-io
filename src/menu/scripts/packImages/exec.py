@@ -1,6 +1,6 @@
 
 
-def main(script,myDir,mySel,magickExec,background,quality,tiles,margin,maxSize,displayName,DisplaySize,textColor,textSize,title,outName,outDir) :
+def main(script,myDir,mySel,magickExec,background,quality,tiles,margin,maxSize,displayName,DisplaySize,textColor,textSize,title,outFormat,outName,outDir) :
     from subprocess import Popen, PIPE, STDOUT
     #print script,myDir,mySel,aerenderExec,compName,startf,endf,outName,outDir
     print script,myDir,mySel,magickExec,background,quality,outName,outDir
@@ -44,9 +44,9 @@ def main(script,myDir,mySel,magickExec,background,quality,tiles,margin,maxSize,d
     #resolving file name from source
     myDir = os.path.dirname(mySel[0])
     if outName != 'None':
-        outFile = os.path.join(myDir,'{}.png'.format(outName))
+        outFile = os.path.join(myDir,'{1}.{1}'.format(outName,outFormat))
     else :
-        outFile = os.path.join(myDir,'packed.png')
+        outFile = os.path.join(myDir,'packed.{}'.format(outFormat))
 
     #constructing the geometry argument
     geometry = []

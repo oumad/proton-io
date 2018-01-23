@@ -1,0 +1,75 @@
+{
+  "author": "Mohamed Oumoumad",
+  "description": "Convert any image to to the desired format, requires imagemagick, can be downloaded here : http://imagemagick.org/script/download.php make sure to enable legacy commands like (convert etc) while installing. You can also use ffmpeg instead",
+  "version": "0.0.1",
+  "process": "python",
+  "command": "",
+  "script": "exec.py",
+  "getDir": false,
+  "getSel": true,
+  "params": [
+    {
+      "type": "inputFilePath",
+      "name": "magick executer",
+      "default": "",
+      "tooltip": "the path to your magick executable, if you already have it in your PATH environement variable, then just put 'magick', if left empty the one in libs/ will be used"
+    },
+    {
+      "type": "inputColor",
+      "name": "Background Color",
+      "default": "#ffffff",
+      "tooltip": "format type is hex (ex : '#ddddff')"
+    },
+    {
+      "type": "inputField",
+      "name": "Scale",
+      "default": "100%",
+      "tooltip": "Percentage of the original size"
+    },
+    {
+      "type": "inputField",
+      "name": "Size",
+      "default": "",
+      "tooltip": "input height and width (ex : 1920x1080), if left empty the source size will be used"
+    },
+    {
+      "type": "inputList",
+      "name": "Format",
+      "default": "jpeg",
+      "list": [
+        "jpeg",
+        "jpg",
+        "png",
+        "tga",
+        "tiff",
+        "exr",
+        "psd",
+        "gif",
+        "dpx",
+        "svg",
+        "pdf"
+      ],
+      "tooltip": "choose the file format you want the solid color image to be"
+    },
+    {
+      "type": "inputSlider",
+      "name": "Quality",
+      "default": "92",
+      "min": 1,
+      "max": 100,
+      "tooltip": "1 (lowest image quality and highest compression) to 100 (best quality but least effective compression)."
+    },
+    {
+      "type": "inputField",
+      "name": "Output name",
+      "default": "",
+      "tooltip": "input the file name, if left empty the source name will be used"
+    },
+    {
+      "type": "inputDirectory",
+      "name": "Output directory",
+      "default": "",
+      "tooltip": "you can specify another directory, if left empty the file will be at the same directory as the source"
+    }
+  ]
+}

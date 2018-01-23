@@ -21,12 +21,15 @@ require('electron-context-menu')({
     }]
 });
 
+
+//myConfig path
+const myConfigPath = path.join(__dirname,'config.json')
 //define a global variable ofr the config object
 global.myConfig = JSON.parse(fs.readFileSync(path.join(__dirname,'config.json'), 'utf8'))
 
 
 
-const iconPath = path.join(__dirname, 'icons/logo_30px.png');
+const iconPath = path.join(__dirname, 'icons','logo_30px.png');
 let appTray = null
 let mainWindow
 let prefWindow
@@ -35,15 +38,30 @@ let prefWindow
 //function for the preferences window
 function preferencesWindow(){
   prefWindow = new BrowserWindow({
-    width:800,
-    height:600,
+    width:600,
+    height:400,
     //frame:false,
-    titleBarStyle: 'hidden',
     autoHideMenuBar: true,
     icon: iconPath,
   })
   prefWindow.loadURL(url.format({
     pathname : path.join(__dirname,'prefs.html'),
+    protocol : 'file',
+    slashes : true
+  }));
+}
+
+//function for the Script Builder window
+function scriptBuilder(){
+  prefWindow = new BrowserWindow({
+    width:800,
+    height:400,
+    //frame:false,
+    autoHideMenuBar: true,
+    icon: iconPath,
+  })
+  prefWindow.loadURL(url.format({
+    pathname : path.join(__dirname,'protonBuilder.html'),
     protocol : 'file',
     slashes : true
   }));
@@ -78,19 +96,18 @@ app.on('ready', () => {
 
   appTray = new Tray(iconPath)
   const contextMenu = Menu.buildFromTemplate([
-      {label: 'Quit',
-      click: function () {
-        app.quit()
-        }
-      },
+
       {label: 'Reload scripts',
         click: function () {
           //send the event to reload the renderer js
           mainWindow.webContents.send("reload-scripts")
         }
       },
-      {
-      type: 'separator'
+      {label: 'Builder',
+        click: function () {
+          //show the preferences window
+          scriptBuilder()
+        }
       },
       {label: 'Preferences',
         click: function () {
@@ -99,11 +116,18 @@ app.on('ready', () => {
         }
       },
       {
-        label : 'Restart',
+      type: 'separator'
+      },
+      {label : 'Restart',
         click: function () {
           //restart the whole app
           app.relaunch()
           app.quit()
+        }
+      },
+      {label: 'Quit',
+      click: function () {
+        app.quit()
         }
       }
   ])
@@ -168,6 +192,9 @@ var myFunction = edge.func({
   references : [`${__dirname}\\Interop.Shell32.dll`,`${__dirname}\\Interop.SHDocVw.dll`]
 });
 
+
+//ipc events
+
 ipcMain.on('menu-open',function(event, arg){
   global.menuReturns = arg
   myFunction(1, function (error, result) {
@@ -198,3 +225,22 @@ ipcMain.on('get-current-dir',function(event,arg){
     event.returnValue = path;
   });
 })
+
+ipcMain.on('myConfig-edit',function(event,arg){
+
+  fs.writeFile(myConfigPath, JSON.stringify(arg.myConfig, null, 2), function (err) {
+    if (err) {
+      event.sender.send('myCoinfig-edit-error', err);
+    }else{
+      event.sender.send('myCoinfig-edit-success', "restarting");
+      app.relaunch()
+      app.quit()
+    }
+  });
+
+})
+
+ipcMain.on('reload-scripts',function(event,arg){
+  mainWindow.webContents.send("reload-scripts")
+})
+

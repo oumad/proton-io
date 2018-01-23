@@ -6,8 +6,10 @@ header{
 }
 
 #nav-wrap{
+
   font-family:Helvetica;
-  display: block;
+  display: flex;
+
   color:#cccccc;
   height:30px;
   background-color:#484848;
@@ -23,13 +25,13 @@ header{
 }
 
 #nav-title{
-  float:left;
+  
   padding :5px;
   -webkit-user-select: none;
 }
 #nav-buttons{
-  float:right;
-  -webkit-app-region: no-drag;
+	margin-left: auto;
+	-webkit-app-region: no-drag;
 }
 
 .nav-buttons{
@@ -40,8 +42,26 @@ header{
 	font-size:1.4em;
 	color:#c7c7c7;
 	cursor:pointer;
+	
 }
 
 .nav-buttons:hover {
 	background-color:#191919;
+}
+
+.loader {
+  border: 6px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 6px solid #dba834;
+  width: 12px;
+  height: 12px;
+  animation: spin 2s linear infinite;
+  margin-top:2px;
+  display:none;
+}
+
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

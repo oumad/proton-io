@@ -12,7 +12,7 @@
     <script src="menu/js/jquery-ui.min.js"></script>
     <script src="menu/js/jquery.ui.combobox.js"></script>
     <script src="menu/js/mousetrap.min.js"></script>
-    <script src="menu/js/mousetrap-record.min.js"></script>
+    <script src="menu/js/mousetrap-record.js"></script>
 
     <script>if (window.module) module = window.module;</script>
     <script src="menu/js/prefs.js"></script>
@@ -30,8 +30,10 @@
             <input type="text" name="" value="">
             <button type="button" name="button">Edit</button>
             -->
-            <div class="hotkey-input">Alt+tab</div>
+            <div contenteditable="true" class="hotkey-input">Alt+tab</div>
             <div class="keyboard-hotkeys-icon" ></div>
+            <div class="keyboard-recording-icon recording"></div>
+            <div class="keyboard-recording-text recording">Stop key<br>Recording</div>
           </div>
           <div class="description">
             Record the hotkey you want to register to display protonio menu anywhere in your screen
@@ -76,7 +78,7 @@
             <!--
             <label for="scripts-path">Choose a script path</label>
             -->
-            <input type="text" name="scripts-path" value="">
+            <input type="text" name="scripts-path" value="" class="directory-input-field">
             <button class="directory-input">
               <span class= "ui-icon ui-icon-folder-open"></span>
             </button>
@@ -93,7 +95,7 @@
             <!--
             <label for="scripts-path">Choose a script path</label>
             -->
-            <input type="text" name="libraries-path" value="">
+            <input type="text" name="libraries-path" value="" class="directory-input-field">
             <button class="directory-input">
               <span class= "ui-icon ui-icon-folder-open"></span>
             </button>
@@ -105,9 +107,9 @@
       </div>
     </div>
     <div class="prefs-save">
-      <button type="button" name="button">save</button>
-      <button type="button" name="button">revert</button>
-      <button type="button" name="button">cancel</button>
+      <button type="button" name="save" id="save">save and restart</button>
+      <button type="button" name="revert" id="revert">revert</button>
+      <button type="button" name="cancel" id="cancel">cancel</button>
     </div>
   </body>
 </html>

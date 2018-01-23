@@ -1,6 +1,6 @@
 
 
-def main(script,myDir,mySel,magickExec,composeType,background,scale,size,quality,outName,outDir) :
+def main(script,myDir,mySel,magickExec,composeType,background,scale,size,quality,format,outName,outDir) :
     import subprocess
     #print script,myDir,mySel,aerenderExec,compName,startf,endf,outName,outDir
     print script,myDir,mySel,magickExec,composeType,background,scale,size,quality,outName,outDir
@@ -25,7 +25,7 @@ def main(script,myDir,mySel,magickExec,composeType,background,scale,size,quality
     #resolving file name from source
     pre, ext = os.path.splitext(mySel[0])
     print ("compose type = " + composeType)
-    outFile = pre + '_{}.jpeg'.format(composeType)
+    outFile = pre + '_{0}.{1}'.format(composeType,format)
 
     args.extend(['-compose',composeType])
     #args.extend(['-flatten'])

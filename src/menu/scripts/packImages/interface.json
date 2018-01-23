@@ -15,10 +15,10 @@
       "tooltip": "the path to your magick executable, if you already have it in your PATH environement variable, then just put 'magick', if left empty the one in libs/ will be used"
     },
     {
-      "type": "inputField",
-      "name": "Background color",
-      "default": "white",
-      "tooltip": "format types : name (ex : 'white'), hex (ex : '#ddddff'), or rgb int (ex : 'rgb(255,255,255)')"
+      "type": "inputColor",
+      "name": "Background Color",
+      "default": "#ffffff",
+      "tooltip": "format type is hex (ex : '#ddddff')"
     },
     {
       "type": "inputSlider",
@@ -49,13 +49,13 @@
     {
       "type": "inputCheckbox",
       "name": "Display image name",
-      "default": "false",
+      "default": false,
       "tooltip": "when checked each image will have a label with the image name"
     },
     {
       "type": "inputCheckbox",
       "name": "Display image resolution",
-      "default": "false",
+      "default": false,
       "tooltip": "when checked each image will have a label with the image size"
     },
     {
@@ -75,6 +75,25 @@
       "name": "Pack title",
       "default": "",
       "tooltip": "You can have a title appear on top of the images pack"
+    },
+    {
+      "type": "inputList",
+      "name": "Format",
+      "default": "jpeg",
+      "list": [
+        "jpeg",
+        "jpg",
+        "png",
+        "tga",
+        "tiff",
+        "exr",
+        "psd",
+        "gif",
+        "dpx",
+        "svg",
+        "pdf"
+      ],
+      "tooltip": "choose the file format you want the packed image to be"
     },
     {
       "type": "inputField",

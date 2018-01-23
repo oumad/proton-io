@@ -40,15 +40,41 @@
         "HardLight",
         "PinLight",
         "LinearLight",
-        "VividLight"
+        "VividLight",
+        "Over",
+        "Dst_Over",
+        "Src",
+        "Copy",
+        "Replace",
+        "Dst",
+        "In",
+        "Dst_In",
+        "Out",
+        "Dst_Out",
+        "ATop",
+        "Dst_ATop",
+        "Clear",
+        "Xor",
+        "CopyOpacity",
+        "Copy_Red",
+        "Copy_Green",
+        "Copy_Blue",
+        "Copy_Cyan",
+        "Copy_Magenta",
+        "Copy_Yellow",
+        "Copy_Blac",
+        "Hue",
+        "Saturate",
+        "Luminize",
+        "Colorize"
       ],
       "tooltip": "choose the image merge/blend/compose type"
     },
     {
-      "type": "inputField",
-      "name": "background color",
-      "default": "black",
-      "tooltip": "format types : name (ex : 'white'), hex (ex : '#ddddff'), or rgb int (ex : 'rgb(255,255,255)')"
+      "type": "inputColor",
+      "name": "Background Color",
+      "default": "#ffffff",
+      "tooltip": "format type is hex (ex : '#ddddff')"
     },
     {
       "type": "inputField",
@@ -69,6 +95,24 @@
       "min": 1,
       "max": 100,
       "tooltip": "1 (lowest image quality and highest compression) to 100 (best quality but least effective compression)."
+    },
+    {
+      "type": "inputList",
+      "name": "Output Format",
+      "default": "png",
+      "list": [
+        "jpeg",
+        "jpg",
+        "png",
+        "tga",
+        "tiff",
+        "exr",
+        "psd",
+        "gif",
+        "dpx",
+        "svg"
+      ],
+      "tooltip": "choose the file format you want the output image to be"
     },
     {
       "type": "inputField",
