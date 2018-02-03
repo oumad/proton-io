@@ -2,6 +2,7 @@
   "author": "Mohamed Oumoumad",
   "description": "compiles selected images to one mp4 file",
   "version": "0.0.1",
+  "category": "Sequence processing",
   "process": "python",
   "command": "",
   "script": "exec.py",

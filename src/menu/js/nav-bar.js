@@ -1,16 +1,25 @@
+const {remote} = require('electron');     
+const myWindow = remote.BrowserWindow.getFocusedWindow();
+
 $('.nav-buttons').on('click',function(event){
   const clickedId = $(this)[0].id;
-  const window = require('electron').remote.BrowserWindow.getFocusedWindow();
 
   if(clickedId =='nav-buttons-min'){
-    window.minimize();
+    myWindow.minimize();
   }else if(clickedId =='nav-buttons-max'){
-    if(!window.isMaximized()){
-      window.maximize();
+    if(!myWindow.isMaximized()){
+      myWindow.maximize();
     }else{
-      window.unmaximize();
+      myWindow.unmaximize();
     }
   }else if(clickedId =='nav-buttons-close'){
-    window.close();
+    myWindow.close();
   }
 })
+
+
+document.addEventListener("keydown", function (e) {  
+  if (e.keyCode === 123) { // F12
+    myWindow.toggleDevTools();         
+  }
+});

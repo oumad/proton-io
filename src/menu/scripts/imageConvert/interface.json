@@ -2,6 +2,7 @@
   "author": "Mohamed Oumoumad",
   "description": "Convert any image to to the desired format, requires imagemagick, can be downloaded here : http://imagemagick.org/script/download.php make sure to enable legacy commands like (convert etc) while installing. You can also use ffmpeg instead",
   "version": "0.0.1",
+  "category": "image processing",
   "process": "python",
   "command": "",
   "script": "exec.py",

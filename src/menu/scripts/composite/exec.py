@@ -1,7 +1,13 @@
+#python 2.7
+#Script to create a project based on a given template
+
+import os
+import sys
+import subprocess
 
 
-def main(script,myDir,mySel,magickExec,composeType,background,scale,size,quality,format,outName,outDir) :
-    import subprocess
+def main(script,myDir) :
+    
     #print script,myDir,mySel,aerenderExec,compName,startf,endf,outName,outDir
     print script,myDir,mySel,magickExec,composeType,background,scale,size,quality,outName,outDir
     mySel = open(mySel,"r")
@@ -55,9 +61,7 @@ def main(script,myDir,mySel,magickExec,composeType,background,scale,size,quality
 
 
 if __name__ == '__main__':
-            import os
-            import sys
-            import re
+
             main(*sys.argv)
 
             """

@@ -33,7 +33,7 @@ def main(script,myDir,mySel,magickExec,background,scale,size,myFormat,quality,ou
         if scale != 'None':
             args.extend(['-scale',scale])
         if size != 'None':
-            args.extend(['-size',size])
+            args.extend(['-resize',size])
         if quality != 'None':
             args.extend(['-quality',quality])
         if (outDir != 'None'):

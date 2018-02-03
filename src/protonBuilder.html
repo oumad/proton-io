@@ -42,8 +42,17 @@
           </div>
         </div>
 
-        <div class="input-item" id="proton-getDir">
+        <div class="input-item" id="proton-category">
+          <div class="label">
+            Proton category
+          </div>
+          <input type="text" name="protonName" >
+          <div class="description">
+            If no category given it will be put in MISC
+          </div>
+        </div>
 
+        <div class="input-item" id="proton-getDir">
           <div class="checkbox-input">
             <input type="checkBox" name="proton-getDir" >
             <div class="label">Get current directory</div>
@@ -79,9 +88,59 @@
       </div>
 
       <div class="builder-contain" id="builder-parameteric">
-          <div>
-            NOT YET IMPLEMENTED
+        <div id="builder-parameteric-general">
+          
+          <div class="input-item" id="proton-script">
+            <div class="label">
+              Proton Script
+            </div>
+            <input type="text" name="protonCommand" >
+            <div class="description">
+              The script to execute or any executable that will receive the parameters as arguments. You will need to give the full path if the executable/script is not located in the same directory as the interface file .
+            </div>
           </div>
+          <div class="input-item" id="proton-author">
+          <div class="label">
+            Author (optional)
+          </div>
+          <input type="text" name="protonName" >
+          <div class="description">
+            Input the author name, this appears when clicking the question mark on the generated parameters window
+          </div>
+        </div>
+        <div class="input-item" id="proton-description">
+          <div class="label">
+            Description (optional)
+          </div>
+          <textarea></textarea>
+          <div class="description">
+            You can give a description to your proton, this appears when clicking the question mark on the generated parameters window
+          </div>
+        </div>
+
+      </div>
+      <div id="parameter-creation">
+          <select id="parameter-type" name="parameterType">
+            <option value="inputField" selected="selected">inputField</option>
+            <option value="inputFilePath" >inputFilePath</option>
+            <option value="inputDirectory" >inputDirectory</option>
+            <option value="inputCheckbox" >inputCheckbox</option>
+            <option value="inputList" >inputList</option>
+            <option value="inputSlider" >inputSlider</option>
+            <option value="inputColor" >inputColor</option>
+          </select>
+        <div id="parameter-creation-icon">
+          <span class="ui-icon ui-icon-plusthick"></span>
+        </div>
+      </div>
+
+      <div id="builder-parameteric-specific">
+        
+
+
+      </div>
+
+
       </div>
         <!--
         <div class="input-item" id="proton-author">
@@ -117,9 +176,11 @@
 
 
     <div class="builder-save">
-      <button type="button" name="save" id="save">Create</button>
+      <button type="button" name="save" id="save">Save</button>
+      <!--
       <button type="button" name="revert" id="revert">Edit</button>
       <button type="button" name="cancel" id="cancel">cancel</button>
+      -->
     </div>
   </body>
 </html>

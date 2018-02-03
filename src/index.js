@@ -12,6 +12,7 @@ const ipcMain  = electron.ipcMain
 const edge = require('electron-edge-js');
 const currentPath = require('current-path');
 
+
 //right click
 require('electron-context-menu')({
     prepend: (params, browserWindow) => [{
@@ -24,7 +25,7 @@ require('electron-context-menu')({
 
 //myConfig path
 const myConfigPath = path.join(__dirname,'config.json')
-//define a global variable ofr the config object
+//define a global variable for the config object
 global.myConfig = JSON.parse(fs.readFileSync(path.join(__dirname,'config.json'), 'utf8'))
 
 
@@ -72,7 +73,7 @@ function scriptBuilder(){
 app.on('ready', () => {
   const electronScreen = electron.screen
   mainWindow = new BrowserWindow({
-    width:400,
+    width:600,
     height:500,
     frame:false,
     show: false,
@@ -145,7 +146,10 @@ app.on('ready', () => {
     }
 
   })
-  mainWindow.on('blur', () => mainWindow.hide())
+  mainWindow.on('blur', () => {
+    mainWindow.hide()
+    mainWindow.webContents.send("clear-input")
+  })
 })
 
 // C# function
@@ -207,7 +211,8 @@ ipcMain.on('menu-open',function(event, arg){
   currentPath().then(path => {
     event.sender.send('current-path', path);
     global.currentDir = path;
-    //console.log(path);
+  }).catch(function(){
+    console.log("couldn't get the current dir!")
   });
 })
 
@@ -217,12 +222,14 @@ ipcMain.on('get-selected-files',function(event,arg){
       console.log(error)
     }
     event.returnValue = result;
-  });
+  })
 })
 
 ipcMain.on('get-current-dir',function(event,arg){
   currentPath().then(path => {
     event.returnValue = path;
+  }).catch(function(){
+    console.log("couldn't get the current dir!")
   });
 })
 

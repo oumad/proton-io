@@ -1,0 +1,7 @@
+{
+  "process": "start",
+  "command": "https://www.youtube.com/oumoumad",
+  "getDir": false,
+  "getSel": false,
+  "params": []
+}

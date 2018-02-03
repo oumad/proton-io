@@ -2,6 +2,7 @@
   "author": "Mohamed Oumoumad",
   "description": "Rename selected files by search and replace",
   "version": "0.0.1",
+  "category": "All files processing",
   "process": "python",
   "command": "",
   "script": "exec.py",

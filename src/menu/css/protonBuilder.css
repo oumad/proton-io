@@ -2,7 +2,6 @@ body {
   min-width:382px;
   background-color: #333333;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-
 }
 .builder-wrap{
   height: 80%;
@@ -30,6 +29,7 @@ input{
   border-style:solid;
   padding:2px;
   border-width: 1px;
+  color:#f1ce71;
 }
 button{
   background-color:#989898;
@@ -60,7 +60,7 @@ select{
   height:22px;
   border-radius:4px;
   background-color:#404040;
-  color:#bbbab9;
+  color:#f1ce71;
   border-color:#252525;
   font-size:1em;
 }
@@ -68,6 +68,18 @@ select{
 #proton-command,#proton-command input{
   width:100%;
   margin-right:8px;
+
+}
+
+#proton-description{
+  flex-grow:2;
+  width:100%;
+}
+#proton-description textarea{
+  width:98%;
+  background-color:#404040;
+  color:#e4c36d;
+  border-style:none;
 }
 
 .builder-save{
@@ -81,4 +93,108 @@ select{
 #builder-parameteric{
   color:#ffb85c;
   display:none;
+}
+
+#builder-parameteric-general,#parameter-creation{
+  display:flex;
+}
+
+#proton-script input{
+  width:98%;
+}
+
+#parameter-creation-icon{
+  background-color:#bfbfbf;
+  margin: 0px 2px;
+  border-radius:4px;
+  padding:2px 4px;
+  opacity:0.6;
+  color:#2d2d2d;
+  cursor:pointer;
+}
+
+#parameter-creation-icon:hover{
+  opacity:1;
+}
+
+.parameter{
+  
+  padding:2px;
+  margin:2px;
+  border-radius:4px;
+  display:flex;
+}
+.inputField{
+  background-color:#1c1138;
+  color:#9950ff;
+}
+
+.inputColor{
+  background-color:#381311;
+  color:#ff5950;
+}
+.inputCheckbox{
+  background-color:#133811;
+  color:#50ffa4;
+}
+.inputList{
+  background-color:#113836;
+  color:#50ffed;
+}
+
+.inputSlider{
+  background-color:#383711;
+  color:#deff50;
+}
+.inputDirectory{
+  background-color:#2e1138;
+  color:#fa50ff;
+}
+.inputFilePath{
+  background-color:#111638;
+  color:#5088ff;
+}
+
+.parameter input{
+  width:100%;
+}
+
+.min-input,.max-input{
+  width:40px;
+}
+
+.name-input{
+  margin-left:10px;
+  width:100px;
+}
+
+.tooltip-input{
+  flex-grow:2
+}
+
+.list-input{
+  flex-grow:2
+}
+
+.inputSlider .default-input{
+  width:40px;
+}
+
+.inputList .default-input{
+  width:100px;
+}
+
+.parameter-remove, .parameter-move{
+  margin:2px;
+  padding:1px;
+  background-color:#a1a1a1;
+  border-radius:2px;
+  cursor:pointer;
+}
+
+.parameter-remove{
+  opacity:0.6;
+}
+.parameter-remove:hover{
+  opacity:1;
 }

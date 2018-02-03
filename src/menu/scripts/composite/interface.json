@@ -2,6 +2,7 @@
   "author": "Mohamed Oumoumad",
   "description": "composite selected two images, the first one selected is the background, requires imagemagick, can be downloaded here : http://imagemagick.org/script/download.php make sure to enable legacy commands like (convert etc) while installing.",
   "version": "0.0.1",
+  "category": "image processing",
   "process": "python",
   "command": "",
   "script": "exec.py",

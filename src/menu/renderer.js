@@ -22,13 +22,26 @@ ipcRenderer.on('reload-scripts',(event,date) => {
   location.reload();
 })
 
-const scriptSource = myConfig.scriptsPath || path.join(__dirname,"scripts")
+ipcRenderer.on('clear-input',(event,date) => {
+  $( "#scripts" ).val('');
+})
 
+//get config values or put default ones
+const scriptSource = myConfig.scriptsPath || path.join(__dirname,"scripts")
+const libsPath = myConfig.libsPath || path.join(__dirname,'libs')
+const pythonExe = path.join(libsPath,'python/scripts/python.exe')
+
+
+//useful functions
 function getDirectories(path) {
   return fs.readdirSync(path).filter(function (file) {
     return fs.statSync(path+'/'+file).isDirectory();
   });
 }
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+};
 
 
 const scriptDirs = getDirectories(scriptSource);
@@ -37,42 +50,105 @@ let myScripts = {}
 
 //get scripts names
 let i=0;
+let scriptNames = []
+let categoryNames = []
 for (i=0; i < scriptDirs.length; i++ ){
-  $('#combobox').append($('<option>').attr('value',scriptDirs[i]).html(scriptDirs[i]))
+  //combobox options
+  //$('#combobox').append($('<option>').attr('value',scriptDirs[i]).html(scriptDirs[i]))
+
   //read interface json files
   myScripts[scriptDirs[i]] = JSON.parse(fs.readFileSync(path.join(__dirname,'scripts',scriptDirs[i],`interface.json`), 'utf8'))
+  //autocomplete search menu options
+  scriptNames.push(scriptDirs[i])
+  const categoryName =  myScripts[scriptDirs[i]].category || "MISC"
+  categoryNames.push(categoryName)
 }
 
-//script builder option TO DO
-//$('#combobox').append($('<option>').attr('value',"new").html("new"))
 
 
+//category menu options
+let uniqCategories = Array.from(new Set(categoryNames));
+
+
+//constructing categories
+for ( var c in uniqCategories.sort()){
+  const categoryName = uniqCategories[c]
+  const categoryId = categoryName.replaceAll(" ","-")
+  $('#category-menu').append($("<li>").attr("id",categoryId))
+  $(`#${categoryId}`).append($("<div>").addClass("proton-category").text(categoryName))
+  $(`#${categoryId}`).append($("<ul>"))
+}
+
+//filling categories
+for (var p in scriptNames){
+  const scriptName = scriptNames[p]
+  const scriptId = scriptName.replaceAll(" ","-")
+  const scriptCategory = myScripts[scriptName].category || "MISC"
+  const scriptCategoryId = scriptCategory.replaceAll(" ","-")
+  $(`#${scriptCategoryId} ul`).append($("<li>").attr('id',scriptId))
+  $(`#${scriptId}`).append($("<div>").addClass("proton").text(scriptName))
+}
+
+
+//when the html doc is ready
 $(document).ready(function(){
-  var obj;
-  $( "#combobox" ).combobox({
-    select: function( event, ui ) {
-
-      const selectedScript = ui.item.value;
-      const paramsNum = myScripts[selectedScript].params.length;
-
-      // check if there are parameters or not
-      if (paramsNum == 0 ){
-        myDirectExecute(selectedScript,event)
-      }else if(event[myConfig.directKeydown]) {
-        //console.log(event)
-        myParamExecute(selectedScript,event)
-      }else{
-        ipcRenderer.send('menu-open',{script : selectedScript , myScripts : myScripts})
-        //build interface for the parameters
-        secondWindow(paramsNum)
+    $( "#scripts" ).autocomplete({
+      source: scriptNames,
+      autoFocus :true,
+      position: { my : "right+100% top", at: "right bottom-100%"},
+      delay: 10,
+      select : function( event, ui ){
+        selectScript(ui.item.value)
       }
-      //reload scripts list after execution
-      location.reload();
-    }
+    });
+    $( "#category-menu" ).menu({
+      select : function( event, ui ){
+        //const selectedScript = ui.item.text()
+        //console.log(ui.item)
+        selectScript(ui.item.text())
+      }
+    });
+    const menuWidth = $( "#scripts" ).width() //+ $( "#search-icon" ).width() + 6
+
+
+    $(".ui-menu").css({"width":menuWidth})
+
+    //focus on the input field
+    $( "#scripts" ).focus()
+  /*
+  var obj;
+  $( "#combobox" ).autocomplete({
+    select : function( event, ui ){
+        selectScript(ui.item.value)
+      }
   });
   $( ".custom-combobox-toggle" ).trigger( "click" );
+  */
 })
 
+
+//what happens when user selects a script from the menu
+function selectScript(selectedScript){
+
+  const paramsNum = myScripts[selectedScript].params.length;
+
+  // check if there are parameters or not
+  if (paramsNum == 0 ){
+    //execute directly
+    myDirectExecute(selectedScript,event)
+  }else if(event[myConfig.directKeydown]) {
+    //execute directly from default parameters
+    myParamExecute(selectedScript,event)
+  }else{
+    ipcRenderer.send('menu-open',{script : selectedScript , myScripts : myScripts})
+    //build interface for the parameters
+    secondWindow(paramsNum)
+  }
+  //reload scripts list after execution
+  location.reload();
+}
+
+//creating the parameters window
 function secondWindow(paramsNum){
     const secondWindowWidth = 560;
     const secondWindowHeight = (30*paramsNum) + 110;
@@ -82,13 +158,52 @@ function secondWindow(paramsNum){
       frame:false,
       icon : path.join(__dirname,"icons",'logo_30px.png')
     })
-    const {x,y} = electronScreen.getCursorScreenPoint();
-    secondWindow.setPosition(x-(secondWindowWidth/2), y-(secondWindowHeight/2));
+    
+    adjustWindowPosition(secondWindow,secondWindowWidth,secondWindowHeight)
+
     secondWindow.loadURL(url.format({
       pathname : path.join(__dirname,'parameters.html'),
       protocol : 'file',
       slashes : true
     }));
+}
+
+
+//Avoid having the window cut off by screen edge
+function adjustWindowPosition(myWindow,width,height){
+    const  {x,y} = electronScreen.getCursorScreenPoint();
+    const xCentered = x-(width/2)
+    const yCentered = y-(height/2)
+    const xCenteredEnd = xCentered+width
+    const yCenteredEnd = yCentered+height
+    var xWindow,yWindow
+    
+    const allDisplays = electronScreen.getAllDisplays()
+    var totalX = 0;
+    for (var display in allDisplays){
+      totalX += allDisplays[display].workAreaSize.width
+    }
+    console.log(allDisplays)
+    //get size of the current display
+    const currentScreen = electronScreen.getDisplayNearestPoint(electronScreen.getCursorScreenPoint()).workAreaSize
+    //console.log(xCentered,yCentered,xCenteredEnd,yCenteredEnd,totalX,currentScreen.height)
+    if (xCentered < 0){
+      xWindow = 0
+    }else if (xCenteredEnd > totalX){
+      xWindow = totalX - width
+    }else {
+      xWindow = xCentered
+    }
+    if (yCentered < 0){
+      yWindow = 0
+    }else if (yCenteredEnd > currentScreen.height){
+      yWindow = currentScreen.height - height
+      console.log(yWindow,currentScreen.height)
+    }else {
+      yWindow = yCentered
+    }
+
+    myWindow.setPosition(xWindow, yWindow);
 }
 
 //script builder window TO DO
@@ -121,10 +236,12 @@ function myDirectExecute(selectedScript){
     myArgs.push(selectedDir)
   }
 
-  //check if interface requests Directory
-  if (myScripts[selectedScript].getDir){
-    const selectedDir = ipcRenderer.sendSync('get-current-dir')
-    myArgs.push(selectedDir)
+  //check if interface requests selection
+  if (myScripts[selectedScript].getSel){
+    const selectedFiles = ipcRenderer.sendSync('get-selected-files')
+    //make selectedFiles list file
+    const storedFilePath = storeSelectedFilePaths(selectedFiles,scriptDir)
+    myArgs.push(storedFilePath)
   }
 
   const child = spawn(myScripts[selectedScript].process, myArgs,{shell: true, detached: true,windowsVerbatimArguments: true});
@@ -185,6 +302,17 @@ function myParamExecute(selectedScript){
   const child = spawn(myScripts[selectedScript].process, myArgs,{shell: true, detached: true,windowsVerbatimArguments: true});
 
 }
+
+
+//execution function
+function executeDetached(myProcess,args){
+  if(myProcess == 'python'){
+    myProcess = pythonExe
+  }
+  const child = spawn(myProcess, args,{shell: true, detached: true,windowsVerbatimArguments: true}); 
+}
+
+
 
 //store selected file paths in a file
 function storeSelectedFilePaths(selectedFiles,scriptDir){

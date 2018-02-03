@@ -24,6 +24,9 @@ const scriptsDir = myConfig.scriptsPath || path.join(__dirname,'scripts')
 const selectedScriptDir = path.join(scriptsDir,selectedScript)
 const scriptFileName = path.join(scriptsDir,selectedScript,myScripts[selectedScript].script)
 const scriptJson = path.join(scriptsDir,selectedScript,myConfig.interfaceFile) || path.join(scriptsDir,selectedScript,`interface.json`)
+const libsPath = myConfig.libsPath || path.join(__dirname,'libs')
+const pythonExe = path.join(libsPath,'python/scripts/python.exe')
+
 
 String.prototype.replaceAll = function(search, replacement) {
     var target = this;
@@ -221,8 +224,6 @@ function apply(obj){
       $('<div>').attr('id','apply').text('apply').button()
       .on('click',()=>{
 
-        //getting script name to execute
-        //const scriptFileName =`${__dirname}\\scripts\\sequenceToMp4.py`
         //declaring flags array
         var flags = [];
         if (obj.command != ''){
@@ -232,21 +233,24 @@ function apply(obj){
           flags.push(scriptFileName)
         }
 
+        //add selected files list if enabled in the interface
+        if (obj.getSel){
+          let selectedFilesEscaped = []
 
-        console.log(scriptFileName)
-        let selectedFilesEscaped = []
+          for (var f=0;f<selectedFiles.length; f++){
+            const selectedFile = selectedFiles[f]
+            selectedFilesEscaped.push(selectedFile)
+          }
+          console.log(selectedFilesEscaped)
 
-        for (var f=0;f<selectedFiles.length; f++){
-          const selectedFile = selectedFiles[f]
-          selectedFilesEscaped.push(selectedFile)
+          const storedFilePath = path.join(selectedScriptDir,'selectedFiles.txt')
+          fs.writeFileSync(storedFilePath, selectedFilesEscaped)
+          flags.push(`"${currentDir}"`,storedFilePath)
+        }else{
+          flags.push(`"${currentDir}"`)
         }
-        console.log(selectedFilesEscaped)
 
-        const storedFilePath = path.join(selectedScriptDir,'selectedFiles.txt')
-        fs.writeFileSync(storedFilePath, selectedFilesEscaped)
-        flags.push(`"${currentDir}"`,storedFilePath)
-        console.log(currentDir)
-        console.log(selectedFiles)
+        //getting user inputs
         $('input,select').not("#debugger-mode input").each(function( index ) {
             const inputValue = $( this ).val()
             if ($( this ).val() != ''){
@@ -338,6 +342,10 @@ var child;
 
 //Execution function
 function myExecute(myProcess,flags){
+  if(myProcess == 'python'){
+    myProcess = pythonExe
+  }
+
   //execute with debugger output
   outputExecution(myProcess,flags)
   // kill the child process when the button stop is pressed
