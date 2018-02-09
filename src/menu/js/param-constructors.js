@@ -167,7 +167,7 @@ function inputList(listName,defaultVal,list,tooltip){
 }
 
 //Slider with value input
-function inputSlider(inputName,defaultVal,min,max,tooltip){
+function inputSlider(inputName,defaultVal,min,max,step,tooltip){
   const inputNameNoSpace = inputName.replaceAll(' ','-')
   $('#parameters-container').append(
     $('<div>').addClass(`slider-group`).attr('id',inputNameNoSpace)
@@ -188,6 +188,7 @@ function inputSlider(inputName,defaultVal,min,max,tooltip){
         max: max,
         range: "min",
         value: defaultVal,
+        step: step || 1,
         slide:function( event, ui ) {
           $(`#${inputNameNoSpace} input`).val(ui.value);
         }
@@ -225,44 +226,8 @@ function apply(obj){
       .on('click',()=>{
 
         //declaring flags array
-        var flags = [];
-        if (obj.command != ''){
-          flags.push(obj.command)
-        }
-        if (obj.script != ''){
-          flags.push(scriptFileName)
-        }
+        const flags = buildCommandFromInput(obj)
 
-        //add selected files list if enabled in the interface
-        if (obj.getSel){
-          let selectedFilesEscaped = []
-
-          for (var f=0;f<selectedFiles.length; f++){
-            const selectedFile = selectedFiles[f]
-            selectedFilesEscaped.push(selectedFile)
-          }
-          console.log(selectedFilesEscaped)
-
-          const storedFilePath = path.join(selectedScriptDir,'selectedFiles.txt')
-          fs.writeFileSync(storedFilePath, selectedFilesEscaped)
-          flags.push(`"${currentDir}"`,storedFilePath)
-        }else{
-          flags.push(`"${currentDir}"`)
-        }
-
-        //getting user inputs
-        $('input,select').not("#debugger-mode input").each(function( index ) {
-            const inputValue = $( this ).val()
-            if ($( this ).val() != ''){
-              flags.push(`"${inputValue}"`)
-            }else{
-              flags.push('None')
-            }
-            console.log( index + ": " + `"${inputValue}"`);
-        });
-        console.log(flags)
-
-        //execute command
         myExecute(obj.process,flags)
 
         //window.close();
@@ -335,6 +300,11 @@ function scriptDebugger() {
   $("#debugger-close").on('click',()=>{$("#debugger-wrap").css("display","none")})
   $("#debugger-clear").on('click',()=>{$("#debugger-output").empty()})
   $("#debugger-mode label").on('click',()=>{$("#debugger-wrap").css("display","block")})
+  $("#debugger-preview").on('click',()=>{
+    const flags = buildCommandFromInput(myScripts[selectedScript]).join(" ")
+    const command = `${myScripts[selectedScript].process} ${flags}`
+    $("#debugger-output").append(`<span class="internal-stdout">${command}<span/><br>`)
+  })
 }
 
 //defining a global variable for child process
@@ -390,4 +360,61 @@ function outputExecution(myProcess,flags){
       $("#debugger-wrap").css("display","block")
     }
   });
+}
+
+//Get the command from user input
+function buildCommandFromInput(obj){
+
+
+
+
+  //declaring flags array
+  let flags = [];
+
+  if (obj.command != ''){
+    flags.push(obj.command)
+  }
+
+  if (obj.script != ''){
+    //check if it's a path
+    if(obj.script.indexOf('\\') > -1 || obj.script.indexOf('/') > -1 ){
+      //using an external execution
+      flags.push(`"${scriptFileName}"`)
+    }else{
+      //using internal script
+      flags.push(`"${scriptFileName}"`)
+    }
+  }
+
+  if (obj.getDir){
+    flags.push(`"${currentDir}"`)
+  }
+
+  //add selected files list if enabled in the interface
+  if (obj.getSel){
+    let selectedFilesEscaped = []
+
+    for (var f=0;f<selectedFiles.length; f++){
+      const selectedFile = selectedFiles[f]
+      selectedFilesEscaped.push(selectedFile)
+    }
+    console.log(selectedFilesEscaped)
+
+    const storedFilePath = path.join(selectedScriptDir,'selectedFiles.txt')
+    fs.writeFileSync(storedFilePath, selectedFilesEscaped)
+    flags.push(storedFilePath)
+  }
+
+
+  //getting user inputs
+  $('input,select').not("#debugger-mode input").each(function( index ) {
+      const inputValue = $( this ).val()
+      if ($( this ).val() != ''){
+        flags.push(`"${inputValue}"`)
+      }else{
+        flags.push('None')
+      }
+      console.log( index + ": " + `"${inputValue}"`);
+  });
+  return flags
 }

@@ -1,0 +1,30 @@
+{
+  "author": "Mohamed Oumoumad",
+  "description": "Render from a nuke script without opening it by specifying the write node name",
+  "version": "0.0.1",
+  "category": "Sequence processing",
+  "process": "python",
+  "script": "exec.py",
+  "getDir": false,
+  "getSel": true,
+  "params": [
+    {
+      "type": "inputFilePath",
+      "name": "Nuke executable",
+      "default": "C:\\Program Files\\Nuke7.0v10\\Nuke7.0.exe",
+      "tooltip": "The nuke executable you want to render this file with"
+    },
+    {
+      "type": "inputField",
+      "name": "Write node",
+      "default": "Write1",
+      "tooltip": "The write node name you want to render from"
+    },
+    {
+      "type": "inputField",
+      "name": "Frame range",
+      "default": "1-100",
+      "tooltip": "Specify the frame range you want to render"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "category": "MISC",
+  "process": "start",
+  "command": "./exec.exe",
+  "getDir": true,
+  "getSel": false,
+  "params": []
+}

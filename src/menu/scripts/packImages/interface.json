@@ -50,7 +50,7 @@
     {
       "type": "inputCheckbox",
       "name": "Display image name",
-      "default": false,
+      "default": true,
       "tooltip": "when checked each image will have a label with the image name"
     },
     {

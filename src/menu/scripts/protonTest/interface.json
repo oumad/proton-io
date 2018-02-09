@@ -1,0 +1,21 @@
+{
+  "author": "",
+  "description": "",
+  "version": "0.0.1",
+  "category": "MISC",
+  "process": "",
+  "script": "exec.py",
+  "getDir": false,
+  "getSel": false,
+  "params": [
+    {
+      "type": "inputSlider",
+      "name": "aas",
+      "min": 0,
+      "max": 100,
+      "default": 20,
+      "step": 0.5,
+      "tooltip": "dsffq yattttt"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+#modal{
+  opacity:    0.9; 
+  background: #2d2d2d; 
+  width:      100%;
+  height:     100%; 
+  z-index:    99;
+  top:        0; 
+  left:       0; 
+  position:   fixed;
+  display:none;
+}
+
+#model-contain{
+    text-align:center;
+    max-height: 200px;
+    margin: auto;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+#modal-title{
+  color:#ffce65;
+  font-size:1.2em;
+}
+
+#modal-content{
+  color:#cecece;
+  padding:8px;
+  text-align:center;
+  margin:0% 5%;
+}
+
+.modal-button{
+  font-size:1.2em;
+  width:100px;
+  height:40px;
+  margin:8px;
+}
+
+.modal-button:hover{
+  background:#ffcf6b;
+}
+
+
+.swal-overlay {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.swal-modal {
+  background-color: rgba(0,0,0,0.0);
+  width:80%;
+}
+
+.swal-title {
+  color:#ffce65;
+}
+
+.swal-text {
+  color:#cecece;
+  padding:8px;
+
+}
+
+.swal-button:hover {
+  background:#ffcf6b;
+  left:50%
+}
+
+
+.swal-icon--success:after,.swal-icon--success:before {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.swal-icon--success__hide-corners{
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.swal-icon--success__ring{
+  border: 4px solid hsla(98, 64%, 67%, 0.2);
+}
+
+.swal-footer{
+  text-align:center;
+}

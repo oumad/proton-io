@@ -33,19 +33,22 @@ const pythonExe = path.join(libsPath,'python/scripts/python.exe')
 
 
 //useful functions
+//get all directories from a path
 function getDirectories(path) {
   return fs.readdirSync(path).filter(function (file) {
     return fs.statSync(path+'/'+file).isDirectory();
   });
 }
+//replace all instances of a string
 String.prototype.replaceAll = function(search, replacement) {
     var target = this;
     return target.split(search).join(replacement);
 };
 
-
+//get all script directories
 const scriptDirs = getDirectories(scriptSource);
 
+//preparing scripts obj
 let myScripts = {}
 
 //get scripts names
@@ -53,17 +56,18 @@ let i=0;
 let scriptNames = []
 let categoryNames = []
 for (i=0; i < scriptDirs.length; i++ ){
-  //combobox options
-  //$('#combobox').append($('<option>').attr('value',scriptDirs[i]).html(scriptDirs[i]))
-
+  //console.log(`loading ${scriptDirs[i]}...`)
   //read interface json files
   myScripts[scriptDirs[i]] = JSON.parse(fs.readFileSync(path.join(__dirname,'scripts',scriptDirs[i],`interface.json`), 'utf8'))
   //autocomplete search menu options
   scriptNames.push(scriptDirs[i])
   const categoryName =  myScripts[scriptDirs[i]].category || "MISC"
   categoryNames.push(categoryName)
+  //console.log(`successfully loaded ${scriptDirs[i]}`)
 }
 
+//send message saying that all scripts are loaded
+ipcRenderer.send('scripts-loaded',{myScripts : myScripts})
 
 
 //category menu options
@@ -103,27 +107,16 @@ $(document).ready(function(){
     });
     $( "#category-menu" ).menu({
       select : function( event, ui ){
-        //const selectedScript = ui.item.text()
-        //console.log(ui.item)
         selectScript(ui.item.text())
       }
     });
-    const menuWidth = $( "#scripts" ).width() //+ $( "#search-icon" ).width() + 6
+    const menuWidth = $( "#scripts" ).width()
 
 
     $(".ui-menu").css({"width":menuWidth})
 
     //focus on the input field
     $( "#scripts" ).focus()
-  /*
-  var obj;
-  $( "#combobox" ).autocomplete({
-    select : function( event, ui ){
-        selectScript(ui.item.value)
-      }
-  });
-  $( ".custom-combobox-toggle" ).trigger( "click" );
-  */
 })
 
 
@@ -183,7 +176,6 @@ function adjustWindowPosition(myWindow,width,height){
     for (var display in allDisplays){
       totalX += allDisplays[display].workAreaSize.width
     }
-    console.log(allDisplays)
     //get size of the current display
     const currentScreen = electronScreen.getDisplayNearestPoint(electronScreen.getCursorScreenPoint()).workAreaSize
     //console.log(xCentered,yCentered,xCenteredEnd,yCenteredEnd,totalX,currentScreen.height)
@@ -198,7 +190,6 @@ function adjustWindowPosition(myWindow,width,height){
       yWindow = 0
     }else if (yCenteredEnd > currentScreen.height){
       yWindow = currentScreen.height - height
-      console.log(yWindow,currentScreen.height)
     }else {
       yWindow = yCentered
     }
@@ -217,23 +208,30 @@ function scriptBuilder(){
 
 //direct execution without parameters
 function myDirectExecute(selectedScript){
-
   // execute the script directly using the command in the interface.json without building a window
   let myArgs = []
-
+  const rawCommand = myScripts[selectedScript].command
+  const command = rawCommand.replace("./","")
+  const script = myScripts[selectedScript].script
   //append command if exist
-  if (myScripts[selectedScript].command != ''){
-    myArgs.push(myScripts[selectedScript].command)
+  if (rawCommand != ''){
+    if(rawCommand.includes('./')){
+      //using an external execution
+      myArgs.push(path.join(scriptSource,selectedScript,command))
+    }else{
+      //using internal script
+      myArgs.push(command)
+    }
   }
   //append script if exists
-  if (myScripts[selectedScript].script != ''){
-    myArgs.push(myScripts[selectedScript].script)
+  if (script != '' && script === 'string' ){
+    myArgs.push(script)
   }
 
   //check if interface requests Directory
   if (myScripts[selectedScript].getDir){
     const selectedDir = ipcRenderer.sendSync('get-current-dir')
-    myArgs.push(selectedDir)
+    myArgs.push(selectedDir.stdout)
   }
 
   //check if interface requests selection
@@ -244,15 +242,8 @@ function myDirectExecute(selectedScript){
     myArgs.push(storedFilePath)
   }
 
+  console.log(myScripts[selectedScript].process, myArgs)
   const child = spawn(myScripts[selectedScript].process, myArgs,{shell: true, detached: true,windowsVerbatimArguments: true});
-
-  /*
-  if(event[myConfig.directKeydown]){
-    const child = spawn(myScripts[selectedScript].process, myArgs,{shell: true, detached: true,windowsVerbatimArguments: true});
-  }else {
-    const child = spawn(myScripts[selectedScript].process, myArgs,{shell: true,windowsVerbatimArguments: true});
-  }
-  */
 }
 
 
@@ -322,13 +313,8 @@ function storeSelectedFilePaths(selectedFiles,scriptDir){
     const selectedFile = selectedFiles[f]
     selectedFilesEscaped.push(selectedFile)
   }
-  console.log(selectedFilesEscaped)
 
   const storedFilePath = path.join(scriptDir,'selectedFiles.txt')
   fs.writeFileSync(storedFilePath, selectedFilesEscaped)
   return storedFilePath
 }
-
-
-
-//RIGHT click

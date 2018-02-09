@@ -251,3 +251,7 @@ ipcMain.on('reload-scripts',function(event,arg){
   mainWindow.webContents.send("reload-scripts")
 })
 
+
+ipcMain.on('scripts-loaded',function(event,arg){
+  global.afterScriptsLoad = arg
+})

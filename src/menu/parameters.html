@@ -79,6 +79,9 @@
           <button class="debugger-buttons" id="debugger-start-detached" title="Re-execute on a detached command line window">
             start detached
           </button>
+          <button class="debugger-buttons" id="debugger-preview" title="Show the command">
+            command preview
+          </button>
           <button class="debugger-buttons" id="debugger-close" title="Close the debugger">
             close
           </button>
@@ -123,7 +126,7 @@
           }else if(paramObj.type == 'inputList'){
             inputList(paramObj.name,paramObj.default,paramObj.list,paramObj.tooltip)
           }else if(paramObj.type == 'inputSlider'){
-            inputSlider(paramObj.name,paramObj.default,paramObj.min,paramObj.max,paramObj.tooltip)
+            inputSlider(paramObj.name,paramObj.default,paramObj.min,paramObj.max,paramObj.step,paramObj.tooltip)
           }else if(paramObj.type == 'inputDirectory'){
             inputDirectory(paramObj.name,paramObj.default,paramObj.tooltip)
           }else if(paramObj.type == 'inputCheckbox'){

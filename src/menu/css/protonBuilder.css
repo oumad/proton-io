@@ -1,5 +1,5 @@
 body {
-  min-width:382px;
+  min-width:800px;
   background-color: #333333;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -103,6 +103,16 @@ select{
   width:98%;
 }
 
+textarea{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size:0.7em;
+  min-height:60px;
+}
+
+#parameter-creation{
+  margin:0px 0px 10px 2px;
+}
+
 #parameter-creation-icon{
   background-color:#bfbfbf;
   margin: 0px 2px;
@@ -159,7 +169,7 @@ select{
   width:100%;
 }
 
-.min-input,.max-input{
+.min-input,.max-input,.step-input{
   width:40px;
 }
 
@@ -184,7 +194,7 @@ select{
   width:100px;
 }
 
-.parameter-remove, .parameter-move{
+.parameter-remove,.parameter-move,.parameter-revert{
   margin:2px;
   padding:1px;
   background-color:#a1a1a1;
@@ -192,9 +202,9 @@ select{
   cursor:pointer;
 }
 
-.parameter-remove{
+.parameter-remove,.parameter-revert{
   opacity:0.6;
 }
-.parameter-remove:hover{
+.parameter-remove:hover,.parameter-revert:hover{
   opacity:1;
 }

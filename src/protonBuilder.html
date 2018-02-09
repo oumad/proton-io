@@ -8,10 +8,14 @@
     <link rel="stylesheet" href="menu/css/jquery-ui.theme.css">
     <link rel="stylesheet" href="menu/css/jquery-ui.structure.css">
     <link rel="stylesheet" href="menu/css/protonBuilder.css">
+    <link rel="stylesheet" href="menu/css/modal.css">
     <script src="menu/js/jquery.js"></script>
     <script src="menu/js/jquery-ui.min.js"></script>
+    <script src="menu/js/modal.js"></script>
+
 
     <script>if (window.module) module = window.module;</script>
+    
     <script src="menu/js/protonBuilder.js"></script>
   </head>
   <body>
@@ -25,7 +29,7 @@
           </div>
           <select name="protonType">
             <option value="direct" selected="selected">Direct</option>
-            <option value="parameteric" >Parameteric</option>
+            <option value="parametric" >Parametric</option>
           </select>
           <div class="description">
             Choose if the proton you're creating will be a direct command, or if it'll have parameters
@@ -94,23 +98,32 @@
             <div class="label">
               Proton Script
             </div>
-            <input type="text" name="protonCommand" >
+            <input type="text" name="protonScript" >
             <div class="description">
-              The script to execute or any executable that will receive the parameters as arguments. You will need to give the full path if the executable/script is not located in the same directory as the interface file .
+              The script to execute or any executable that will receive the parameters as arguments. It will create one if it doesn't exist. You will need to give the full path if the executable/script is not located in the same directory as the interface file.
+            </div>
+          </div>
+          <div class="input-item" id="proton-process">
+            <div class="label">
+              Proton Process
+            </div>
+            <input type="text" name="protonProcess" >
+            <div class="description">
+                The process that will execute the script (ex : python), if it can be executed alone (ex : .bat .exe) then you can just use 'start'
             </div>
           </div>
           <div class="input-item" id="proton-author">
           <div class="label">
-            Author (optional)
+            Author
           </div>
           <input type="text" name="protonName" >
           <div class="description">
-            Input the author name, this appears when clicking the question mark on the generated parameters window
+            You can input your name, this appears when clicking the question mark on the generated parameters window
           </div>
         </div>
         <div class="input-item" id="proton-description">
           <div class="label">
-            Description (optional)
+            Description
           </div>
           <textarea></textarea>
           <div class="description">
@@ -134,53 +147,37 @@
         </div>
       </div>
 
-      <div id="builder-parameteric-specific">
-        
 
-
-      </div>
 
 
       </div>
-        <!--
-        <div class="input-item" id="proton-author">
-          <div class="label">
-            Author (optional)
-          </div>
-          <input type="text" name="protonName" >
-          <div class="description">
-            Input the author name, this appears when clicking the question mark on the generated parameters window
-          </div>
-        </div>
-        <div class="input-item" id="proton-description">
-          <div class="label">
-            Description (optional)
-          </div>
-          <textarea></textarea>
-          <div class="description">
-            You can give a description to your proton, this appears when clicking the question mark on the generated parameters window
-          </div>
-        </div>
-
-        <div class="input-item" id="proton-version">
-          <div class="label">
-            Version (optional)
-          </div>
-          <input type="text" name="protonName" >
-          <div class="description">
-            Version your proton, this appears when clicking the question mark on the generated parameters window
-          </div>
-        -->
-
     </div>
 
 
     <div class="builder-save">
-      <button type="button" name="save" id="save">Save</button>
+      <button type="button" id="save">Save</button>
+      <button type="button" id="interface-preview">Interface Preview</button>
+      <button type="button" id="command-preview">Command Preview</button>
+      <button type="button" id="inputs-clear">Clear all</button>
       <!--
       <button type="button" name="revert" id="revert">Edit</button>
       <button type="button" name="cancel" id="cancel">cancel</button>
       -->
+    </div>
+    <div id="builder-parameteric-specific">
+
+    </div>
+
+    <div id="modal">
+      <div id="model-contain">
+        <div id="modal-title"></div>
+        <div id="modal-content"></div>
+
+        <div id="modal-buttons">   
+          <button class="modal-button" id="modal-button-ok"> ok </button>
+          <button class="modal-button" id="modal-button-close"> close </button>
+        </div>
+      </div>
     </div>
   </body>
 </html>

@@ -1,0 +1,24 @@
+{
+  "author": "Mohamed Oumoumad",
+  "description": "Shutdown the computer with a determined duration",
+  "version": "0.0.1",
+  "category": "MISC",
+  "process": "python",
+  "script": "exec.py",
+  "getDir": false,
+  "getSel": false,
+  "params": [
+    {
+      "type": "inputField",
+      "name": "Delay",
+      "default": "2000",
+      "tooltip": "Determine after how many seconds the computerwill shutdown"
+    },
+    {
+      "type": "inputCheckbox",
+      "name": "Cancel",
+      "default": false,
+      "tooltip": "To just cancel an existing shutdown timer check this box"
+    }
+  ]
+}
