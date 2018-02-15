@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Proton Manager</title>
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <link rel="stylesheet" href="menu/css/jquery-ui.css">
+    <link rel="stylesheet" href="menu/css/jquery-ui.theme.css">
+    <link rel="stylesheet" href="menu/css/jquery-ui.structure.css">
+    <link rel="stylesheet" href="menu/css/protonManager.css">
+    <link rel="stylesheet" href="menu/css/modal.css">
+    <script src="menu/js/jquery.js"></script>
+    <script src="menu/js/jquery-ui.min.js"></script>
+    <script src="menu/js/modal.js"></script>
+    <script src="menu/js/mousetrap.min.js"></script>
+    <script src="menu/js/mousetrap-record.js"></script>
+
+
+    <script>if (window.module) module = window.module;</script>
+    
+    <script src="menu/js/protonManager.js"></script>
+  </head>
+  <body>
+    <div class="manager-wrap">
+
+      <div class="manager-contain" id="manager-general">
+        
+        <div class="input-item" id="manager-presets">
+          <div class="label">
+            Current Preset
+          </div>
+          <select name="protonCategory">
+            <option value="direct" selected="selected">User Defined</option>
+          </select>
+          <div class="description">
+            This applies only to the state and hotkeys of your currently installed protons, it won't delete or add anything.
+          </div>
+        </div>
+
+    </div>
+    <div class="manager-contain" id="manager-nav">
+        
+        <div class="input-item" id="proton-categories">
+          <div class="input-item-main">
+            <div class="label">
+            Category
+            </div>
+            <select name="protonCategory">
+              <option value="All" selected="selected">All</option>
+            </select>
+          </div>
+          
+
+          <div class="description">
+            Select a category to isolate it in the list.
+          </div>
+        </div>
+
+        <div class="input-item" id="proton-search">
+          <div class="input-item-main">
+            <div class="label">
+              Filter
+            </div>
+            <input placeholder="Search" type="text" name="protonSearch" >
+          </div>
+          <div class="description">
+            Search or filter based on proton names.
+          </div>
+        </div>
+
+    </div>
+
+    <div id="manager-table">
+        <div class="table-item" id="proton-name">
+          <div class="table-label">
+            Proton name
+          </div>
+          <div class="table-content">
+            
+          </div>
+        </div>
+        <div class="table-item" id="proton-enable">
+          <div class="table-label">
+            Enable
+          </div>
+          <div class="table-content">
+            
+          </div>
+        </div>
+        <div class="table-item" id="proton-param-hotkey">
+          <div class="table-label">
+            Param Hotkey
+          </div>
+          <div class="table-content">
+            
+          </div>
+        </div>
+        <div class="table-item" id="proton-direct-hotkey">
+          <div class="table-label">
+            Direct Hotkey
+          </div>
+          <div class="table-content">
+            
+          </div>
+        </div>
+        <div class="table-item" id="proton-remove">
+          <div class="table-label">
+            Remove
+          </div>
+          <div class="table-content">
+            
+          </div>
+        </div>
+    </div>
+
+
+    <div id="manager-buttons">
+      <button type="button" id="save">Save</button>
+      <button type="button" id="preset-save">Save preset</button>
+      <button type="button" id="cancel">Cancel</button>
+      <!--
+      <button type="button" name="revert" id="revert">Edit</button>
+      <button type="button" name="cancel" id="cancel">cancel</button>
+      -->
+    </div>
+  </body>
+</html>

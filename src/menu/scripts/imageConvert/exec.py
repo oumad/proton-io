@@ -43,7 +43,8 @@ def main(script,myDir,mySel,magickExec,background,scale,size,myFormat,quality,ou
             outRender = os.path.join(outDir,outFile)
             args.extend([outRender])
         else:
-            args.extend([outFile])
+            outRender = os.path.join(myDir,outFile)
+            args.extend([outRender])
 
         print args
         #execute the args

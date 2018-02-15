@@ -1,0 +1,191 @@
+body {
+  min-width:600px;
+  background-color: #333333;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.manager-wrap{
+  height: 80%;
+}
+
+.ui-icon
+{
+    background-image: url(images/ui-icons_777777_256x240.png);
+}
+
+
+.manager-contain{
+  background-color:#1d1d1d;
+  padding:4px;
+  display:flex;
+}
+
+.input-item{
+  margin:4px;
+}
+.input-item-main{
+  display: flex;
+  margin-right: 100px;
+}
+
+.separator{
+ margin:10px;
+}
+
+input{
+  background-color:#404040;
+  border-color:#252525;
+  border-radius :4px;
+  border-style:solid;
+  padding:2px;
+  border-width: 1px;
+  color:#f1ce71;
+}
+button{
+  background-color:#989898;
+  border-color:#252525;
+  border-radius :4px;
+  border-style:solid;
+  padding:2px 4px;
+  border-width: 1px;
+  cursor:pointer;
+}
+button:hover{
+  background-color:#f1ce71;
+}
+
+.checkbox-input{
+  display:flex;
+}
+
+.description{
+  font-size:0.6em;
+  color:#737373;
+}
+
+.label{
+  margin-bottom:2px;
+  color:#a2a2a2;
+  font-size:0.8em;
+  margin-right: 8px;
+}
+
+select{
+  height:22px;
+  border-radius:4px;
+  background-color:#404040;
+  color:#f1ce71;
+  border-color:#252525;
+  font-size:1em;
+}
+
+textarea{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size:0.7em;
+  min-height:60px;
+}
+
+#manager-buttons{
+  margin-top:4px;
+  text-align:center;
+}
+#manager-table{
+  display: flex;
+  background-color:#1d1d1d;
+  color:#a2a2a2;
+  padding:2px;
+
+}
+
+.table-item{
+  background-color:#545454;
+  border-right: 1px solid;
+  border-color:#1d1d1d;
+  border-radius:4px;
+}
+.table-label{
+  padding:0px 4px;
+}
+
+#proton-enable,#proton-remove{
+  text-align:center;
+}
+
+#proton-name,
+#proton-param-hotkey,
+#proton-direct-hotkey{
+  flex-grow:1;
+}
+.table-content{
+  background-color:#232323;
+}
+.table-content input{
+  background-color:#232323;
+}
+.table-row{
+  height:22px;
+  border-bottom:1px solid;
+  border-color:#333333;
+  padding-top:4px;
+}
+
+.proton-remove{
+  cursor:pointer;
+  color:#777777;
+}
+.proton-remove:hover{
+  color:#f14b4b;
+}
+
+.table-category{
+  background-color:#333333;
+  cursor:pointer;
+}
+
+.removed-list{
+  color:#dedede;
+}
+
+.removed-proton-check{
+  display:flex;
+  justify-content: center;
+}
+.removed-list-info{
+  color:#9a865a;
+  margin-bottom:10px;
+  margin-top:-18px;
+}
+
+.hotkey-recorder{
+  display:flex;
+  text-align:center;
+  justify-content:center;
+}
+
+.keyboard-hotkeys-icon{
+  background-image:url("../icons/keyboard_hotkeys.png");
+  height:20px;
+  width:36px;
+  background-size:cover;
+  cursor:pointer;
+  opacity:0.6;
+  margin:-1px 4px;
+}
+.keyboard-hotkeys-icon:hover{
+  opacity:1;
+}
+
+.keyboard-recording-icon{
+    background: #e84919;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+.keyboard-recording-text{
+  font-size:0.6em;
+  margin-left:1px;
+}
+
+.recording{
+  display:none;
+  cursor:pointer;
+}

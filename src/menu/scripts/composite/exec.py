@@ -6,10 +6,8 @@ import sys
 import subprocess
 
 
-def main(script,myDir) :
+def main(script,myDir,mySel,magickExec,composeType,background,scale,size,quality,outFormat,outName,outDir) :
     
-    #print script,myDir,mySel,aerenderExec,compName,startf,endf,outName,outDir
-    print script,myDir,mySel,magickExec,composeType,background,scale,size,quality,outName,outDir
     mySel = open(mySel,"r")
     mySel = mySel.read()
     mySel = mySel.split(',')
@@ -31,7 +29,7 @@ def main(script,myDir) :
     #resolving file name from source
     pre, ext = os.path.splitext(mySel[0])
     print ("compose type = " + composeType)
-    outFile = pre + '_{0}.{1}'.format(composeType,format)
+    outFile = pre + '_{0}.{1}'.format(composeType,outFormat)
 
     args.extend(['-compose',composeType])
     #args.extend(['-flatten'])
@@ -52,16 +50,17 @@ def main(script,myDir) :
         outRender = os.path.join(outDir,outFile)
         args.extend(["-composite",outRender])
     else:
-        args.extend(["-composite",outFile])
+        outRender = os.path.join(myDir,outFile)
+        args.extend(["-composite",outRender])
 
-    print args
+
     #execute the args
     subprocess.Popen(args)
 
 
 
 if __name__ == '__main__':
-
+            print sys.argv
             main(*sys.argv)
 
             """

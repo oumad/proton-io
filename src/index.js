@@ -69,6 +69,23 @@ function scriptBuilder(){
 }
 
 
+//function for the Script Builder window
+function protonManager(){
+  prefWindow = new BrowserWindow({
+    width:800,
+    height:800,
+    //frame:false,
+    autoHideMenuBar: true,
+    icon: iconPath,
+  })
+  prefWindow.loadURL(url.format({
+    pathname : path.join(__dirname,'protonManager.html'),
+    protocol : 'file',
+    slashes : true
+  }));
+}
+
+
 //function to create the window of the main scripts menu with tray icon
 app.on('ready', () => {
   const electronScreen = electron.screen
@@ -104,10 +121,16 @@ app.on('ready', () => {
           mainWindow.webContents.send("reload-scripts")
         }
       },
-      {label: 'Builder',
+      {label: 'Proton Builder',
         click: function () {
           //show the preferences window
           scriptBuilder()
+        }
+      },
+      {label: 'Proton Manager',
+        click: function () {
+          //show the preferences window
+          protonManager()
         }
       },
       {label: 'Preferences',
@@ -150,6 +173,8 @@ app.on('ready', () => {
     mainWindow.hide()
     mainWindow.webContents.send("clear-input")
   })
+
+  setupProtonHotkeys()
 })
 
 // C# function
@@ -255,3 +280,21 @@ ipcMain.on('reload-scripts',function(event,arg){
 ipcMain.on('scripts-loaded',function(event,arg){
   global.afterScriptsLoad = arg
 })
+
+
+function setupProtonHotkeys(){
+  for (let i in myConfig.protonHotkeys){
+    //preparing object with hotkey values
+    let protonHotkey = {}
+
+    protonHotkey.protonName = myConfig.protonHotkeys[i].protonName
+    protonHotkey.hotkey = myConfig.protonHotkeys[i].hotkey
+    protonHotkey.hotkeyType = myConfig.protonHotkeys[i].type
+
+    //preparing the global shortcut
+    globalShortcut.register(protonHotkey.hotkey,()=>{
+      mainWindow.webContents.send("hotkey-launch",protonHotkey)
+    })
+  }
+
+}

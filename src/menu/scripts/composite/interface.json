@@ -6,7 +6,7 @@
   "process": "python",
   "command": "",
   "script": "exec.py",
-  "getDir": false,
+  "getDir": true,
   "getSel": true,
   "params": [
     {
@@ -100,7 +100,7 @@
     {
       "type": "inputList",
       "name": "Output Format",
-      "default": "png",
+      "default": "jpeg",
       "list": [
         "jpeg",
         "jpg",

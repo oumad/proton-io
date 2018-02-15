@@ -1,0 +1,8 @@
+{
+  "category": "MISC",
+  "process": "start \"\"",
+  "command": "cmd /k cd /d",
+  "getDir": true,
+  "getSel": false,
+  "params": []
+}

@@ -3,5 +3,27 @@
   "interfaceFile": "interface.json",
   "libsPath": "",
   "mainHotkey": "ctrl+tab",
+  "protonHotkeys": [
+    {
+      "hotkey": "ctrl+alt+c",
+      "protonName": "imageConvert",
+      "type": "param"
+    },
+    {
+      "hotkey": "alt+e",
+      "protonName": "toggle_hidden_exts",
+      "type": "direct"
+    },
+    {
+      "hotkey": "meta+c",
+      "protonName": "CommanPrompt_here",
+      "type": "direct"
+    },
+    {
+      "hotkey": "ctrl+shift+c",
+      "protonName": "composite",
+      "type": "direct"
+    }
+  ],
   "scriptsPath": ""
 }

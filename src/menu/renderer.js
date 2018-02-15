@@ -59,6 +59,7 @@ for (i=0; i < scriptDirs.length; i++ ){
   //console.log(`loading ${scriptDirs[i]}...`)
   //read interface json files
   myScripts[scriptDirs[i]] = JSON.parse(fs.readFileSync(path.join(__dirname,'scripts',scriptDirs[i],`interface.json`), 'utf8'))
+  
   //autocomplete search menu options
   scriptNames.push(scriptDirs[i])
   const categoryName =  myScripts[scriptDirs[i]].category || "MISC"
@@ -68,6 +69,29 @@ for (i=0; i < scriptDirs.length; i++ ){
 
 //send message saying that all scripts are loaded
 ipcRenderer.send('scripts-loaded',{myScripts : myScripts})
+
+
+//hotkey execution
+ipcRenderer.on('hotkey-launch',(event,protonHotkey) => {
+  console.log(protonHotkey)
+  const hotkeyType = protonHotkey.hotkeyType
+  const protonName = protonHotkey.protonName
+  //console.log(myScripts,protonName)
+  const paramsNum = myScripts[protonName].params.length;
+
+  // check if there are parameters or not
+  if (paramsNum == 0 ){
+    //execute directly
+    myDirectExecute(protonName)
+  }else if(hotkeyType == "direct") {
+    //execute directly from default parameters
+    myParamExecute(protonName)
+  }else{
+    ipcRenderer.send('menu-open',{script : protonName , myScripts : myScripts})
+    //build interface for the parameters
+    secondWindow(paramsNum)
+  }
+})
 
 
 //category menu options
@@ -128,10 +152,10 @@ function selectScript(selectedScript){
   // check if there are parameters or not
   if (paramsNum == 0 ){
     //execute directly
-    myDirectExecute(selectedScript,event)
+    myDirectExecute(selectedScript)
   }else if(event[myConfig.directKeydown]) {
     //execute directly from default parameters
-    myParamExecute(selectedScript,event)
+    myParamExecute(selectedScript)
   }else{
     ipcRenderer.send('menu-open',{script : selectedScript , myScripts : myScripts})
     //build interface for the parameters
@@ -205,6 +229,9 @@ function scriptBuilder(){
     frame:false,
   })
 }
+
+
+
 
 //direct execution without parameters
 function myDirectExecute(selectedScript){

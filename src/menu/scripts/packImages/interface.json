@@ -6,7 +6,7 @@
   "process": "python",
   "command": "",
   "script": "exec.py",
-  "getDir": false,
+  "getDir": true,
   "getSel": true,
   "params": [
     {
