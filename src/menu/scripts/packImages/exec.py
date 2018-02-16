@@ -1,7 +1,9 @@
 from subprocess import Popen, PIPE, STDOUT
+import os
+import sys
+import re
 
 def main(script,myDir,mySel,magickExec,background,quality,tiles,margin,maxSize,displayName,DisplaySize,textColor,textSize,title,outFormat,outName,outDir) :
-    
 
     mySel = open(mySel,"r")
     mySel = mySel.read()
@@ -88,9 +90,7 @@ def main(script,myDir,mySel,magickExec,background,quality,tiles,margin,maxSize,d
 
 
 if __name__ == '__main__':
-            import os
-            import sys
-            import re
+
             main(*sys.argv)
             """
             try:

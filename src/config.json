@@ -5,9 +5,9 @@
   "mainHotkey": "ctrl+tab",
   "protonHotkeys": [
     {
-      "hotkey": "ctrl+alt+c",
-      "protonName": "imageConvert",
-      "type": "param"
+      "hotkey": "alt+h",
+      "protonName": "toggle_hidden_files",
+      "type": "direct"
     },
     {
       "hotkey": "alt+e",
@@ -15,13 +15,13 @@
       "type": "direct"
     },
     {
-      "hotkey": "meta+c",
-      "protonName": "CommanPrompt_here",
+      "hotkey": "ctrl+shift+c",
+      "protonName": "google_it",
       "type": "direct"
     },
     {
-      "hotkey": "ctrl+shift+c",
-      "protonName": "composite",
+      "hotkey": "meta+c",
+      "protonName": "CommanPrompt_here",
       "type": "direct"
     }
   ],

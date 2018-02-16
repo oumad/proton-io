@@ -1,8 +1,10 @@
-
+import os
+import sys
+import re
+import subprocess
 
 def main(script,myDir,mySel,magickExec,background,scale,size,myFormat,quality,outName,outDir) :
-    import subprocess
-
+    
     mySel = open(mySel,"r")
     mySel = mySel.read()
     mySel = mySel.split(',')
@@ -53,9 +55,7 @@ def main(script,myDir,mySel,magickExec,background,scale,size,myFormat,quality,ou
 
 
 if __name__ == '__main__':
-            import os
-            import sys
-            import re
+
             print sys.argv
             main(*sys.argv)
             """

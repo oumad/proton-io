@@ -1,0 +1,83 @@
+{
+  "author": "Mohamed Oumoumad",
+  "description": "This script saves screenshots in a loop with determined number and interval between each screenshot.",
+  "version": "0.0.1",
+  "category": "MISC",
+  "process": "python",
+  "script": "exec.py",
+  "getDir": false,
+  "getSel": false,
+  "params": [
+    {
+      "type": "inputList",
+      "name": "Monitor number",
+      "list": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "default": "0",
+      "tooltip": "0 is the main monitor, to capture all monitors select a number that is superior to the total monitors you have"
+    },
+    {
+      "type": "inputField",
+      "name": "Screenshots num",
+      "default": "10",
+      "tooltip": "The total number of the screenshots"
+    },
+    {
+      "type": "inputField",
+      "name": "Interval",
+      "default": "1",
+      "tooltip": "The time interval between each screenshot in seconds"
+    },
+    {
+      "type": "inputField",
+      "name": "Output name",
+      "default": "scr",
+      "tooltip": "The prefix name for the screenshot, each one will have a suffix of date and time"
+    },
+    {
+      "type": "inputCheckbox",
+      "name": "Include time",
+      "default": true,
+      "tooltip": "Check to include the time of the creation in the file name as a suffix"
+    },
+    {
+      "type": "inputCheckbox",
+      "name": "Include date",
+      "default": true,
+      "tooltip": "Check to include the date of the creation in the file name as a suffix"
+    },
+    {
+      "type": "inputDirectory",
+      "name": "Output directory",
+      "default": "%UserProfile%\\pictures",
+      "tooltip": "Choose a directory where you want to save the screenshots"
+    },
+    {
+      "type": "inputList",
+      "name": "Format",
+      "list": [
+        "png",
+        "jpeg",
+        "jpg",
+        "psd",
+        "pdf",
+        "tiff",
+        "svg",
+        "gif",
+        "tga"
+      ],
+      "default": "jpeg",
+      "tooltip": "The output screenshot format"
+    }
+  ]
+}

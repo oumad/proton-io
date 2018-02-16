@@ -121,13 +121,13 @@ app.on('ready', () => {
           mainWindow.webContents.send("reload-scripts")
         }
       },
-      {label: 'Proton Builder',
+      {label: 'Builder',
         click: function () {
           //show the preferences window
           scriptBuilder()
         }
       },
-      {label: 'Proton Manager',
+      {label: 'Manager',
         click: function () {
           //show the preferences window
           protonManager()
