@@ -1,4 +1,6 @@
 body {
+  padding:0px;
+  margin:0px;
   min-width:600px;
   background-color: #333333;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -110,6 +112,10 @@ textarea{
   text-align:center;
 }
 
+.proton-name{
+  padding-left:4px;
+}
+
 #proton-name,
 #proton-param-hotkey,
 #proton-direct-hotkey{
@@ -188,4 +194,24 @@ textarea{
 .recording{
   display:none;
   cursor:pointer;
+}
+
+
+
+.ui-menu .ui-menu-item-with-icon a {
+  padding-left: 20px;
+
+}
+span.group-item-icon,
+span.file-item-icon {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  margin-left: -16px;
+}
+span.group-item-icon {
+  background: url("/image/icons/group.png") no-repeat left 4px;
+}
+span.product-item-icon {
+  background: url("/image/icons/product.png") no-repeat left 7px;
 }

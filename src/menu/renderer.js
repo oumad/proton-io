@@ -2,6 +2,7 @@ const path = require('path')
 const fs = require('fs')
 const url = require('url')
 const remote = require('electron').remote
+const myWindow = remote.BrowserWindow.getFocusedWindow();
 const ipcRenderer = require('electron').ipcRenderer
 const electronScreen = require('electron').screen
 const BrowserWindow = remote.BrowserWindow
@@ -55,15 +56,33 @@ let myScripts = {}
 let i=0;
 let scriptNames = []
 let categoryNames = []
+let protonsData = []
 for (i=0; i < scriptDirs.length; i++ ){
   //console.log(`loading ${scriptDirs[i]}...`)
   //read interface json files
   myScripts[scriptDirs[i]] = JSON.parse(fs.readFileSync(path.join(__dirname,'scripts',scriptDirs[i],`interface.json`), 'utf8'))
   
+  /*
+  let protonData = {}
+  protonData.name = scriptDirs[i]
+  if (myScripts[scriptDirs[i]].params.length == 0){
+    protonData.type = "direct"
+    protonData.icon = path.join(`${__dirname}`,"icons","direct_execute.png")
+  }else{
+    protonData.type = "parameteric"
+    protonData.icon = path.join(`${__dirname}`,"icons","param_execute.png")
+  }
+  protonData.description = myScripts[scriptDirs[i]].description
+  protonsData.push(protonData)
+  */
+
   //autocomplete search menu options
   scriptNames.push(scriptDirs[i])
+
+  
   const categoryName =  myScripts[scriptDirs[i]].category || "MISC"
   categoryNames.push(categoryName)
+
   //console.log(`successfully loaded ${scriptDirs[i]}`)
 }
 
@@ -104,22 +123,34 @@ for ( var c in uniqCategories.sort()){
   const categoryId = categoryName.replaceAll(" ","-")
   $('#category-menu').append($("<li>").attr("id",categoryId))
   $(`#${categoryId}`).append($("<div>").addClass("proton-category").text(categoryName))
-  $(`#${categoryId}`).append($("<ul>"))
+  $(`#${categoryId}`).append($("<ul>").addClass("proton-list"))
 }
 
 //filling categories
 for (var p in scriptNames){
+
   const scriptName = scriptNames[p]
+  let iconClass
+
+  if(myScripts[scriptName].params.length == 0){
+    iconClass = "ui-icon-play"
+  }else{
+    iconClass = "ui-icon-newwin"
+  }
+
   const scriptId = scriptName.replaceAll(" ","-")
   const scriptCategory = myScripts[scriptName].category || "MISC"
   const scriptCategoryId = scriptCategory.replaceAll(" ","-")
   $(`#${scriptCategoryId} ul`).append($("<li>").attr('id',scriptId))
-  $(`#${scriptId}`).append($("<div>").addClass("proton").text(scriptName))
+  $(`#${scriptId}`).append($("<div>").addClass("proton").text(scriptName)
+    .prepend($("<span>").addClass(`ui-icon ${iconClass}`))
+    )
 }
 
 
 //when the html doc is ready
 $(document).ready(function(){
+    //autocomplete list
     $( "#scripts" ).autocomplete({
       source: scriptNames,
       autoFocus :true,
@@ -128,16 +159,21 @@ $(document).ready(function(){
       select : function( event, ui ){
         selectScript(ui.item.value)
       }
-    });
+    })
+    //main menu list
     $( "#category-menu" ).menu({
       select : function( event, ui ){
         selectScript(ui.item.text())
       }
     });
+
+
+    //make room for icons in the menu
     const menuWidth = $( "#scripts" ).width()
+    const searchWidth = $( "#search-menu input" ).width()
 
-
-    $(".ui-menu").css({"width":menuWidth})
+    $( "#scripts" ).css({"width":menuWidth+40})
+    $(".ui-menu").css({"width":menuWidth+40})
 
     //focus on the input field
     $( "#scripts" ).focus()
@@ -173,7 +209,7 @@ function secondWindow(paramsNum){
       width:secondWindowWidth,
       height:secondWindowHeight,
       frame:false,
-      icon : path.join(__dirname,"icons",'logo_30px.png')
+      icon : path.join(__dirname,"icons",'logo_full_grey_inverted.png')
     })
     
     adjustWindowPosition(secondWindow,secondWindowWidth,secondWindowHeight)
@@ -345,3 +381,11 @@ function storeSelectedFilePaths(selectedFiles,scriptDir){
   fs.writeFileSync(storedFilePath, selectedFilesEscaped)
   return storedFilePath
 }
+
+
+//possibility to go dev mode
+document.addEventListener("keydown", function (e) {  
+  if (e.keyCode === 123) { // F12
+    myWindow.toggleDevTools();         
+  }
+});

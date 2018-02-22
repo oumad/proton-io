@@ -4,9 +4,8 @@
   "version": "0.0.1",
   "category": "Sequence processing",
   "process": "python",
-  "command": "",
   "script": "exec.py",
-  "getDir": false,
+  "getDir": true,
   "getSel": true,
   "params": [
     {
@@ -30,7 +29,6 @@
     {
       "type": "inputList",
       "name": "Output transfer characteristics",
-      "default": "iec61966_2_1",
       "list": [
         "bt709",
         "gamma",
@@ -49,14 +47,16 @@
         "smpte2084",
         "smpte428_1"
       ],
+      "default": "iec61966_2_1",
       "tooltip": "assign color transfer characteristics"
     },
     {
       "type": "inputSlider",
       "name": "CRF value",
-      "default": "25",
       "min": 0,
       "max": 51,
+      "default": 25,
+      "step": 1,
       "tooltip": "Constant Rate Factor 0 is lossless, and 51 is worst possible. A lower value is a higher quality and a subjectively sane range is 18-28. Consider 18 to be visually lossless or nearly so: it should look the same or nearly the same as the input but it isn't technically lossless."
     },
     {

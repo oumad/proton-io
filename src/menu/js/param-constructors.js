@@ -365,9 +365,6 @@ function outputExecution(myProcess,flags){
 //Get the command from user input
 function buildCommandFromInput(obj){
 
-
-
-
   //declaring flags array
   let flags = [];
 

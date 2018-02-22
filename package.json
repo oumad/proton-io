@@ -55,6 +55,7 @@
         "electron-edge-js": "^8.2.9",
         "electron-squirrel-startup": "^1.0.0",
         "node-gyp": "^3.6.2",
+        "sweetalert": "^2.1.0",
         "tree-kill": "^1.2.0"
     },
     "devDependencies": {

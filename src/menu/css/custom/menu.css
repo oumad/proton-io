@@ -1,0 +1,25 @@
+#scripts{
+	background : #c1c1c1;
+	color:#292929;
+	border-width :1px;
+}
+
+.proton-category{
+	background: #c1c1c1;
+	color:rgb(56, 56, 56);
+	border-style : solid;
+	border-width:1px;
+}
+
+.proton{
+	background: #c1c1c1;
+	color:rgb(21, 21, 21);
+	border-bottom:1px solid;
+	border-color:rgb(156, 156, 156);
+}
+.ui-menu-item{
+	background: #c1c1c1;
+	color:rgb(56, 56, 56);
+	border-bottom:1px solid;
+	border-color:rgb(156, 156, 156);
+}

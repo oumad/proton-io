@@ -1,6 +1,6 @@
 const {dialog,getGlobal} = require('electron').remote
 const BrowserWindow = require('electron').remote.BrowserWindow
-const myWindow = BrowserWindow.getFocusedWindow()
+
 const ipcRenderer = require('electron').ipcRenderer
 const path = require("path")
 const fs = require("fs")
@@ -428,7 +428,8 @@ function myParametricCommand(interfaceObj){
     myArgs.push("<selectedFiles.txt>")
   }
   for (var param in interfaceObj.params){
-  	myArgs.push(interfaceObj.params[param].default)
+  	const paramArg = interfaceObj.params[param].default || "None"
+  	myArgs.push(paramArg)
   }
   //make arges a continious string separated by space
   const commandLine = myArgs.join(" ")

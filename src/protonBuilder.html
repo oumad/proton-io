@@ -16,9 +16,33 @@
 
     <script>if (window.module) module = window.module;</script>
     
-    <script src="menu/js/protonBuilder.js"></script>
+    
   </head>
   <body>
+    <link rel="stylesheet" href="menu/css/nav-bar.css">
+    <div id="nav-wrap">
+      <div id="nav-title">
+        Proton Builder
+      </div>
+      <div class="loader"></div>
+      <div id="nav-buttons">
+        <div class="nav-buttons" id="nav-buttons-info">
+          ?
+        </div>
+        <div class="nav-buttons" id="nav-buttons-min">
+          -
+        </div>
+        <div class="nav-buttons" id="nav-buttons-max">
+          +
+        </div>
+        <div class="nav-buttons" id="nav-buttons-close">
+          &times;
+        </div>
+      </div>
+    </div>
+    <script src="menu/js/nav-bar.js"></script>
+    
+    <script src="menu/js/protonBuilder.js"></script>
     <div class="builder-wrap">
 
       <div class="builder-contain" id="builder-general">

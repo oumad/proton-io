@@ -1,10 +1,10 @@
 const {dialog,getGlobal} = require('electron').remote
 const BrowserWindow = require('electron').remote.BrowserWindow
-const myWindow = BrowserWindow.getFocusedWindow()
 const ipcRenderer = require('electron').ipcRenderer
 const path = require("path")
 const fs = require("fs")
 const url = require('url')
+const rimraf = require('rimraf');
 import swal from 'sweetalert';
 
 const myConfig = getGlobal("myConfig")
@@ -72,9 +72,17 @@ $(function(){
 
 	//remove proton when X is clicked
 	$(".proton-remove.proton-prop").on("click",(event)=>{
+		//get proton class name
 		const selectedProton = $(event.target).attr('proton')
-		$(`.${selectedProton}`).hide("drop",{},1000)
-		$(`.proton-name.proton-prop.${selectedProton}`).addClass('removed-proton')
+
+		//switch state
+		if($(`.proton-name.proton-prop.${selectedProton}`).hasClass('removed-proton')){
+			$(`.${selectedProton}`).css("background","none")
+			$(`.proton-name.proton-prop.${selectedProton}`).removeClass('removed-proton')
+		}else{
+			$(`.${selectedProton}`).css("background","#671212")
+			$(`.proton-name.proton-prop.${selectedProton}`).addClass('removed-proton')
+		}
 	})
 
 	//on save click
@@ -114,7 +122,7 @@ function startRecording(event){
 function stopRecording(event){
 	Mousetrap.stopRecord()
 	$(event.target).siblings(".hotkey-input").show()
-	$(".keyboard-hotkeys-icon").css({"display":"block"})
+	$(event.target).siblings(".keyboard-hotkeys-icon").css({"display":"block"})
 	$(".recording").css({"display":"none"})
 	$(".hotkey-recorder").css({"box-shadow":"0px 0px 0px 0px #c18325"})
 }
@@ -197,7 +205,8 @@ function save(){
 		.then((willDelete) => {
 		  if (willDelete) {
 			console.log("protons deleted")
-			getTableHotkeys()
+			deleteConfirmedProtons()
+			
 		  } else {
 		    swal("No proton was deleted")
 		    /*
@@ -219,7 +228,7 @@ function save(){
 function getTableHotkeys(){
 	const protonHotkeys = []
 	$(".hotkey-input").each(function(){
-		if ($(this).text()){
+		if ($(this).text() && $(this).text() != "n/a"){
 			let hotkeyOptions = {}
 			hotkeyOptions.type = $(this).closest(".proton-prop").attr("hotkey")
 			hotkeyOptions.protonName = $(this).closest(".proton-prop").attr("protonName")
@@ -351,6 +360,13 @@ function tableProtonsFill(){
 			.text("X")
 			.attr("proton",protonClass)
 			)
+
+		if(value.params.length == 0){
+			$(`.proton-param-hotkey.${protonClass} .hotkey-input`)
+				.attr("contenteditable","false")
+				.text("n/a")
+			$(`.proton-param-hotkey.${protonClass} .keyboard-hotkeys-icon`).hide()
+		}
 	})
 }
 
@@ -401,4 +417,42 @@ function setInitialValues(){
 		$(`.proton-${hotkeyType}-hotkey.${protonClass} .hotkey-input`).text(hotkey)
 		//console.log(myConfig.protonHotkeys[i])
 	}
+}
+
+
+function deleteConfirmedProtons(){
+	const deletedPaths = []
+
+	$(".removed-proton-check input").each(function(){
+			if($(this).prop("checked")){
+				deletedPaths.push(path.join(protonsPath,$(this).val()))
+				const protonClass = $(this).val().replaceAll(" ","_")
+				$(`.${protonClass}`).remove()
+			}
+		})
+	deleteDirs(deletedPaths, function(err){
+		  if (err) {
+		    console.log(err);
+		  } else {
+		  	getTableHotkeys()
+		    console.log('all dirs removed');
+		  }
+	})
+}
+
+
+function deleteDirs(dirs, callback){
+  var i = dirs.length;
+  dirs.forEach(function(dirPath){
+	const path = ""
+  	rimraf(dirPath, function (err) { 
+		i--;
+		if (err) {
+			callback(err);
+			return;
+		} else if (i <= 0) {
+			callback(null);
+		} 
+  	});
+  });
 }

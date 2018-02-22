@@ -20,7 +20,7 @@
       "type": "direct"
     },
     {
-      "hotkey": "meta+c",
+      "hotkey": "alt+c",
       "protonName": "CommanPrompt_here",
       "type": "direct"
     }

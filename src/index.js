@@ -57,6 +57,7 @@ function scriptBuilder(){
   prefWindow = new BrowserWindow({
     width:800,
     height:400,
+    frame:false,
     //frame:false,
     autoHideMenuBar: true,
     icon: iconPath,
@@ -73,7 +74,8 @@ function scriptBuilder(){
 function protonManager(){
   prefWindow = new BrowserWindow({
     width:800,
-    height:800,
+    height:1000,
+    frame:false,
     //frame:false,
     autoHideMenuBar: true,
     icon: iconPath,
@@ -90,8 +92,8 @@ function protonManager(){
 app.on('ready', () => {
   const electronScreen = electron.screen
   mainWindow = new BrowserWindow({
-    width:600,
-    height:500,
+    width:500,
+    height:400,
     frame:false,
     show: false,
     alwaysOnTop: true,
