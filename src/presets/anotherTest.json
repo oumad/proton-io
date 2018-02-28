@@ -1,0 +1,29 @@
+{
+  "protonHotkeys": [
+    {
+      "type": "param",
+      "protonName": "sequenceToMp4",
+      "hotkey": "ctrl+shift+m"
+    },
+    {
+      "type": "direct",
+      "protonName": "toggle_hidden_files",
+      "hotkey": "alt+h"
+    },
+    {
+      "type": "direct",
+      "protonName": "toggle_hidden_exts",
+      "hotkey": "alt+e"
+    },
+    {
+      "type": "direct",
+      "protonName": "google_it",
+      "hotkey": "alt+shift+c"
+    },
+    {
+      "type": "direct",
+      "protonName": "CommanPrompt_here",
+      "hotkey": "alt+c"
+    }
+  ]
+}

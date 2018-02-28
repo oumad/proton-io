@@ -1,9 +1,15 @@
 {
+  "autoLaunch": false,
   "directKeydown": "ctrlKey",
   "interfaceFile": "interface.json",
-  "libsPath": "",
   "mainHotkey": "ctrl+tab",
+  "managerPreset": "user_defined",
   "protonHotkeys": [
+    {
+      "hotkey": "ctrl+u",
+      "protonName": "userDir",
+      "type": "direct"
+    },
     {
       "hotkey": "alt+h",
       "protonName": "toggle_hidden_files",
@@ -15,13 +21,18 @@
       "type": "direct"
     },
     {
-      "hotkey": "ctrl+shift+c",
+      "hotkey": "alt+shift+c",
       "protonName": "google_it",
       "type": "direct"
     },
     {
       "hotkey": "alt+c",
       "protonName": "CommanPrompt_here",
+      "type": "direct"
+    },
+    {
+      "hotkey": "ctrl+shift+x",
+      "protonName": "imageConvert",
       "type": "direct"
     }
   ],

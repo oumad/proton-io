@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="menu/css/prefs.css">
     <script src="menu/js/jquery.js"></script>
     <script src="menu/js/jquery-ui.min.js"></script>
-    <script src="menu/js/jquery.ui.combobox.js"></script>
     <script src="menu/js/mousetrap.min.js"></script>
     <script src="menu/js/mousetrap-record.js"></script>
 
@@ -67,6 +66,7 @@
           </div>
           
         </div>
+
       </div>
 
       <div class="user-paths-contain">
@@ -105,6 +105,19 @@
         -->
 
       </div>
+
+      <div class="system-options-contain">
+        <div class="user-path" id="startup-launch">
+          <div class="label">
+            Startup launch
+          </div>
+          <input type="checkbox" name="startup-launch">
+          <div class="description">
+            Automaitcally launch proton-io with system startup.
+          </div>
+        </div>
+      </div>
+
     </div>
     <div class="prefs-save">
       <button type="button" name="save" id="save">save and restart</button>

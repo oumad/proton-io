@@ -57,7 +57,9 @@
             Current Preset
           </div>
           <select name="protonCategory">
-            <option value="direct" selected="selected">User Defined</option>
+            <option class="default-option" value="user_defined" selected="selected">user defined</option>
+            <option disabled>_________________</option>
+            <option value="load" >Load Preset...</option>
           </select>
           <div class="description">
             This applies only to the state and hotkeys of your currently installed protons, it won't delete or add anything.
@@ -106,6 +108,7 @@
               
             </div>
           </div>
+          <!--
           <div class="table-item" id="proton-enable">
             <div class="table-label">
               Enable
@@ -114,6 +117,7 @@
               
             </div>
           </div>
+          -->
           <div class="table-item" id="proton-param-hotkey">
             <div class="table-label">
               Param Hotkey
@@ -143,7 +147,9 @@
       <div id="manager-buttons">
         <button type="button" id="save">Save</button>
         <button type="button" id="preset-save">Save preset</button>
+        <button type="button" id="clear-table">Clear all</button>
         <button type="button" id="cancel">Cancel</button>
+        
         <!--
         <button type="button" name="revert" id="revert">Edit</button>
         <button type="button" name="cancel" id="cancel">cancel</button>

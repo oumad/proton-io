@@ -8,7 +8,7 @@ const url = require('url')
 import swal from 'sweetalert';
 
 const myConfig = getGlobal("myConfig")
-const myScripts = getGlobal("afterScriptsLoad").myScripts
+var myScripts = getGlobal("afterScriptsLoad").myScripts
 
 
 
@@ -20,25 +20,30 @@ const interfaceName = "interface.json"
 
 //on documents ready
 $(function(){
+	/*
 	//when proton type is selected
 	$("#proton-type select").on("change",()=>{
 		const selectedType = $("#proton-type select").val()
 		if(selectedType == "direct"){
 			$("#builder-parameteric").css("display","none")
-			$("#builder-direct").css("display","block")
+			//$("#builder-direct").css("display","block")
 		}else{
 			$("#builder-parameteric").css("display","block")
-			$("#builder-direct").css("display","none")
+			//$("#builder-direct").css("display","none")
 		}
 	})
+	*/
 
 	//when save is clicked
 	$("#save").on("click",()=>{
+		buildParametricProton()
+		/*
 		if($("#proton-type select").val() == "direct"){
 			buildDirectProton()
 		}else{
 			buildParametricProton()
 		}
+		*/
 
 	})
 
@@ -70,6 +75,8 @@ $(function(){
 	$("#inputs-clear").on("click",inputsClear)
 })
 
+
+/*
 //Build direct execution proton
 function buildDirectProton(){
 	const protonName = $("#proton-name input").val()
@@ -111,15 +118,6 @@ function buildDirectProton(){
 			  }
 			});
 
-			/*
-		  modal("Warning !",warningMessage, 
-		  	function(){
-		  		protonCreateAndReload(interfacePath,interfaceObj)
-		  	}, function(){
-					return
-		  	}
-	  	)
-*/
 		}
 	}else{
 		swal({
@@ -130,9 +128,9 @@ function buildDirectProton(){
 	  //modal("Failed to create script !","Proton name needs to be specified",)
 	}
 
-
-
 }
+
+*/
 
 //Create or modify the interface json
 function protonCreateAndReload(interfacePath,interfaceObj){
@@ -156,22 +154,6 @@ function protonCreateAndReload(interfacePath,interfaceObj){
 	})
 }
 
-
-/*
-//attempt to do OOP
- class Input{
- 	constructor (name,default,description,type){
- 		this.name = name;
- 		this.default = default;
- 		this.description = description;
- 		this.type = type;
- 	}
-
- 	field(){
-
- 	}
- }
- */
 
 
 
@@ -257,6 +239,8 @@ function buildParametricProton(){
 		if (!fs.existsSync(protonPath)){
 			fs.mkdirSync(protonPath);
 			protonCreateAndReload(interfacePath,interfaceObj)
+			const newProtonList = getDirectories(path.join(__dirname,"menu","scripts"))
+			$("#proton-name input").autocomplete('option', 'source', newProtonList)
 		}else{
 			swal({
 			  title: "Are you sure?",
@@ -290,12 +274,16 @@ function selectedExistingProton(selectedProton){
 	$("#proton-category input").val(myScripts[selectedProton].category)
 	$("#proton-getDir input").prop('checked',myScripts[selectedProton].getDir)
 	$("#proton-getSel input").prop('checked',myScripts[selectedProton].getSel)
-	$("#proton-command input").val(myScripts[selectedProton].command)
+	//$("#proton-command input").val(myScripts[selectedProton].command)
 	$("#proton-script input").val(myScripts[selectedProton].script)
 	$("#proton-process input").val(myScripts[selectedProton].process)
 	$("#proton-author input").val(myScripts[selectedProton].author)
+	$("#proton-version input").val(myScripts[selectedProton].version)
 	$("#proton-description textarea").val(myScripts[selectedProton].description)
 
+	retrieveParametricProtonInputs(myScripts[selectedProton])
+
+/*
 	if(myScripts[selectedProton].params == ''){
 		console.log(`${selectedProton} is direct`)
 		$('#proton-type select option[value=direct]').prop('selected', true)
@@ -306,6 +294,7 @@ function selectedExistingProton(selectedProton){
 		$("#proton-type select").trigger("change")
 		retrieveParametricProtonInputs(myScripts[selectedProton])
 	}
+	*/
 }
 
 //retrieve existing proton parameters
@@ -328,19 +317,24 @@ function fillParametricProtonInputs(param,paramContainer){
 	})
 }
 
+/*
 //get all values as an obj
 function getDirectValuesAsObj(){
 	let interfaceObj = {}
 
+	interfaceObj.author = $("#proton-author input").val()
+	interfaceObj.description = $("#proton-description textarea").val()
+	interfaceObj.version = "0.0.1"
 	interfaceObj.category = $("#proton-category input").val() || "MISC"
-	interfaceObj.process = 'start ""'
-	interfaceObj.command = $("#proton-command input").val() 
+	interfaceObj.process = $("#proton-process input").val() 
+	interfaceObj.script = $("#proton-script input").val() 
 	interfaceObj.getDir = $("#proton-getDir input").is(":checked")
 	interfaceObj.getSel = $("#proton-getSel input").is(":checked")
 	interfaceObj.params = []
 
 	return interfaceObj
 }
+*/
 
 //get all values as an obj
 function getParametricValuesAsObj(){
@@ -348,7 +342,7 @@ function getParametricValuesAsObj(){
 
 	interfaceObj.author = $("#proton-author input").val()
 	interfaceObj.description = $("#proton-description textarea").val()
-	interfaceObj.version = "0.0.1"
+	interfaceObj.version = $("#proton-version input").val()
 	interfaceObj.category = $("#proton-category input").val() || "MISC"
 	interfaceObj.process = $("#proton-process input").val() 
 	interfaceObj.script = $("#proton-script input").val() 
@@ -385,6 +379,8 @@ function getParametricValuesAsObj(){
 	return interfaceObj
 }
 
+
+/*
 //forming the command line for the direct proton
 function myDirectCommand(interfaceObj){
   // execute the script directly using the command in the interface.json without building a window
@@ -409,7 +405,7 @@ function myDirectCommand(interfaceObj){
   //show modal dialog
   swal("Command preview", modalContent);
 }
-
+*/
 
 //forming the command line for parametric proton
 function myParametricCommand(interfaceObj){
@@ -445,6 +441,11 @@ function myParametricCommand(interfaceObj){
 function previewCommand(){
 	//detect which proton type
 	const selectedType = $("#proton-type select").val()
+	const interfaceObj = getParametricValuesAsObj()
+	myParametricCommand(interfaceObj)
+	/*
+
+
 	if(selectedType == "direct"){
 		const interfaceObj = getDirectValuesAsObj()
 		myDirectCommand(interfaceObj)
@@ -452,6 +453,7 @@ function previewCommand(){
 		const interfaceObj = getParametricValuesAsObj()
 		myParametricCommand(interfaceObj)
 	}
+	*/
 }
 
 
@@ -491,4 +493,14 @@ function inputsClear(){
 	$("#builder-parameteric-specific").empty()
 	//clear all text fields fields
 	$("input,textarea").val("")
+	//Reset scripts
+	myScripts = getGlobal("afterScriptsLoad").myScripts
+}
+
+
+//get all directories from a path
+function getDirectories(path) {
+  return fs.readdirSync(path).filter(function (file) {
+    return fs.statSync(path+'/'+file).isDirectory();
+  });
 }

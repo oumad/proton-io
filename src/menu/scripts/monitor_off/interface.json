@@ -1,7 +1,7 @@
 {
   "category": "MISC",
   "process": "start \"\"",
-  "command": "./nircmd.exe cmdwait 1000 monitor off",
+  "script": "./nircmd.exe cmdwait 1000 monitor off",
   "getDir": false,
   "getSel": false,
   "params": []

@@ -1,0 +1,66 @@
+{
+  "author": "",
+  "description": "",
+  "version": "0.0.1",
+  "category": "MISC",
+  "process": "",
+  "script": "",
+  "getDir": false,
+  "getSel": false,
+  "params": [
+    {
+      "type": "inputField",
+      "name": "Output name",
+      "default": "",
+      "tooltip": "The name to your output file"
+    },
+    {
+      "type": "inputFilePath",
+      "name": "Mask",
+      "default": "",
+      "tooltip": "You can choose a mask file to be used for this operation"
+    },
+    {
+      "type": "inputDirectory",
+      "name": "Output directory",
+      "default": "",
+      "tooltip": "The directory where you want to have your output file"
+    },
+    {
+      "type": "inputCheckbox",
+      "name": "Open output",
+      "default": false,
+      "tooltip": "To open the output image when it's done"
+    },
+    {
+      "type": "inputList",
+      "name": "Format",
+      "list": [
+        "png",
+        "jpeg",
+        "tiff",
+        "tga",
+        "psd",
+        "exr",
+        "gif"
+      ],
+      "default": "png",
+      "tooltip": "The desired format for your output image"
+    },
+    {
+      "type": "inputSlider",
+      "name": "Quality",
+      "min": 0,
+      "max": 100,
+      "default": 90,
+      "step": 1,
+      "tooltip": "The quality of the result, this affects the speed of compression too"
+    },
+    {
+      "type": "inputColor",
+      "name": "Background color",
+      "default": "#000000",
+      "tooltip": "The background to give to the ouput image"
+    }
+  ]
+}

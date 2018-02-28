@@ -3,7 +3,6 @@
   "description": "Render a maya scene without opening it",
   "version": "0.0.1",
   "process": "python",
-  "command": "",
   "script": "exec.py",
   "getDir": true,
   "getSel": true,

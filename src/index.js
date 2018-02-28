@@ -11,7 +11,7 @@ const globalShortcut = electron.globalShortcut
 const ipcMain  = electron.ipcMain
 const edge = require('electron-edge-js');
 const currentPath = require('current-path');
-
+const AutoLaunch = require('auto-launch');
 
 //right click
 require('electron-context-menu')({
@@ -30,10 +30,35 @@ global.myConfig = JSON.parse(fs.readFileSync(path.join(__dirname,'config.json'),
 
 
 
+//handling autolaunch
+let protonioAutoLauncher = new AutoLaunch({
+    name: 'Proton-io',
+});
+
+if (global.myConfig.autoLaunch){
+    protonioAutoLauncher.isEnabled()
+    .then(function(isEnabled){
+        if(isEnabled){
+            return;
+        }
+        protonioAutoLauncher.enable();
+    })
+}else{
+  protonioAutoLauncher.isEnabled()
+  .then(function(isEnabled){
+      if(isEnabled){
+          protonioAutoLauncher.disable();
+      }
+  })
+}
+
+
 const iconPath = path.join(__dirname, 'icons','logo_30px.png');
 let appTray = null
 let mainWindow
 let prefWindow
+let builderWindow
+let managerWindow
 
 
 //function for the preferences window
@@ -54,15 +79,15 @@ function preferencesWindow(){
 
 //function for the Script Builder window
 function scriptBuilder(){
-  prefWindow = new BrowserWindow({
-    width:800,
-    height:400,
+  builderWindow = new BrowserWindow({
+    width:860,
+    height:500,
     frame:false,
     //frame:false,
     autoHideMenuBar: true,
     icon: iconPath,
   })
-  prefWindow.loadURL(url.format({
+  builderWindow.loadURL(url.format({
     pathname : path.join(__dirname,'protonBuilder.html'),
     protocol : 'file',
     slashes : true
@@ -72,7 +97,7 @@ function scriptBuilder(){
 
 //function for the Script Builder window
 function protonManager(){
-  prefWindow = new BrowserWindow({
+  managerWindow = new BrowserWindow({
     width:800,
     height:1000,
     frame:false,
@@ -80,7 +105,7 @@ function protonManager(){
     autoHideMenuBar: true,
     icon: iconPath,
   })
-  prefWindow.loadURL(url.format({
+  managerWindow.loadURL(url.format({
     pathname : path.join(__dirname,'protonManager.html'),
     protocol : 'file',
     slashes : true
@@ -260,6 +285,8 @@ ipcMain.on('get-current-dir',function(event,arg){
   });
 })
 
+
+//Editing myconfig.json on request
 ipcMain.on('myConfig-edit',function(event,arg){
 
   fs.writeFile(myConfigPath, JSON.stringify(arg.myConfig, null, 2), function (err) {

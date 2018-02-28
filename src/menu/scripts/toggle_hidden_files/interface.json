@@ -1,7 +1,7 @@
 {
   "category": "MISC",
   "process": "start",
-  "command": "./exec.exe",
+  "script": "./exec.exe",
   "getDir": true,
   "getSel": false,
   "params": []

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="assets/css/jquery-ui.css">
+	<link rel="stylesheet" href="assets/css/style.css">
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/velocity.min.js"></script>
+	<script src="assets/js/main.js"></script>
+	<title>proton-io</title>
+	
+</head>
+<body>
+	<header>
+	<div class="global-header">
+		<div class="top-logo">
+			Proton-io
+		</div>
+		<nav>
+			<ul>
+				<li>
+					<a id="documentation" href="#documentation" >Documentation</a>
+				</li>
+				<li>
+					<a href="https://github.com/" target="_blank">GitHub</a>
+				</li>
+			</ul>
+		</nav>
+
+	</div>
+	</header>
+	<div class="landing-page">
+
+		<div class="page-one">
+			<div class="desc">
+				<h2>
+					"A shortcut to any task"
+				</h2>
+			</div>
+			<div class="preview">
+				<img src="assets/images/proton-menu.png">
+			</div>
+			<div class="buttons">
+				<button class="demo">Demo</button>
+				<button class="download">Download</button>
+				
+			</div>
+		</div>
+
+
+		<div class="page-two">
+
+			<nav class="side-menu">
+				<h1>Support</h1>
+				<a href="#getting-started">Getting started</a>
+				<a href="#preferences">Preferences</a>
+				<a href="#script-parameters">Script parameters</a>
+				<a href="#builder">Builder</a>
+				<a href="#manager">Manager</a>
+				<a href="#customization">Customization</a>
+				<a href="#tutorials">Tutorials</a>
+			</nav>
+			<div class="page-content">
+				<h1 id="getting-started">Getting started</h1>
+				<ul>
+					<li>
+						<h3 class="second-titles">
+							Installation
+						</h3>
+						<p>
+							<ul>
+								<li>1- Download Proton-io archive.</li>
+								<li>2- Extract Proton-io archive.</li>
+								<li>3- Double click Protonio.exe, that's it.</li>
+							</ul>
+						</p>
+					</li>
+					<li>
+						<h3 class="second-titles">
+							Usage
+						</h3>
+						<p>
+							You'll be able to show the menu by pressing the hotkey, by default it's "Ctrl+tab", this can be changed in <a href="#preferences">preferences</a>.
+						</p>
+						<img src="assets/images/docs/menu_reveal.jpg">
+						<p>
+							You can either start typing to quickly search for a script, 
+						</p>
+						<img src="assets/images/docs/menu_search.png">
+						<p>
+							or you choose one in the categorised menu.
+						</p>
+						<img src="assets/images/docs/menu_category.png">
+						<p>
+							scripts with the icon <span class="ui-icon ui-icon-newwin"></span> will generate a window with parameters to set and then execute by the user with the button "apply" (more about this window in <a href="#script-parameters">Script parameters</a>). The scripts with the icon <span class="ui-icon ui-icon-play"></span> will not generate a window and will always be executed directly.
+						</p>
+						<p class="tips-content">
+							<strong class="tips" id ="#tip-1">Tip #1:</strong> You can also directly execute parametric scripts in their default parameters by holding 'Ctrl' before you select one, the hotkey to hold can be changed in <a href="#preferences">preferences</a>.<br>
+							<strong class="tips" id ="#tip-2">Tip #2:</strong> You can execute a direct or a parameteric script even faster without opening the menu by giving it a hotkey, check <a href="#manager">Manager</a> to see how you can do that.
+						</p>
+					</li>
+				</ul>
+				<h1 id="preferences">Preferences</h1>
+				<ul>
+					<li>
+						<h3 class="second-titles">
+							Menu display hotkey
+						</h3>
+						<img src="assets/images/docs/menu_display_hotkey.jpg">
+						<p>
+							This is the hotkey that will display the proton-io menu at your mouse position, to change it, either edit the hotkey text manually or let it record one for you by clicking the keyboard icon and then you make the key combination you want.
+						</p>
+					</li>
+					<li>
+						<h3 class="second-titles">
+							Direct execution hotkey
+						</h3>
+						<img src="assets/images/docs/direct_execution_hotkey.jpg">
+						<p>
+							This is the key to hold if you want to force direct execution on parametric scripts in their default settings without displaying the parameters window. You can choose in the dropdown menu which key to hold.
+						</p>
+					</li>
+					<li>
+						<h3 class="second-titles">
+							Scripts path
+						</h3>
+						<img src="assets/images/docs/scripts_path.jpg">
+						<p>
+							Here you can change the path where the app will look for the scripts, this can be useful when you want to centralize all the scripts for the same team in a remote directory.
+						</p>
+					</li>
+				</ul>
+
+				<h1 id="script-parameters">Script parameters</h1>
+				<ul>
+					<li>
+						<h3 class="second-titles">General</h3>
+						<p>
+							When you select a script in the list that has this icon <span class="ui-icon ui-icon-newwin"></span> (meaning it's a parameteric script), you'll see a window like this.
+						</p>
+						<img src="assets/images/docs/script_parameters.jpg">
+						<p>
+							All the input fields will act as arguments to the script. You'll see a description of each input when you hover the mouse over the input title. This is all generated automatically based on the script's interface.json file. An explanation of how to create these can be found in <a href="#builder">Builder</a>.<br>
+							<strong>apply : </strong> To execute the script with the arguments above.<br>
+							<strong>save : </strong> To save the current values as default, useful when you want to use the script multiple times faster next time without opening the window (check tip #1 and #2 in <a href="#getting-started">Getting started</a>).<br>
+							<strong>cancel : </strong> This will simply close the window.<br>
+							<strong>Debugger : </strong> When this is checked, as soon as you hit 'apply' you'll see a black overlay which will give you all the execution output, you can also show this overlay by simply clicking the 'Debugger' text.
+						</p>
+					</li>
+					<li>
+						<h3 class="second-titles">
+							Debugger
+						</h3>
+						<img src="assets/images/docs/script_parameters_debugger.jpg">
+						<p>
+							<strong>stop : </strong> To kill the currently running process of the script.<br>
+							<strong> clear : </strong> To clear all the text in the debugger.<br>
+							<strong> restart : </strong> To re-execute the script in the same values.<br>
+							<strong> start detached : </strong> This will run the script in a separate shell window.<br>
+							<strong>command preview : </strong> To see what the actual execution command with its arguments look like.<br>
+							<strong> close : </strong> Hide the debugger
+						</p>
+					</li>
+				</ul>
+				<h1 id="builder"> Builder</h1>
+				<ul>
+					<li>
+						<h3 class="second-titles">
+							General
+						</h3>
+						<p>
+							Proton-io builder is an interface that allows you to create scripts for proton-io without writing the interface.json file manually. Learn more about  <a href="#interface-json">interface.json</a>.<br>
+							You can access the Builder by right clicking the proton-io tray icon to reveal the menu and then select 'Builder'.
+						</p>
+						<img src="assets/images/docs/builder_general.jpg">
+						<p>
+							<strong>Proton type : </strong> Here you can choose weather the script you're about to create is gonna have parameters for the user or not. <br>
+							<strong>Proton name : </strong>This is the name of your script, the same name it will appear with in the menu. <br>
+							<strong>Proton category : </strong> Here you can write the category in which this script will belong to, giving it a new category will create one automatically in the menu. <br>
+							<strong>Get current directory : </strong> If this is checked, the command you give in this script will have the active directory as an argument. <br>
+							<strong>Get selected files : </strong> Same as 'Get current directory' except this one will give the path of a selectedFiles.txt file that containes the selected file paths. <br>
+
+							<strong>Proton Script : </strong> An executable, command or even a path to a script that will make use of the user parameters to perform the desired task. You can also use './' in the path which will be replaced to the script interface directory. <br>
+							<strong>Proton process : </strong> The process that will run your script (ex : python executable). <br>
+							<strong>Author : </strong> The author name, which will be displayed when a user clicks the question mark '?' in a script parameter window. <br>
+							<strong>Version : </strong> To version your script. <br>
+							<strong> Description : </strong> A description of the script, same as the Author, it will be displayed upon clicking the question mark in the parameters window and on mouse over proton name in the menu and in <a href="#manager">Manager</a>. <br>
+							<strong>inputs : </strong>You can choose an input type to add to your parameteric script by clicking the <span class="ui-icon ui-icon-plusthick"></span> icon. these are the available input types :
+						</p>
+						<img src="assets/images/docs/builder_parameters.jpg">
+						<ul id = "input-types" class="less-line-height">
+							<li>
+								<p>
+									<strong>inputField : </strong> A basic text field to input any kind of value.
+								</p>
+							</li>
+							<li>
+								<p>
+									<strong>inputFilePath : </strong> A text field which has a button to browse file paths.
+								</p>
+							</li>
+							<li>
+								<p>
+									<strong>inputdirectoryPath : </strong> A text field which has a button to browse and choose a directory.
+								</p>
+							</li>
+							<li>
+								<p>
+									<strong>inputCheckbox : </strong> A basic checkbox input that will output either a 'true' or a 'false' statement.
+								</p>
+							</li>
+							<li>
+								<p>
+									<strong>inputList : </strong> Generates a Drop down list, the list values can be separated with a comma ','.
+								</p>
+							</li>
+							<li>
+								<p>
+									<strong>inputSlider : </strong> Generates a slider with a defined minimum and maximum values and also the step count.
+								</p>
+							</li>
+							<li>
+								<p>
+									<strong>inputcolor : </strong> Generates a color pick input.
+								</p>
+							</li>
+						</ul>
+						<p>
+							All these inputs require to be given a name, and each name needs to be unique, some input types require other things for example inputList requires that you give it list of values separated by a comma, and slider input needs you to specify for it a min and a max value. all inputs can be given default values and a description. The description appears when the user puts the mouse over the input title. And the inputs can be previewed anytime by clicking 'Interface preview'. And 'Command preview' will show what they'll excute by default. You can also delete <span class="ui-icon ui-icon-trash"></span>, revert <span class="ui-icon ui-icon-arrowreturnthick-1-w"></span>, and change the order <span class="ui-icon ui-icon-arrowthick-2-n-s"></span> of the inputs.
+						</p>
+						<img src="assets/images/docs/builder_buttons.jpg">
+						<p>
+							<strong>Save : </strong> To save the script you just created. <br>
+							<strong>Interface preview : </strong> This shows you a preview of the window that is generated by the script, this is intended for scripts that have user inputs, but it can also be useful for direct ones to test and debug them. <br>
+							<strong>Command Preview : </strong> To quickly display the actual command that will be executed. <br>
+							<strong>Clear all : </strong> To quickly clear all the inputs in the interface. <br>
+						</p>
+						<p class="tips-content">
+						<strong class="tips" id ="#tip-3">Tip #3 : </strong> When you start typing a Proton name, the existing ones will be suggested to you, when you click one of them, all their settings will appear, this allows you to modify them and re-save them. So this can be a good way to edit existing scripts.
+						</p>
+					</li>
+				</ul>
+				<h1 id="manager">Manager</h1>
+				<ul>
+					<li>
+						<h3>General</h3>
+						<p>Proton-io manager is a useful interface in which you can easily setup hotkeys that will allow you to use your scripts much faster without opening the menu, it also gives you other possibilities like easily delete existing scripts if needed.</p>
+						<img src="assets/images/docs/manager_general.jpg">
+						<p>
+							<strong>Current Preset : </strong> This allows you to choose ones of your saved presets or load a new one from a different location.<br>
+							<strong>Category : </strong> To isolate one category in the table.<br>
+							<strong>Filter : </strong>Quickly filter out scripts by starting to type characters contained in the desired script.<br>
+							<img src="assets/images/docs/manager_buttons.jpg"><br>
+							<strong>Save : </strong>Save the current changes, this will cause the application to restart in order to apply the new hotkeys globally.<br>
+							<strong>Save preset : </strong>Save the current settings in a preset.<br>
+							<strong>Clear All : </strong>To clear all the fields in the table.<br>
+							<strong>Cancel : </strong>Cancel all changes and close the window.<br>
+						</p>
+					</li>
+					<li>
+						<h3>Table</h3>
+						<img src="assets/images/docs/manager_table.jpg">
+						<p><strong>Proton name : </strong> This column containes the names of each available script, all under their categories as groups, the groups visibility can be toggled by clicking the category name.<br>
+						<strong>Param hotkey : </strong> The hotkey that will open the parameters window of the script, you'll notice some scripts have 'n/a' in this column, that's because those are direct execution scripts that don't have parameters to be set by the user, so those have a direct hotkey only.<br>
+						<strong>Direct hotkey : </strong> The hotkey to directly execute the script in its default parameters.<br>
+						<strong>Remove : </strong> to select the scripts that you want to be removed, the removal will happen only after saving, and a confirmation message will be given after clicking 'Save' when some scripts are checked to be deleted..<br>
+					</li>
+				</ul>
+				<h1 id="customization">Customization</h1>
+				<ul>
+					<li>
+						<h3>Interface customization</h3>
+						<p>Coming soon...</p>
+					</li>
+				</ul>
+				<h1 id="tutorials">Tutorials</h1>
+				<ul>
+					<li>
+						<h3>Make a proton-io script</h3>
+						<p>
+							This works for any executables or any command/script from any launguage, be it batch, python, node.js etc...<br>
+							The idea basically is taking arguments from proton-io such as the selected files paths, the active directory and even other user input values from the parameters window. <br>
+							First let's create the <a href="#interface-json">interface.json</a> for our script, this allows proton-io to understand the nature of your script and how it'll use it etc....<br>
+							Luckily for us we have <a href="#builder">Builder</a> which allows us to create that easily. So just right click the tray icon of proton-io and select <a href="#builder">Builder</a>.
+						</p>
+
+						<img src="assets/images/docs/tutorial_01.jpg">
+						<p>
+							Ok let's see what's happening here, we just made a script named 'CommandPrompt_here', we checked 'Get current directory' so it will receive the path to the active directory as an argument, the script is a simple command <code>cmd /k cd /d</code> that opens the command line prompt in the path that comes after <code>/d</code>, in our case it will always be the active directory since we checked it above to act as an argument. <br>
+							Opening command prompt in the current directory...Well this can already be achieved using windows context menu right? <br>
+							So let's see what else we can do with proton-io. First, instead of launching the script by selecting it in the menu, you can instead directly execute it with a hotkey of your choice, you can give it a hotkey using <a href="#manager">Manager</a>. This is for now the fastest way you can use proton-io scripts <br>
+							But what if we want to give our script parameters? This is another thing windows context menu doesn't offer, let's see how we can do that using proton-io in the next tutorial.
+						</p>
+					</li>
+					<li>
+						<h3>Make a script with parameters</h3>
+						<p>
+							Having the possibility to input parameters for your scripts before execution opens doors for a lot more scripting tasks and solutions.
+						</p>
+						<img src="assets/images/docs/tutorial_02.jpg">
+						<p>
+							This script's purpose is simply being able to rename the currently selected files in the explorer by search and replace. <br>
+							So the idea is to get the currently selected files paths, a search input and a replace input, and then handle all that in a command that would rename those files accordingly. <br>
+							While creating the <a href="#interface-json">interface.json</a> for this script, we want to make sure we check the 'Get selected files' that will give us the selected file paths as an argument, and also add some input fields for the user to type in what string to search and what string to be replaced with. <br>
+							After that all we need is prepare a script that would handle those arguments and do the task we want. <br>
+							This can be done in any launguage but for me the easiest is python. So I specified an <code>exec.py</code> file to execute with 'python' as the process. <br>
+						</p>
+						<p class="tips-content">
+							<strong class="tips" id ="#tip-4">Tip #4 : </strong> The <code>./</code> in 'Proton Script' will be replaced with the script's <a href="#interface-json">interface.json</a> path, this way you can keep your script relative to where <a href="#interface-json">interface.json</a> is.<br>
+							<strong class="tips" id ="#tip-4">Tip #5 : </strong> By typing only 'python' in the 'Proton Process'. the python exe that comes with proton-io will be used which is v2.7.14. You can give it a full path if you want to use another python exe.
+						</p>
+						<p>
+							This is how the automatically generated interface looks like :
+						</p>
+						<img src="assets/images/docs/tutorial_04.jpg">
+						<p>
+							This is how my <code>exec.py</code> script file looks like.
+						</p>
+						<img src="assets/images/docs/tutorial_03.jpg">
+						<p>
+							As expected, the script takes the 4 arguments given by proton-io (including the script path itself). <br>
+							Notice how I read <code>mySel</code> as a file. that's because proton-io sends the path to a <code>selectedFiles.txt</code> file that contains the list of the selected file paths. I avoid sending the array of file paths directly from proton-io because it can get too large for the command line to take.
+						</p>
+
+					</li>
+
+				</ul>
+			</div>
+		</div> 
+	</div>
+
+	<footer>
+		<div class="container">
+			<nav>
+				<ul>
+					<li>
+						<a href="about">About</a>
+					</li>
+					<li>
+						<a href="contact">Contact</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</footer>
+
+</body>
+</html>

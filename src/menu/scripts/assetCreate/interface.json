@@ -4,7 +4,6 @@
   "version": "0.0.1",
   "category": "",
   "process": "python",
-  "command": "",
   "script": "exec.py",
   "getDir": true,
   "getSel": false,

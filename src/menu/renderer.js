@@ -142,7 +142,7 @@ for (var p in scriptNames){
   const scriptCategory = myScripts[scriptName].category || "MISC"
   const scriptCategoryId = scriptCategory.replaceAll(" ","-")
   $(`#${scriptCategoryId} ul`).append($("<li>").attr('id',scriptId))
-  $(`#${scriptId}`).append($("<div>").addClass("proton").text(scriptName)
+  $(`#${scriptId}`).append($("<div>").addClass("proton").text(scriptName).attr("title",myScripts[scriptName].description)
     .prepend($("<span>").addClass(`ui-icon ${iconClass}`))
     )
 }
@@ -273,22 +273,17 @@ function scriptBuilder(){
 function myDirectExecute(selectedScript){
   // execute the script directly using the command in the interface.json without building a window
   let myArgs = []
-  const rawCommand = myScripts[selectedScript].command
-  const command = rawCommand.replace("./","")
-  const script = myScripts[selectedScript].script
+  const rawScript = myScripts[selectedScript].script
+  const script = rawScript.replace("./","")
   //append command if exist
-  if (rawCommand != ''){
-    if(rawCommand.includes('./')){
+  if (rawScript != ''){
+    if(rawScript.includes('./')){
       //using an external execution
-      myArgs.push(path.join(scriptSource,selectedScript,command))
+      myArgs.push(path.join(scriptSource,selectedScript,script))
     }else{
       //using internal script
-      myArgs.push(command)
+      myArgs.push(script)
     }
-  }
-  //append script if exists
-  if (script != '' && script === 'string' ){
-    myArgs.push(script)
   }
 
   //check if interface requests Directory
@@ -312,25 +307,25 @@ function myDirectExecute(selectedScript){
 
 function myParamExecute(selectedScript){
   let myArgs = []
-  let execPath
-  const scriptName = myScripts[selectedScript].script
+
   const scriptDir = path.join(scriptSource,selectedScript)
 
-  if(scriptName.indexOf('\\') > -1 || scriptName.indexOf('/') > -1 ){
-    //using an external execution
-    execPath = scriptName
-  }else{
-    //using internal script
-    execPath = path.join(scriptSource,selectedScript,scriptName)
+  const rawScript = myScripts[selectedScript].script
+  const script = rawScript.replace("./","")
+  //append command if exist
+  if (rawScript != ''){
+    if(rawScript.includes('./')){
+      //using an external execution
+      myArgs.push(path.join(scriptSource,selectedScript,script))
+    }else{
+      //using internal script
+      myArgs.push(script)
+    }
   }
-
-  myArgs.push(execPath)
 
   if (myScripts[selectedScript].getDir){
     const selectedDir = ipcRenderer.sendSync('get-current-dir')
     myArgs.push(`"${selectedDir.stdout }"`)
-  }else{
-    myArgs.push("None")
   }
 
   if (myScripts[selectedScript].getSel){
@@ -339,8 +334,6 @@ function myParamExecute(selectedScript){
     const storedFilePath = storeSelectedFilePaths(selectedFiles,scriptDir)
     myArgs.push(storedFilePath)
     //flags.push(`"${storedFilePath}"`)
-  }else{
-    myArgs.push("None")
   }
 
   if (myScripts[selectedScript].params.length>0){

@@ -1,1 +1,1 @@
-T:\MOHAMED\FORMATION_PREPARATION_REMONTAGE_CGI\00_TRAVAIL\00_RECEPTION\refs\something_bad,T:\MOHAMED\FORMATION_PREPARATION_REMONTAGE_CGI\00_TRAVAIL\00_RECEPTION\refs\something_bad - Copie
+C:\Users\moumoumad\Desktop\testing_proton-io\refs\Peugeot-3008-2017-1280-3f.jpg,C:\Users\moumoumad\Desktop\testing_proton-io\refs\Peugeot-3008-2017-1280-3d.jpg,C:\Users\moumoumad\Desktop\testing_proton-io\refs\Peugeot-3008-2017-1280-3e.jpg

@@ -33,3 +33,35 @@
 .proton-category{
   padding:2px 4px !important;
 }
+
+.proton-list{
+  max-height:330px;
+  overflow-y:auto;
+  overflow-x: hidden;
+}
+
+category-menu{
+  max-height:400px;
+  overflow-y:auto;
+  overflow-x: hidden;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #636363; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #252525; 
+}

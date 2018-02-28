@@ -4,7 +4,6 @@
   "version": "0.0.1",
   "category": "image processing",
   "process": "python",
-  "command": "",
   "script": "exec.py",
   "getDir": true,
   "getSel": true,
@@ -36,7 +35,7 @@
     {
       "type": "inputList",
       "name": "Format",
-      "default": "jpeg",
+      "default": "tga",
       "list": [
         "jpeg",
         "jpg",

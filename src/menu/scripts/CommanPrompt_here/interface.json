@@ -1,7 +1,10 @@
 {
+  "author": "",
+  "description": "",
+  "version": "",
   "category": "MISC",
-  "process": "start \"\"",
-  "command": "cmd /k cd /d",
+  "process": "start",
+  "script": "cmd /k cd /d",
   "getDir": true,
   "getSel": false,
   "params": []

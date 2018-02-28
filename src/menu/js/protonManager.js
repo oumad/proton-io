@@ -15,28 +15,46 @@ const protonsPath = myConfig.scriptsPath || path.join(__dirname,"menu","scripts"
 const libsPath = myConfig.libsPath || path.join(__dirname,"menu","libs")
 const interfaceName = "interface.json"
 
-//replace all instances of a string
-String.prototype.replaceAll = function(search, replacement) {
-    var target = this;
-    return target.split(search).join(replacement);
-};
 
-$.fn.toggleAttr = function(attr, attr1, attr2) {
-  return this.each(function() {
-    var self = $(this);
-    if (self.attr(attr) == attr1)
-      self.attr(attr, attr2);
-    else
-      self.attr(attr, attr1);
-  });
-};
 
 //on documents ready
 $(function(){
+
+	//fill Presets
+	loadPresets()
+
 	//when preset is selected
-	$("#presets select").on("change",()=>{
-		const selectedPresets = $("#presets select").val()
-		console.log(selectedPresets)
+	$("#manager-presets select").on("change",()=>{
+		const selectedPresets = $("#manager-presets select").val()
+		if(selectedPresets == 'load'){
+			//bring up dialog to choose the preset
+			dialog.showOpenDialog({
+				properties: ['openFile'],
+				filters : [{name: ' Manager Presets', extensions: ['json']}],
+			},(selected)=>{
+				if(selected){
+					//get the name of the preset
+					const presetName = path.parse(selected[0]).name
+					//read the preset file as an object
+					const presetObj = JSON.parse(fs.readFileSync(selected[0], 'utf8'))
+					//change interface values based on the preset
+					setTableValues(presetObj.protonHotkeys)
+					//add preset option name
+					$("#manager-presets select").append(
+						$("<option>").attr("value",presetName).text(presetName)
+						)
+					//set preset option as selected
+					$("#manager-presets select").val(presetName)
+				}
+	        })
+		}else if(selectedPresets == 'user_defined'){
+			setTableValues(myConfig.protonHotkeys)
+		}else{
+			const presetFileName = selectedPresets.replaceAll(" ","_") + ".json"
+			const presetObj = JSON.parse(fs.readFileSync(path.join(__dirname,"presets",presetFileName), 'utf8'))
+			//change interface values based on the preset
+			setTableValues(presetObj.protonHotkeys)
+		}
 	})
 
 
@@ -48,7 +66,7 @@ $(function(){
 	tableProtonsFill()
 
 	//fill hotkeys
-	setInitialValues()
+	setTableValues(myConfig.protonHotkeys)
 
 	//search and filter
 	$("#proton-search input").on("keyup", function() {
@@ -86,11 +104,15 @@ $(function(){
 	})
 
 	//on save click
-	$("#save").on("click",()=>{
-		save()
-	})
+	$("#save").on("click",save)
 	//on cancel click
 	$("#cancel").on("click",()=>{myWindow.close()})
+
+	//on save preset
+	$("#preset-save").on("click",managerPresetSave)
+	//on Clear all
+	$("#clear-table").on("click",clearTableValues)
+
 
 
 	//when the keyboard icon is clicked
@@ -120,9 +142,17 @@ function startRecording(event){
 
 //what happens when key recording stops
 function stopRecording(event){
+	console.log(event.target)
 	Mousetrap.stopRecord()
+
+	if($(event.target).hasClass("recording")){
+		$(event.target).siblings(".keyboard-hotkeys-icon").css({"display":"block"})
+	}else{
+		$(event.target).css({"display":"block"})
+	}
 	$(event.target).siblings(".hotkey-input").show()
 	$(event.target).siblings(".keyboard-hotkeys-icon").css({"display":"block"})
+
 	$(".recording").css({"display":"none"})
 	$(".hotkey-recorder").css({"box-shadow":"0px 0px 0px 0px #c18325"})
 }
@@ -181,6 +211,8 @@ function save(){
 			$("<div>").addClass("removed-list-info").text("You can uncheck the ones you don't want to delete")
 			)
 	let deleteProtons = []
+	//get hotkeys
+	let tableHotkeys = getTableHotkeys()
 	$(".removed-proton").each(function(){
 		deleteProtons.push($(this).text())
 		const removedProton = $(this).text()
@@ -205,45 +237,38 @@ function save(){
 		.then((willDelete) => {
 		  if (willDelete) {
 			console.log("protons deleted")
-			deleteConfirmedProtons()
-			
+			//This will also save the hotkeys
+			deleteConfirmedProtons(tableHotkeys)
 		  } else {
 		    swal("No proton was deleted")
-		    /*
-		    .then((ok)=>{
-		    	getTableHotkeys()
-		    });
-		    */
 		  }
 		});
 	}else{
-		getTableHotkeys()
+		updateConfig(tableHotkeys)
 	}
-
-	//get all the hotkeys to save in the config
-	//getTableHotkeys()
 }
 
 
+function updateConfig(protonHotkeys){
+	let newConfig = myConfig
+	newConfig["protonHotkeys"] = protonHotkeys
+	newConfig["managerPreset"] = $("#manager-presets select").val()
+	ipcRenderer.send('myConfig-edit',{myConfig : newConfig})
+}
+
 function getTableHotkeys(){
-	const protonHotkeys = []
+	const tableHotkeys = []
 	$(".hotkey-input").each(function(){
 		if ($(this).text() && $(this).text() != "n/a"){
 			let hotkeyOptions = {}
 			hotkeyOptions.type = $(this).closest(".proton-prop").attr("hotkey")
 			hotkeyOptions.protonName = $(this).closest(".proton-prop").attr("protonName")
 			hotkeyOptions.hotkey = $(this).text()
-			protonHotkeys.push(hotkeyOptions)
+			tableHotkeys.push(hotkeyOptions)
 		}
 		//console.log($(this).text())
 	})
-	let newConfig = myConfig
-	newConfig.protonHotkeys = protonHotkeys
-	
-	ipcRenderer.send('myConfig-edit',{myConfig : newConfig})
-
-
-	//console.log(newConfig)
+	return tableHotkeys
 }
 
 
@@ -318,6 +343,7 @@ function tableProtonsFill(){
 
 		$(`#proton-name .table-content .${categoryClass}`).after(
 			$("<div>").addClass(`proton-name table-row proton-prop ${protonClass} ${categoryClass}-proton`)
+			.attr("title",value.description)
 			.text(key)
 			.attr("proton",protonClass)
 			//.attr('state','available')
@@ -407,20 +433,29 @@ function sortTableElements(){
 
 
 
+function clearTableValues(){
+	$(".hotkey-input").each(function(){
+		if ($(this).text() && $(this).text() != "n/a"){
+			$(this).text("")
+		}
+		//console.log($(this).text())
+	})	
+}
+
 //Set config.json values to the DOM
-function setInitialValues(){
-	for (let i in myConfig.protonHotkeys){
-		const protonClass = myConfig.protonHotkeys[i].protonName.replaceAll(" ","_")
-		const hotkey = myConfig.protonHotkeys[i].hotkey
-		const hotkeyType = myConfig.protonHotkeys[i].type
-		console.log(hotkey)
+function setTableValues(protonHotkeys){
+	clearTableValues()
+	for (let i in protonHotkeys){
+		const protonClass = protonHotkeys[i].protonName.replaceAll(" ","_")
+		const hotkey = protonHotkeys[i].hotkey
+		const hotkeyType = protonHotkeys[i].type
 		$(`.proton-${hotkeyType}-hotkey.${protonClass} .hotkey-input`).text(hotkey)
-		//console.log(myConfig.protonHotkeys[i])
 	}
 }
 
 
-function deleteConfirmedProtons(){
+//delete the checked scripts after confirmation
+function deleteConfirmedProtons(tableHotkeys){
 	const deletedPaths = []
 
 	$(".removed-proton-check input").each(function(){
@@ -434,13 +469,68 @@ function deleteConfirmedProtons(){
 		  if (err) {
 		    console.log(err);
 		  } else {
-		  	getTableHotkeys()
+		  	updateConfig(tableHotkeys)
 		    console.log('all dirs removed');
 		  }
 	})
 }
 
 
+
+//Save preset
+function managerPresetSave(){
+	swal({
+		text: 'Give a name to your preset',
+		content: "input",
+		button: {
+			text: "Save Preset",
+		},
+	}).then(name => {
+		if (name){
+			console.log(name)
+			const presetFullName = `${name}.json`
+			let tableHotkeys = getTableHotkeys()
+			let presetObj = {"protonHotkeys":tableHotkeys}
+			const presetPath = path.join(__dirname,"presets",presetFullName)
+
+
+			fs.writeFile(presetPath, JSON.stringify(presetObj, null, 2), function (err) {
+				if (err) {
+					console.log(err);
+				}else{
+					loadPresets()
+					swal("Preset was successfully saved here!", presetPath, "success");
+				}
+
+			});
+		}else{
+			swal("No preset was saved","You need to give the preset a name to be saved", "info");
+		}
+
+	})
+}
+
+
+function loadPresets(){
+	fs.readdir(path.join(__dirname,"presets"), (err, files) => {
+		if (err) {
+			alert(`could not load presets because : \n ${err}`)
+		}else{
+			$("#manager-presets .custom-option").remove()
+			files.forEach(file => {
+				const presetName = path.parse(file).name.replaceAll(" ","_")
+
+				$("#manager-presets .default-option")
+					.after($("<option>").addClass("custom-option").attr("value",presetName).text(presetName))
+			});
+			$("#manager-presets select").val(myConfig.managerPreset)
+		}
+	})
+}
+
+
+
+//directory delete function
 function deleteDirs(dirs, callback){
   var i = dirs.length;
   dirs.forEach(function(dirPath){
@@ -456,3 +546,26 @@ function deleteDirs(dirs, callback){
   	});
   });
 }
+
+//replace all instances of a string
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+};
+
+//get all directories from a path
+function getDirectories(path) {
+  return fs.readdirSync(path).filter(function (file) {
+    return fs.statSync(path+'/'+file).isDirectory();
+  });
+}
+
+$.fn.toggleAttr = function(attr, attr1, attr2) {
+  return this.each(function() {
+    var self = $(this);
+    if (self.attr(attr) == attr1)
+      self.attr(attr, attr2);
+    else
+      self.attr(attr, attr1);
+  });
+};

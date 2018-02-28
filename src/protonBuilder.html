@@ -46,7 +46,7 @@
     <div class="builder-wrap">
 
       <div class="builder-contain" id="builder-general">
-        
+        <!--
         <div class="input-item" id="proton-type">
           <div class="label">
             Proton type
@@ -59,6 +59,8 @@
             Choose if the proton you're creating will be a direct command, or if it'll have parameters
           </div>
         </div>
+      -->
+
         
         <div class="input-item" id="proton-name">
           <div class="label">
@@ -104,18 +106,6 @@
 
 
       <div class="builder-contain" id="builder-direct">
-          <div class="input-item" id="proton-command">
-            <div class="label">
-              Proton Command
-            </div>
-            <input type="text" name="protonCommand" >
-            <div class="description">
-              The command to execute. This can also be a path to an exe or a script, or simply a directory or a URL for quick access
-            </div>
-          </div>
-      </div>
-
-      <div class="builder-contain" id="builder-parameteric">
         <div id="builder-parameteric-general">
           
           <div class="input-item" id="proton-script">
@@ -144,19 +134,37 @@
           <div class="description">
             You can input your name, this appears when clicking the question mark on the generated parameters window
           </div>
-        </div>
-        <div class="input-item" id="proton-description">
-          <div class="label">
-            Description
           </div>
-          <textarea></textarea>
-          <div class="description">
-            You can give a description to your proton, this appears when clicking the question mark on the generated parameters window
-          </div>
-        </div>
 
+          <div class="input-item" id="proton-version">
+          <div class="label">
+            Version
+          </div>
+          <input type="text" name="protonName" value="0.0.1">
+          <div class="description">
+            You can Define the current version of your proton-io script
+          </div>
+          </div>
+
+          <div class="input-item" id="proton-description">
+            <div class="label">
+              Description
+            </div>
+            <textarea></textarea>
+            <div class="description">
+              You can give a description to your proton, this appears when clicking the question mark on the generated parameters window
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="builder-contain" id="builder-parameteric">
+
+      <div class="label">
+            Inputs
       </div>
       <div id="parameter-creation">
+
           <select id="parameter-type" name="parameterType">
             <option value="inputField" selected="selected">inputField</option>
             <option value="inputFilePath" >inputFilePath</option>
@@ -169,14 +177,20 @@
         <div id="parameter-creation-icon">
           <span class="ui-icon ui-icon-plusthick"></span>
         </div>
+
       </div>
 
+      <div class="description">
+        Parameter inputs to generate for the user in an interface, just choose the input type from the drop down list and click <span class="ui-icon ui-icon-plusthick"></span> to add a new one.
+      </div>
 
 
 
       </div>
     </div>
+    <div id="builder-parameteric-specific">
 
+    </div>
 
     <div class="builder-save">
       <button type="button" id="save">Save</button>
@@ -188,9 +202,7 @@
       <button type="button" name="cancel" id="cancel">cancel</button>
       -->
     </div>
-    <div id="builder-parameteric-specific">
 
-    </div>
 
     <div id="modal">
       <div id="model-contain">

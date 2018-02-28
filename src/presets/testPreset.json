@@ -1,0 +1,24 @@
+{
+  "protonHotkeys": [
+    {
+      "hotkey": "alt+j",
+      "protonName": "toggle_hidden_files",
+      "type": "direct"
+    },
+    {
+      "hotkey": "alt+x",
+      "protonName": "toggle_hidden_exts",
+      "type": "direct"
+    },
+    {
+      "hotkey": "alt+shift+c",
+      "protonName": "google_it",
+      "type": "direct"
+    },
+    {
+      "hotkey": "alt+ctrl+c",
+      "protonName": "CommanPrompt_here",
+      "type": "direct"
+    }
+  ]
+}

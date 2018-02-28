@@ -4,21 +4,20 @@
   "version": "0.0.1",
   "category": "All files processing",
   "process": "python",
-  "command": "",
-  "script": "exec.py",
+  "script": "./exec.py",
   "getDir": false,
   "getSel": true,
   "params": [
     {
       "type": "inputField",
       "name": "search string",
-      "default": "",
+      "default": "Peugeot",
       "tooltip": "the text that will be matched"
     },
     {
       "type": "inputField",
       "name": "replace with",
-      "default": "",
+      "default": "Citroen",
       "tooltip": "the text it will be replaced with"
     }
   ]

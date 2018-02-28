@@ -85,3 +85,7 @@
 .swal-footer{
   text-align:center;
 }
+
+.swal-content__input{
+  color:#272727;
+}

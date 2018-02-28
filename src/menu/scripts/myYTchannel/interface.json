@@ -1,6 +1,10 @@
 {
+  "author": "Mohamed Oumoumad",
+  "description": "go to my youtube channel",
+  "version": "0.0.1",
+  "category": "URL",
   "process": "start",
-  "command": "https://www.youtube.com/oumoumad",
+  "script": "www.youtube.com/oumoumad",
   "getDir": false,
   "getSel": false,
   "params": []

@@ -3,8 +3,7 @@
   "description": "open user profile folder",
   "version": "0.0.1",
   "process": "start",
-  "command": "%UserProfile%",
-  "script": "",
+  "script": "%UserProfile%",
   "getDir": false,
   "getSel": false,
   "params": []

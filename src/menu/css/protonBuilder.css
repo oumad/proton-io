@@ -94,7 +94,6 @@ select{
 
 #builder-parameteric{
   color:#ffb85c;
-  display:none;
 }
 
 #builder-parameteric-general,#parameter-creation{
@@ -102,6 +101,14 @@ select{
 }
 
 #proton-script input{
+  width:98%;
+  flex-grow:1
+}
+
+#proton-version input{
+  width:98%;
+}
+#proton-process input{
   width:98%;
 }
 
@@ -209,4 +216,12 @@ textarea{
 }
 .parameter-remove:hover,.parameter-revert:hover{
   opacity:1;
+}
+
+#builder-parameteric{
+  display:block;
+}
+#builder-parameteric .label,
+#builder-parameteric .description{
+  margin-left: 4px;
 }
