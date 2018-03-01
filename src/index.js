@@ -169,6 +169,14 @@ app.on('ready', () => {
       {
       type: 'separator'
       },
+      {label: 'Check for updates',
+        click: function () {
+            require("openurl").open("https://github.com/oumad/proton-io")
+        }
+      },
+      {
+      type: 'separator'
+      },
       {label : 'Restart',
         click: function () {
           //restart the whole app

@@ -48,6 +48,7 @@
         }
     },
     "dependencies": {
+        "auto-launch": "^5.0.5",
         "current-path": "^2.0.0",
         "electron": "^1.8.2-beta.1",
         "electron-compile": "^6.4.2",
@@ -55,6 +56,7 @@
         "electron-edge-js": "^8.2.9",
         "electron-squirrel-startup": "^1.0.0",
         "node-gyp": "^3.6.2",
+        "openurl": "^1.1.1",
         "sweetalert": "^2.1.0",
         "tree-kill": "^1.2.0"
     },
