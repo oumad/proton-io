@@ -34,7 +34,7 @@ a:hover {
 .global-header ul {
     white-space: nowrap;
     display:flex;
-    list-style-type: none;  
+    list-style-type: none;
 	padding:14px;
 }
 
@@ -93,7 +93,7 @@ footer{
 
 footer ul {
 	white-space: nowrap;
-    list-style-type: none;  
+    list-style-type: none;
 	padding:0px;
 	display:flex;
 	justify-content: center;
@@ -191,4 +191,29 @@ h1{
     background: #f5f5f5;
     font-size: 14px;
     color: #f27474;
+}
+
+.about{
+	background:#dadada;
+	padding:10px;
+	top:100%;
+	width:80%;
+	position:fixed;
+	justify-content:center;
+	z-index:3;
+	margin:10%;
+	border-radius:10px;
+	color:#272727;
+	box-shadow: 0px 10px 20px 2px #15151587;
+}
+
+
+.overlay{
+	background:#000000ad;
+	position:absolute;
+	width:100%;
+	height:100%;
+	z-index:2;
+	display:none;
+	opacity:0;
 }

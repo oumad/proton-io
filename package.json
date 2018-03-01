@@ -1,8 +1,8 @@
 {
-    "name": "my-proton",
-    "productName": "my-proton",
+    "name": "protonio",
+    "productName": "protonio",
     "version": "1.0.0",
-    "description": "My Electron application description",
+    "description": "A quick access tool to execute scripts on desktop",
     "main": "src/index.js",
     "scripts": {
         "start": "electron-forge start",
@@ -12,7 +12,7 @@
         "lint": "eslint src --color"
     },
     "keywords": [],
-    "author": "Mohamed",
+    "author": "Mohamed Oumoumad",
     "license": "MIT",
     "config": {
         "forge": {
@@ -30,7 +30,8 @@
             },
             "electronPackagerConfig": {
                 "packageManager": "npm",
-                "asar": "true"
+                "icon": "src/menu/icons/logo_full.ico",
+                "executableName": "protonio"
             },
             "electronWinstallerConfig": {
                 "name": "my_proton"
@@ -50,17 +51,16 @@
     "dependencies": {
         "auto-launch": "^5.0.5",
         "current-path": "^2.0.0",
-        "electron": "^1.8.2-beta.1",
         "electron-compile": "^6.4.2",
         "electron-context-menu": "^0.9.1",
         "electron-edge-js": "^8.2.9",
-        "electron-squirrel-startup": "^1.0.0",
-        "node-gyp": "^3.6.2",
-        "openurl": "^1.1.1",
         "sweetalert": "^2.1.0",
         "tree-kill": "^1.2.0"
     },
     "devDependencies": {
+        "electron-squirrel-startup": "^1.0.0",
+        "node-gyp": "^3.6.2",
+        "electron": "^1.8.2-beta.1",
         "babel-plugin-transform-async-to-generator": "^6.24.1",
         "babel-preset-env": "^1.6.1",
         "babel-preset-react": "^6.24.1",

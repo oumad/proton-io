@@ -7,9 +7,12 @@
 	<script src="assets/js/velocity.min.js"></script>
 	<script src="assets/js/main.js"></script>
 	<title>proton-io</title>
-	
+
 </head>
 <body>
+	<div class="overlay">
+
+	</div>
 	<header>
 	<div class="global-header">
 		<div class="top-logo">
@@ -21,7 +24,7 @@
 					<a id="documentation" href="#documentation" >Documentation</a>
 				</li>
 				<li>
-					<a href="https://github.com/" target="_blank">GitHub</a>
+					<a href="https://github.com/oumad/proton-io" target="_blank">GitHub</a>
 				</li>
 			</ul>
 		</nav>
@@ -41,8 +44,8 @@
 			</div>
 			<div class="buttons">
 				<button class="demo">Demo</button>
-				<button class="download">Download</button>
-				
+				<button class="download" onclick="openInNewTab('https://github.com/oumad/proton-io/releases');" >Download</button>
+
 			</div>
 		</div>
 
@@ -83,7 +86,7 @@
 						</p>
 						<img src="assets/images/docs/menu_reveal.jpg">
 						<p>
-							You can either start typing to quickly search for a script, 
+							You can either start typing to quickly search for a script,
 						</p>
 						<img src="assets/images/docs/menu_search.png">
 						<p>
@@ -325,7 +328,27 @@
 
 				</ul>
 			</div>
-		</div> 
+		</div>
+
+		<div class="about">
+
+			<ul>
+				<li>
+					<h1>About</h1>
+					<p>My name is Mohamed Oumoumad, I'm a CG artist. This all started as
+						an experimental project to try to make a solution that would offer
+						more than what windows context menu does. <br>
+						Proton-io now gives the possibility to not only easily access any
+						command, but also the ability to give it UI parameters
+						and hotkeys. <br>
+						Hopefully more people will find this useful same as I do, and I'm
+						looking forward to get your feedback and contribution. <br>
+						My ambition is to eventually start a common repository where people
+						can share scripts that can be easily installed within proton-io.
+					</p>
+				</li>
+			</ul>
+		</div>
 	</div>
 
 	<footer>
@@ -333,10 +356,10 @@
 			<nav>
 				<ul>
 					<li>
-						<a href="about">About</a>
+						<a id="about">About</a>
 					</li>
 					<li>
-						<a href="contact">Contact</a>
+						<a id="contact">Contact</a>
 					</li>
 				</ul>
 			</nav>
