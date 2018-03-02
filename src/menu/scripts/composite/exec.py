@@ -7,7 +7,7 @@ import subprocess
 
 
 def main(script,myDir,mySel,magickExec,composeType,background,scale,size,quality,outFormat,outName,outDir) :
-    
+
     mySel = open(mySel,"r")
     mySel = mySel.read()
     mySel = mySel.split(',')
@@ -29,7 +29,12 @@ def main(script,myDir,mySel,magickExec,composeType,background,scale,size,quality
     #resolving file name from source
     pre, ext = os.path.splitext(mySel[0])
     print ("compose type = " + composeType)
-    outFile = pre + '_{0}.{1}'.format(composeType,outFormat)
+
+    if outName != 'None':
+        outFile = '{0}.{1}'.format(outName,outFormat)
+    else:
+        outFile = pre + '_{0}.{1}'.format(composeType,outFormat)
+
 
     args.extend(['-compose',composeType])
     #args.extend(['-flatten'])
@@ -43,7 +48,7 @@ def main(script,myDir,mySel,magickExec,composeType,background,scale,size,quality
         args.extend(['-size',size])
     if quality != 'None':
         args.extend(['-quality',quality])
-    if (outDir != 'None'):
+    if outDir != 'None':
         #create the directory if it doesn't exist
         if not os.path.exists(outDir):
             os.makedirs(outDir)
