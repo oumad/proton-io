@@ -45,9 +45,9 @@ def main(script,myDir,mySel,magickExec,background,quality,tiles,margin,maxSize,d
     #resolving file name from source
     myDir = os.path.dirname(mySel[0])
     if outName != 'None':
-        outFile = os.path.join(myDir,'{0}.{1}'.format(outName,outFormat))
+        outFile = '{0}.{1}'.format(outName,outFormat)
     else :
-        outFile = os.path.join(myDir,'packed.{}'.format(outFormat))
+        outFile = 'packed.{}'.format(outFormat)
 
     #constructing the geometry argument
     geometry = []

@@ -4,7 +4,7 @@ import re
 import subprocess
 
 def main(script,myDir,mySel,magickExec,background,scale,size,myFormat,quality,outName,outDir) :
-    
+
     mySel = open(mySel,"r")
     mySel = mySel.read()
     mySel = mySel.split(',')
@@ -25,7 +25,7 @@ def main(script,myDir,mySel,magickExec,background,scale,size,myFormat,quality,ou
         args.extend(['convert',myFile])
 
         #resolving file name from source
-        pre, ext = os.path.splitext(myFile)
+        pre, ext = os.path.splitext(os.path.split(myFile)[1])
 
         outFile = pre + '.{}'.format(myFormat)
 

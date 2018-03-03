@@ -27,13 +27,14 @@ def main(script,myDir,mySel,magickExec,composeType,background,scale,size,quality
     args.extend(['convert',mySel[0],mySel[1]])
 
     #resolving file name from source
-    pre, ext = os.path.splitext(mySel[0])
+    pre, ext = os.path.splitext(os.path.split(mySel[0])[1])
     print ("compose type = " + composeType)
 
     if outName != 'None':
         outFile = '{0}.{1}'.format(outName,outFormat)
     else:
         outFile = pre + '_{0}.{1}'.format(composeType,outFormat)
+        print outFile
 
 
     args.extend(['-compose',composeType])
@@ -58,7 +59,7 @@ def main(script,myDir,mySel,magickExec,composeType,background,scale,size,quality
         outRender = os.path.join(myDir,outFile)
         args.extend(["-composite",outRender])
 
-
+    print args
     #execute the args
     subprocess.Popen(args)
 
