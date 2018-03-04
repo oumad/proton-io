@@ -30,7 +30,7 @@ ipcRenderer.on('clear-input',(event,date) => {
 //get config values or put default ones
 const scriptSource = myConfig.scriptsPath || path.join(__dirname,"scripts")
 const libsPath = myConfig.libsPath || path.join(__dirname,'libs')
-const pythonExe = path.join(libsPath,'python/scripts/python.exe')
+const pythonExe = path.join(libsPath,'python/python.exe')
 
 
 //useful functions
@@ -58,32 +58,21 @@ let scriptNames = []
 let categoryNames = []
 let protonsData = []
 for (i=0; i < scriptDirs.length; i++ ){
-  //console.log(`loading ${scriptDirs[i]}...`)
+  console.log(`loading ${scriptDirs[i]}...`)
   //read interface json files
-  myScripts[scriptDirs[i]] = JSON.parse(fs.readFileSync(path.join(__dirname,'scripts',scriptDirs[i],`interface.json`), 'utf8'))
-  
-  /*
-  let protonData = {}
-  protonData.name = scriptDirs[i]
-  if (myScripts[scriptDirs[i]].params.length == 0){
-    protonData.type = "direct"
-    protonData.icon = path.join(`${__dirname}`,"icons","direct_execute.png")
-  }else{
-    protonData.type = "parameteric"
-    protonData.icon = path.join(`${__dirname}`,"icons","param_execute.png")
+  try {
+    myScripts[scriptDirs[i]] = JSON.parse(fs.readFileSync(path.join(__dirname,'scripts',scriptDirs[i],`interface.json`), 'utf8'))
+    //autocomplete search menu options
+    scriptNames.push(scriptDirs[i])
+    const categoryName =  myScripts[scriptDirs[i]].category || "MISC"
+    categoryNames.push(categoryName)
+
+    console.log(`successfully loaded ${scriptDirs[i]}`)
   }
-  protonData.description = myScripts[scriptDirs[i]].description
-  protonsData.push(protonData)
-  */
+  catch(err) {
+      alert(`${scriptDirs[i]} wasn't loaded because : ${err}`)
+  }
 
-  //autocomplete search menu options
-  scriptNames.push(scriptDirs[i])
-
-  
-  const categoryName =  myScripts[scriptDirs[i]].category || "MISC"
-  categoryNames.push(categoryName)
-
-  //console.log(`successfully loaded ${scriptDirs[i]}`)
 }
 
 //send message saying that all scripts are loaded
@@ -211,7 +200,7 @@ function secondWindow(paramsNum){
       frame:false,
       icon : path.join(__dirname,"icons",'logo_full_grey_inverted.png')
     })
-    
+
     adjustWindowPosition(secondWindow,secondWindowWidth,secondWindowHeight)
 
     secondWindow.loadURL(url.format({
@@ -230,7 +219,7 @@ function adjustWindowPosition(myWindow,width,height){
     const xCenteredEnd = xCentered+width
     const yCenteredEnd = yCentered+height
     var xWindow,yWindow
-    
+
     const allDisplays = electronScreen.getAllDisplays()
     var totalX = 0;
     for (var display in allDisplays){
@@ -342,7 +331,7 @@ function myParamExecute(selectedScript){
       myArgs.push(`"${myParam}"`)
     }
   }
- 
+
   console.log(myScripts[selectedScript].process,myArgs)
 
 
@@ -356,7 +345,7 @@ function executeDetached(myProcess,args){
   if(myProcess == 'python'){
     myProcess = pythonExe
   }
-  const child = spawn(myProcess, args,{shell: true, detached: true,windowsVerbatimArguments: true}); 
+  const child = spawn(myProcess, args,{shell: true, detached: true,windowsVerbatimArguments: true});
 }
 
 
@@ -377,8 +366,8 @@ function storeSelectedFilePaths(selectedFiles,scriptDir){
 
 
 //possibility to go dev mode
-document.addEventListener("keydown", function (e) {  
+document.addEventListener("keydown", function (e) {
   if (e.keyCode === 123) { // F12
-    myWindow.toggleDevTools();         
+    myWindow.toggleDevTools();
   }
 });
