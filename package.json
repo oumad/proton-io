@@ -1,7 +1,7 @@
 {
     "name": "protonio",
     "productName": "protonio",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A quick access tool to execute scripts on desktop",
     "main": "src/index.js",
     "scripts": {
@@ -34,7 +34,7 @@
                 "executableName": "protonio"
             },
             "electronWinstallerConfig": {
-                "name": "my_proton"
+                "name": "protonio"
             },
             "electronInstallerDebian": {},
             "electronInstallerRedhat": {},
@@ -44,7 +44,7 @@
             },
             "windowsStoreConfig": {
                 "packageName": "",
-                "name": "myproton"
+                "name": "protonio"
             }
         }
     },
