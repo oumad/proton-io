@@ -12,7 +12,7 @@ const currentDir = getGlobal('currentDir').stdout || 'None'
 const selectedScript = getGlobal('menuReturns').script
 //get returned script name from the menu
 const myScripts = getGlobal('menuReturns').myScripts
-// get the config.json 
+// get the config.json
 const myConfig = getGlobal('myConfig')
 
 
@@ -25,7 +25,7 @@ const selectedScriptDir = path.join(scriptsDir,selectedScript)
 const scriptFileName = path.join(scriptsDir,selectedScript,myScripts[selectedScript].script)
 const scriptJson = path.join(scriptsDir,selectedScript,myConfig.interfaceFile) || path.join(scriptsDir,selectedScript,`interface.json`)
 const libsPath = myConfig.libsPath || path.join(__dirname,'libs')
-const pythonExe = path.join(libsPath,'python/scripts/python.exe')
+const pythonExe = path.join(libsPath,'python/python.exe')
 
 
 String.prototype.replaceAll = function(search, replacement) {
