@@ -1,10 +1,9 @@
-
+import subprocess
+import os
+import sys
+import re
 
 def main(script,myDir,mySel,renderExec,renderer,proj,cam,fStart,fEnd,byFrame,xRes,yRes,resPerc,fFormat,outName,outDir) :
-    import subprocess
-    #print script,myDir,mySel,aerenderExec,compName,startf,endf,outName,outDir
-    print myDir,mySel,renderExec,renderer,proj,cam,fStart,fEnd,byFrame,xRes,yRes,resPerc,fFormat,outName,outDir
-
     #start creating the arguments list
     args = []
     #resolving the magick executable
@@ -41,7 +40,7 @@ def main(script,myDir,mySel,renderExec,renderer,proj,cam,fStart,fEnd,byFrame,xRe
 
     #append the file path
     args.extend([mySel])
-    print args
+    print (args)
     #execute the args
 
     subprocess.Popen(args)
@@ -49,11 +48,9 @@ def main(script,myDir,mySel,renderExec,renderer,proj,cam,fStart,fEnd,byFrame,xRe
 
 
 if __name__ == '__main__':
-            import os
-            import sys
-            import re
+            print (*sys.argv)
             main(*sys.argv)
-            
+
             """
             try:
                 main(*sys.argv)

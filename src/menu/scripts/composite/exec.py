@@ -1,4 +1,4 @@
-#python 2.7
+#python 3.6
 #Script to create a project based on a given template
 
 import os
@@ -34,7 +34,7 @@ def main(script,myDir,mySel,magickExec,composeType,background,scale,size,quality
         outFile = '{0}.{1}'.format(outName,outFormat)
     else:
         outFile = pre + '_{0}.{1}'.format(composeType,outFormat)
-        print outFile
+        print (outFile)
 
 
     args.extend(['-compose',composeType])
@@ -59,14 +59,14 @@ def main(script,myDir,mySel,magickExec,composeType,background,scale,size,quality
         outRender = os.path.join(myDir,outFile)
         args.extend(["-composite",outRender])
 
-    print args
+    print (args)
     #execute the args
     subprocess.Popen(args)
 
 
 
 if __name__ == '__main__':
-            print sys.argv
+            print (sys.argv)
             main(*sys.argv)
 
             """

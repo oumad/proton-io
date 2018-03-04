@@ -1,5 +1,5 @@
 def convertSelected(ffmpegExec,inputPattern,outputPattern,frameRate,scale,crf,trc,startFrame,totalFrames,myAudio) :
-    print "converting Selected only..."
+    print ("converting Selected only...")
     args = []
     if ffmpegExec != 'None':
         args.extend([ffmpegExec])
@@ -31,12 +31,12 @@ def convertSelected(ffmpegExec,inputPattern,outputPattern,frameRate,scale,crf,tr
         args.extend(['-start_number',startFrame])
 
     if totalFrames != 'None':
-        print totalFrames
+        print (totalFrames)
         args.extend(['-vframes {}'.format(11)])
 
     args.extend(['-vcodec','libx264','-pix_fmt','yuv420p',outputPattern])
 
-    print args
+    print (args)
     #execute the args
     subprocess.Popen(args)
 
@@ -90,10 +90,10 @@ def main(script,myDir,mySel,ffmpegExec,frameRate,scale,trc,crf,myAudio,outDir) :
     #switch extention to mp4 for out put pattern
     if outDir == 'None':
         outputPattern = p.search(imageList[0]).group(1) + '.mp4'
-        print outputPattern
+        print (outputPattern)
     else :
         outputPattern = outDir + '\\' + os.path.basename(p.search(imageList[0]).group(1) + '.mp4')
-        print outputPattern
+        print (outputPattern)
     convertSequence(ffmpegExec,inputPattern,outputPattern,frameRate,scale,crf,trc,myAudio)
 
     """

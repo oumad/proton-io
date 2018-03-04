@@ -9,7 +9,7 @@ def main(script,monitor,screens,interval,outName,incTime,incDate,outDir,myFormat
     magickPath = os.path.join(scriptDir,'..','..','libs','magick.exe')
     magickPath = os.path.realpath(magickPath)
     monitorScr = "screenshot:[{}]".format(monitor)
-    
+
     i = 0
 
     while i < int(screens) :
@@ -22,11 +22,11 @@ def main(script,monitor,screens,interval,outName,incTime,incDate,outDir,myFormat
         if incTime != "false":
             currentTime = time.strftime("%H_%M_%S", time.gmtime())
             currentName.append("-{}".format(currentTime))
-            print currentTime
+            print (currentTime)
         if incDate != "false":
             currentDate = time.strftime("%Y_%m_%d", time.gmtime())
             currentName.append("-{}".format(currentDate))
-            print currentDate
+            print (currentDate)
 
         #finalizing file name construction
         currentName.append(".{}".format(myFormat))
@@ -35,21 +35,21 @@ def main(script,monitor,screens,interval,outName,incTime,incDate,outDir,myFormat
 
 
         args.extend([outputScr])
-        print args
+        print (args)
         subprocess.Popen(args)
         #incrementing the number of repetitions
         i = i + 1
         #sleep and till the next interval
         time.sleep(float(interval))
 
-      
+
 
 
 
 
 if __name__ == '__main__':
 
-            print sys.argv
+            print (sys.argv)
             main(*sys.argv)
             """
             try:

@@ -48,7 +48,7 @@ def main(script,myDir,mySel,magickExec,background,scale,size,myFormat,quality,ou
             outRender = os.path.join(myDir,outFile)
             args.extend([outRender])
 
-        print args
+        print (args)
         #execute the args
         subprocess.Popen(args)
 
@@ -56,7 +56,7 @@ def main(script,myDir,mySel,magickExec,background,scale,size,myFormat,quality,ou
 
 if __name__ == '__main__':
 
-            print sys.argv
+            print (sys.argv)
             main(*sys.argv)
             """
             try:

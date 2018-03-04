@@ -32,7 +32,7 @@ def main(script,myDir,mySel,magickExec,background,quality,tiles,margin,maxSize,d
         if DisplaySize == "true":
             label.append("\\n%wx%h")
         if len(label) != 0:
-             print ''.join(label)
+             print (''.join(label))
              args.extend(["-label",''.join(label)])
         args.extend([myFile])
 
@@ -78,13 +78,13 @@ def main(script,myDir,mySel,magickExec,background,quality,tiles,margin,maxSize,d
         outRender = os.path.join(myDir,outFile)
         args.extend([outRender])
 
-    print args
+    print (args)
     #execute the args
     #subprocess.Popen(args)
 
     p = Popen(args, shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT)
     output = p.stdout.read()
-    print output
+    print (output)
     return output
 
 

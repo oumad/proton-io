@@ -1,9 +1,8 @@
-
+import os
+import sys
+import subprocess
 
 def main(script,myDir,mySel,aerenderExec,compName,startf,endf,incrementf,RStemplate,OMtemplate,outName,outDir,reuse) :
-    import subprocess
-    #print script,myDir,mySel,aerenderExec,compName,startf,endf,outName,outDir
-
     #start creating the arguments
     args = [aerenderExec,'-project',mySel]
 
@@ -30,15 +29,13 @@ def main(script,myDir,mySel,aerenderExec,compName,startf,endf,incrementf,RStempl
     if (reuse == 'true'):
         args.extend(['-reuse'])
 
+    print (args)
     #execute the args
     subprocess.Popen(args)
 
 
 if __name__ == '__main__':
-            import os
-            import sys
-            import re
-            
+            print (*sys.argv)
             main(*sys.argv)
 
             """

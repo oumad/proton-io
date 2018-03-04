@@ -52,7 +52,7 @@ def main(script, myDir, mySel, magickExec, myColor,selectedSize, size, fileForma
         outRender = os.path.join(myDir, outFile)
         args.extend([outRender])
 
-    print args
+    print (args)
     # execute the args
     subprocess.Popen(args)
 
@@ -61,9 +61,9 @@ if __name__ == '__main__':
     import os
     import sys
     import re
-    print sys.argv
+    print (sys.argv)
     main(*sys.argv)
-    
+
     """
     try:
         main(*sys.argv)
@@ -76,4 +76,3 @@ if __name__ == '__main__':
         print "Press Enter to continue ..."
         raw_input("Press ENTER to exit")
         """
-
