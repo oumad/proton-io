@@ -130,6 +130,14 @@ label{
   padding:6px 14px;
   color:#c5c5c5;
   margin:10px 10px;
+  width:48px;
+  height:20px;
+}
+.ui-button:hover{
+  background-color:#f5b058;
+  height:20px;
+  width:48px;
+  border-style:none;
 }
 
 #apply{
