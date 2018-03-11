@@ -1,6 +1,10 @@
 {
   "autoLaunch": false,
   "directKeydown": "ctrlKey",
+  "disabledProtons": [
+    "testScript",
+    "protonTest"
+  ],
   "interfaceFile": "interface.json",
   "mainHotkey": "ctrl+tab",
   "managerPreset": "user_defined",

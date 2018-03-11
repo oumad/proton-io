@@ -63,16 +63,16 @@ for (i=0; i < scriptDirs.length; i++ ){
   try {
     myScripts[scriptDirs[i]] = JSON.parse(fs.readFileSync(path.join(__dirname,'scripts',scriptDirs[i],`interface.json`), 'utf8'))
     //autocomplete search menu options
-    scriptNames.push(scriptDirs[i])
-    const categoryName =  myScripts[scriptDirs[i]].category || "MISC"
-    categoryNames.push(categoryName)
-
+    if(!myConfig.disabledProtons.includes(scriptDirs[i])){
+      scriptNames.push(scriptDirs[i])
+      const categoryName =  myScripts[scriptDirs[i]].category || "MISC"
+      categoryNames.push(categoryName)
+    }
     console.log(`successfully loaded ${scriptDirs[i]}`)
   }
   catch(err) {
       alert(`${scriptDirs[i]} wasn't loaded because : ${err}`)
   }
-
 }
 
 //send message saying that all scripts are loaded

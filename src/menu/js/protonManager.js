@@ -10,7 +10,7 @@ import swal from 'sweetalert';
 const myConfig = getGlobal("myConfig")
 const myScripts = getGlobal("afterScriptsLoad").myScripts
 
-//initial config.json values 
+//initial config.json values
 const protonsPath = myConfig.scriptsPath || path.join(__dirname,"menu","scripts")
 const libsPath = myConfig.libsPath || path.join(__dirname,"menu","libs")
 const interfaceName = "interface.json"
@@ -38,7 +38,7 @@ $(function(){
 					//read the preset file as an object
 					const presetObj = JSON.parse(fs.readFileSync(selected[0], 'utf8'))
 					//change interface values based on the preset
-					setTableValues(presetObj.protonHotkeys)
+					setTableValues(presetObj.protonHotkeys,presetObj.disabledProtons)
 					//add preset option name
 					$("#manager-presets select").append(
 						$("<option>").attr("value",presetName).text(presetName)
@@ -48,12 +48,12 @@ $(function(){
 				}
 	        })
 		}else if(selectedPresets == 'user_defined'){
-			setTableValues(myConfig.protonHotkeys)
+			setTableValues(myConfig.protonHotkeys,presetObj.disabledProtons)
 		}else{
 			const presetFileName = selectedPresets.replaceAll(" ","_") + ".json"
 			const presetObj = JSON.parse(fs.readFileSync(path.join(__dirname,"presets",presetFileName), 'utf8'))
 			//change interface values based on the preset
-			setTableValues(presetObj.protonHotkeys)
+			setTableValues(presetObj.protonHotkeys,presetObj.disabledProtons)
 		}
 	})
 
@@ -66,7 +66,7 @@ $(function(){
 	tableProtonsFill()
 
 	//fill hotkeys
-	setTableValues(myConfig.protonHotkeys)
+	setTableValues(myConfig.protonHotkeys,myConfig.disabledProtons)
 
 	//search and filter
 	$("#proton-search input").on("keyup", function() {
@@ -213,6 +213,7 @@ function save(){
 	let deleteProtons = []
 	//get hotkeys
 	let tableHotkeys = getTableHotkeys()
+	let disabledProtons = getDisabledProtons()
 	$(".removed-proton").each(function(){
 		deleteProtons.push($(this).text())
 		const removedProton = $(this).text()
@@ -238,21 +239,22 @@ function save(){
 		  if (willDelete) {
 			console.log("protons deleted")
 			//This will also save the hotkeys
-			deleteConfirmedProtons(tableHotkeys)
+			deleteConfirmedProtons(tableHotkeys,disabledProtons)
 		  } else {
 		    swal("No proton was deleted")
 		  }
 		});
 	}else{
-		updateConfig(tableHotkeys)
+		updateConfig(tableHotkeys,disabledProtons)
 	}
 }
 
 
-function updateConfig(protonHotkeys){
+function updateConfig(protonHotkeys,disabledProtons){
 	let newConfig = myConfig
 	newConfig["protonHotkeys"] = protonHotkeys
 	newConfig["managerPreset"] = $("#manager-presets select").val()
+	newConfig["disabledProtons"] = disabledProtons
 	ipcRenderer.send('myConfig-edit',{myConfig : newConfig})
 }
 
@@ -269,6 +271,18 @@ function getTableHotkeys(){
 		//console.log($(this).text())
 	})
 	return tableHotkeys
+}
+
+function getDisabledProtons(){
+	const disabledProtons = []
+
+	$(".proton-enable").each(function(){
+		if($(this).find("input").prop("checked") == false){
+			disabledProtons.push($(this).attr("proton"))
+		}
+	})
+	//console.log(tableSettings)
+	return disabledProtons
 }
 
 
@@ -409,7 +423,7 @@ function sortTableElements(){
 
 			const currentMatch = regExp1.exec(ui.item.attr("class"))[1]
 			const prevMatch = regExp2.exec(ui.item.prev().attr("class"))[1]
-			
+
 			console.log(`current : ${currentMatch} \n above : ${prevMatch}`)
 
 			const protonClass = ui.item.attr("proton")
@@ -439,12 +453,19 @@ function clearTableValues(){
 			$(this).text("")
 		}
 		//console.log($(this).text())
-	})	
+	})
 }
 
 //Set config.json values to the DOM
-function setTableValues(protonHotkeys){
+function setTableValues(protonHotkeys,disabledProtons){
 	clearTableValues()
+
+	for (let i in disabledProtons){
+		const protonClass = disabledProtons[i].replaceAll(" ","_")
+		$(`.proton-enable.${protonClass} input`).prop("checked",false)
+	}
+
+
 	for (let i in protonHotkeys){
 		const protonClass = protonHotkeys[i].protonName.replaceAll(" ","_")
 		const hotkey = protonHotkeys[i].hotkey
@@ -535,14 +556,14 @@ function deleteDirs(dirs, callback){
   var i = dirs.length;
   dirs.forEach(function(dirPath){
 	const path = ""
-  	rimraf(dirPath, function (err) { 
+  	rimraf(dirPath, function (err) {
 		i--;
 		if (err) {
 			callback(err);
 			return;
 		} else if (i <= 0) {
 			callback(null);
-		} 
+		}
   	});
   });
 }
