@@ -7,12 +7,12 @@ const myConfig = getGlobal("myConfig")
 
 
 
-//initial config.json values 
+//initial config.json values
 const mainHotkey = myConfig.mainHotkey || "ctrl+tab"
 const directKeydown = myConfig.directKeydown || "ctrlKey"
 const scriptsPath = myConfig.scriptsPath || path.join(__dirname,"menu","scripts")
 const libsPath = myConfig.libsPath || path.join(__dirname,"menu","libs")
-const autoLaunch = myConfig.autoLaunch || true
+const autoLaunch = myConfig.autoLaunch
 
 //Set config.json values to the DOM
 function setInitialValues(){
@@ -93,4 +93,3 @@ $(function(){
 		ipcRenderer.send('myConfig-edit',{myConfig : myConfig})
 	})
 })
-
