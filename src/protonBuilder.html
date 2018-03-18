@@ -15,8 +15,8 @@
 
 
     <script>if (window.module) module = window.module;</script>
-    
-    
+
+
   </head>
   <body>
     <link rel="stylesheet" href="menu/css/nav-bar.css">
@@ -41,65 +41,49 @@
       </div>
     </div>
     <script src="menu/js/nav-bar.js"></script>
-    
+
     <script src="menu/js/protonBuilder.js"></script>
     <div class="builder-wrap">
 
       <div class="builder-contain" id="builder-general">
-        <!--
-        <div class="input-item" id="proton-type">
-          <div class="label">
-            Proton type
-          </div>
-          <select name="protonType">
-            <option value="direct" selected="selected">Direct</option>
-            <option value="parametric" >Parametric</option>
-          </select>
-          <div class="description">
-            Choose if the proton you're creating will be a direct command, or if it'll have parameters
-          </div>
-        </div>
-      -->
-
-        
         <div class="input-item" id="proton-name">
-          <div class="label">
+          <div class="label" title="This is the name that will appear in the protons menu list">
             Proton name
           </div>
           <input type="text" name="protonName" >
-          <div class="description">
+          <!-- <div class="description">
             This is the name that will appear in the protons menu list
-          </div>
+          </div> -->
         </div>
 
         <div class="input-item" id="proton-category">
-          <div class="label">
+          <div class="label" title="If no category given it will be put in MISC">
             Proton category
           </div>
           <input type="text" name="protonName" >
-          <div class="description">
+          <!-- <div class="description">
             If no category given it will be put in MISC
-          </div>
+          </div> -->
         </div>
 
         <div class="input-item" id="proton-getDir">
           <div class="checkbox-input">
             <input type="checkBox" name="proton-getDir" >
-            <div class="label">Get current directory</div>
+            <div class="label" title="Check this to get the active directory path (this will be an argument to your command)">Get current directory</div>
           </div>
-          <div class="description">
+          <!-- <div class="description">
             Check this to get the active directory path (this will be an argument to your command)
-          </div>
+          </div> -->
         </div>
 
         <div class="input-item" id="proton-getSel">
           <div class="checkbox-input">
             <input type="checkBox" name="proton-getSel" >
-            <div class="label">Get selected files</div>
+            <div class="label" title="Check this to get the selected file paths (a .txt containing the list of the selected file paths will be added as an argument to the command)">Get selected files</div>
           </div>
-          <div class="description">
+          <!-- <div class="description">
             Check this to get the selected file paths (a .txt containing the list of the selected file paths will be added as an argument to the command)
-          </div>
+          </div> -->
         </div>
 
       </div>
@@ -107,53 +91,53 @@
 
       <div class="builder-contain" id="builder-direct">
         <div id="builder-parameteric-general">
-          
+
           <div class="input-item" id="proton-script">
-            <div class="label">
+            <div class="label" title="The script to execute or any executable that will receive the parameters as arguments. It will create one if it doesn't exist. You will need to give the full path if the executable/script is not located in the same directory as the interface file.">
               Proton Script
             </div>
             <input type="text" name="protonScript" >
-            <div class="description">
+            <!-- <div class="description">
               The script to execute or any executable that will receive the parameters as arguments. It will create one if it doesn't exist. You will need to give the full path if the executable/script is not located in the same directory as the interface file.
-            </div>
+            </div> -->
           </div>
           <div class="input-item" id="proton-process">
-            <div class="label">
+            <div class="label" title="The process that will execute the script (ex : python), if it can be executed alone (ex : .bat .exe) then you can just use 'start'">
               Proton Process
             </div>
             <input type="text" name="protonProcess" >
-            <div class="description">
+            <!-- <div class="description">
                 The process that will execute the script (ex : python), if it can be executed alone (ex : .bat .exe) then you can just use 'start'
-            </div>
+            </div> -->
           </div>
           <div class="input-item" id="proton-author">
-          <div class="label">
+          <div class="label" title="You can input your name, this appears when clicking the question mark on the generated parameters window">
             Author
           </div>
           <input type="text" name="protonName" >
-          <div class="description">
+          <!-- <div class="description">
             You can input your name, this appears when clicking the question mark on the generated parameters window
-          </div>
+          </div> -->
           </div>
 
           <div class="input-item" id="proton-version">
-          <div class="label">
+          <div class="label" title="You can Define the current version of your proton-io script">
             Version
           </div>
           <input type="text" name="protonName" value="0.0.1">
-          <div class="description">
+          <!-- <div class="description">
             You can Define the current version of your proton-io script
-          </div>
+          </div> -->
           </div>
 
           <div class="input-item" id="proton-description">
-            <div class="label">
+            <div class="label" title="You can give a description to your proton, this appears when clicking the question mark on the generated parameters window">
               Description
             </div>
             <textarea></textarea>
-            <div class="description">
+            <!-- <div class="description">
               You can give a description to your proton, this appears when clicking the question mark on the generated parameters window
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -209,7 +193,7 @@
         <div id="modal-title"></div>
         <div id="modal-content"></div>
 
-        <div id="modal-buttons">   
+        <div id="modal-buttons">
           <button class="modal-button" id="modal-button-ok"> ok </button>
           <button class="modal-button" id="modal-button-close"> close </button>
         </div>

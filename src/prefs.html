@@ -21,7 +21,7 @@
 
       <div class="user-hotkeys-contain">
         <div class="menu-hotkeys">
-          <div class="label">
+          <div class="label" title="Record the hotkey you want to register to display protonio menu anywhere in your screen">
             Menu display hotkey
           </div>
           <div class="menu-hotkey-recorder hotkey-recorder">
@@ -34,20 +34,22 @@
             <div class="keyboard-recording-icon recording"></div>
             <div class="keyboard-recording-text recording">Stop key<br>Recording</div>
           </div>
+          <!--
           <div class="description">
             Record the hotkey you want to register to display protonio menu anywhere in your screen
           </div>
+        -->
         </div>
         <div class="separator">
 
         </div>
 
-        
+
         <div class="script-hotkeys">
-          <div class="label">
+          <div class="label" title="The key you hold down while choosing a script to execute it directly with its saved default parameters">
             Direct execution hotkey
           </div>
-          
+
           <select class="script-hotkey-recorder hotkey-recorder" name="speed" id="directKeydown">
             <option value="shiftKey" >SHIFT</option>
             <option value="metaKey" >META</option>
@@ -61,17 +63,17 @@
             <div class="keyboard-hotkeys-icon" ></div>
           </div>
           -->
-          <div class="description">
+          <!-- <div class="description">
             The key you hold down while choosing a script to execute it directly with its saved default parameters
-          </div>
-          
+          </div> -->
+
         </div>
 
       </div>
 
       <div class="user-paths-contain">
         <div class="user-path" id="scripts-path">
-          <div class="label">
+          <div class="label" title="Here you can choose a custom path to retrieve your scripts from instead of the default one, useful when you want a centralized scripts source for a team in the network for example.">
             Scripts path
           </div>
           <div class="user-path-input-contain">
@@ -83,9 +85,9 @@
               <span class= "ui-icon ui-icon-folder-open"></span>
             </button>
           </div>
-          <div class="description">
+          <!-- <div class="description">
             Here you can choose a custom path to retrieve your scripts from instead of the default one, useful when you want a centralized scripts source for a team in the network for example.
-          </div>
+          </div> -->
         </div>
           <!--
           <div class="user-path" id="libraries-path">
@@ -108,13 +110,13 @@
 
       <div class="system-options-contain">
         <div class="user-path" id="startup-launch">
-          <div class="label">
+          <div class="label" title="Automaitcally launch proton-io with system startup.">
             Startup launch
           </div>
           <input type="checkbox" name="startup-launch">
-          <div class="description">
+          <!-- <div class="description">
             Automaitcally launch proton-io with system startup.
-          </div>
+          </div> -->
         </div>
       </div>
 

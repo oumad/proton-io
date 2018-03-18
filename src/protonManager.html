@@ -53,7 +53,7 @@
       <div class="manager-contain" id="manager-general">
 
         <div class="input-item" id="manager-presets">
-          <div class="label">
+          <div class="label" title="This applies only to the state and hotkeys of your currently installed protons, it won't delete or add anything.">
             Current Preset
           </div>
           <select name="protonCategory">
@@ -61,9 +61,11 @@
             <option disabled>_________________</option>
             <option value="load" >Load Preset...</option>
           </select>
+          <!--
           <div class="description">
             This applies only to the state and hotkeys of your currently installed protons, it won't delete or add anything.
           </div>
+        -->
         </div>
 
       </div>
@@ -71,30 +73,32 @@
 
           <div class="input-item" id="proton-categories">
             <div class="input-item-main">
-              <div class="label">
+              <div class="label" title="Select a category to isolate it in the list.">
               Category
               </div>
               <select name="protonCategory">
                 <option value="All" selected="selected">All</option>
               </select>
             </div>
-
-
+            <!--
             <div class="description">
               Select a category to isolate it in the list.
             </div>
+          -->
           </div>
 
           <div class="input-item" id="proton-search">
             <div class="input-item-main">
-              <div class="label">
+              <div class="label" title="Search or filter based on proton names.">
                 Filter
               </div>
               <input placeholder="Search" type="text" name="protonSearch" >
             </div>
+            <!--
             <div class="description">
               Search or filter based on proton names.
             </div>
+          -->
           </div>
 
       </div>
