@@ -113,6 +113,11 @@ for ( var c in uniqCategories.sort()){
   $('#category-menu').append($("<li>").attr("id",categoryId))
   $(`#${categoryId}`).append($("<div>").addClass("proton-category").text(categoryName))
   $(`#${categoryId}`).append($("<ul>").addClass("proton-list"))
+  if (isOdd(c)){
+    $(`#${categoryId} .proton-category`).addClass("odd")
+  }else{
+    $(`#${categoryId} .proton-category`).addClass("even")
+  }
 }
 
 //filling categories
@@ -371,3 +376,7 @@ document.addEventListener("keydown", function (e) {
     myWindow.toggleDevTools();
   }
 });
+
+
+//determine if number is odd
+function isOdd(num) { return num % 2;}
