@@ -27,6 +27,11 @@ ipcRenderer.on('clear-input',(event,date) => {
   $( "#scripts" ).val('');
 })
 
+ipcRenderer.on('focus-input',(event,date) => {
+  $( "#scripts" ).focus();
+})
+
+
 //get config values or put default ones
 const scriptSource = myConfig.scriptsPath || path.join(__dirname,"scripts")
 const libsPath = myConfig.libsPath || path.join(__dirname,'libs')
@@ -156,7 +161,7 @@ $(document).ready(function(){
     //main menu list
     $( "#category-menu" ).menu({
       select : function( event, ui ){
-        selectScript(ui.item.text())
+        //selectScript(ui.item.text())
       }
     });
 
@@ -170,6 +175,11 @@ $(document).ready(function(){
 
     //focus on the input field
     $( "#scripts" ).focus()
+
+    //hide when clicked away
+    $( "#scripts" ).on("blur",()=>{
+      myWindow.hide()
+    })
 })
 
 

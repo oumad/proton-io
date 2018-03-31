@@ -1,10 +1,6 @@
-
-
 .search-menu{
   display: flex;
 }
-
-
 
 #tags{
   background-color:#585858;
@@ -35,13 +31,13 @@
 }
 
 .proton-list{
-  max-height:330px;
+  max-height:800px;
   overflow-y:auto;
   overflow-x: hidden;
 }
 
 category-menu{
-  max-height:400px;
+  max-height:800px;
   overflow-y:auto;
   overflow-x: hidden;
 }

@@ -217,6 +217,10 @@ app.on('ready', () => {
     mainWindow.webContents.send("clear-input")
   })
 
+  mainWindow.on('show', () => {
+    mainWindow.webContents.send("focus-input")
+  })
+
   setupProtonHotkeys()
 })
 
