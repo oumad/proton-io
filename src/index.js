@@ -13,6 +13,9 @@ const edge = require('electron-edge-js');
 const currentPath = require('current-path');
 const AutoLaunch = require('auto-launch');
 
+
+
+
 //right click
 require('electron-context-menu')({
     prepend: (params, browserWindow) => [{
@@ -21,6 +24,8 @@ require('electron-context-menu')({
         visible: params.mediaType === 'image'
     }]
 });
+
+
 
 
 //myConfig path
@@ -65,9 +70,10 @@ let managerWindow
 function preferencesWindow(){
   prefWindow = new BrowserWindow({
     width:600,
-    height:400,
+    height:300,
     //frame:false,
     autoHideMenuBar: true,
+    backgroundColor:"#333333",
     icon: iconPath,
   })
   prefWindow.loadURL(url.format({
@@ -81,8 +87,9 @@ function preferencesWindow(){
 function scriptBuilder(){
   builderWindow = new BrowserWindow({
     width:860,
-    height:500,
+    height:400,
     frame:false,
+    backgroundColor:"#333333",
     //frame:false,
     autoHideMenuBar: true,
     icon: iconPath,
@@ -103,6 +110,7 @@ function protonManager(){
     frame:false,
     //frame:false,
     autoHideMenuBar: true,
+    backgroundColor:"#333333",
     icon: iconPath,
   })
   managerWindow.loadURL(url.format({
@@ -117,8 +125,8 @@ function protonManager(){
 app.on('ready', () => {
   const electronScreen = electron.screen
   mainWindow = new BrowserWindow({
-    width:500,
-    height:400,
+    width:1000,
+    height:800,
     frame:false,
     show: false,
     alwaysOnTop: true,

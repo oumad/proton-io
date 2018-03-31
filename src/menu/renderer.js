@@ -122,7 +122,6 @@ for ( var c in uniqCategories.sort()){
 
 //filling categories
 for (var p in scriptNames){
-
   const scriptName = scriptNames[p]
   let iconClass
 
@@ -203,6 +202,7 @@ function secondWindow(paramsNum){
       width:secondWindowWidth,
       height:secondWindowHeight,
       frame:false,
+      backgroundColor: "#313131",
       icon : path.join(__dirname,"icons",'logo_full_grey_inverted.png')
     })
 
