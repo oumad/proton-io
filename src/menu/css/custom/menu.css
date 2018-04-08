@@ -16,24 +16,22 @@
 }
 
 .proton{
-	background: #e6e6e6;
 	color:rgb(21, 21, 21);
-	border-bottom:1px solid;
-	border-color:rgb(156, 156, 156);
+	border-style:none;
 	height:15px;
 }
+
 .ui-menu-item{
-	background: #c1c1c1;
+	background:hsla(0, 0%, 80%, 1);
 	color:rgb(56, 56, 56);
 	/*
 	border-bottom:1px solid;
 	*/
-	border-color:rgb(156, 156, 156);
 }
 
-.proton-category.odd{
+.odd{
 	background:hsla(0, 0%, 80%, 1);
 }
-.proton-category.even{
-	background:hsla(0, 0%, 70%, 1);
+.even,.autocomplete-item-odd{
+	background:hsl(0, 0%, 75%);
 }

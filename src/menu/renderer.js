@@ -63,7 +63,7 @@ let scriptNames = []
 let categoryNames = []
 let protonsData = []
 for (i=0; i < scriptDirs.length; i++ ){
-  console.log(`loading ${scriptDirs[i]}...`)
+  //console.log(`loading ${scriptDirs[i]}...`)
   //read interface json files
   try {
     myScripts[scriptDirs[i]] = JSON.parse(fs.readFileSync(path.join(__dirname,'scripts',scriptDirs[i],`interface.json`), 'utf8'))
@@ -73,7 +73,7 @@ for (i=0; i < scriptDirs.length; i++ ){
       const categoryName =  myScripts[scriptDirs[i]].category || "MISC"
       categoryNames.push(categoryName)
     }
-    console.log(`successfully loaded ${scriptDirs[i]}`)
+    //console.log(`successfully loaded ${scriptDirs[i]}`)
   }
   catch(err) {
       alert(`${scriptDirs[i]} wasn't loaded because : ${err}`)
@@ -139,23 +139,38 @@ for (var p in scriptNames){
   const scriptId = scriptName.replaceAll(" ","-")
   const scriptCategory = myScripts[scriptName].category || "MISC"
   const scriptCategoryId = scriptCategory.replaceAll(" ","-")
-  $(`#${scriptCategoryId} ul`).append($("<li>").attr('id',scriptId))
-  $(`#${scriptId}`).append($("<div>").addClass("proton").text(scriptName).attr("title",myScripts[scriptName].description)
+  $(`#${scriptCategoryId} ul`).append($("<li>").attr('id',scriptId).addClass(`${scriptCategoryId}`))
+  $(`#${scriptId}`).append($("<div>").addClass(`proton`).text(scriptName).attr("title",myScripts[scriptName].description)
     .prepend($("<span>").addClass(`ui-icon ${iconClass}`))
     )
+  if (isOdd(p)){
+    $(`#${scriptId}`)//.addClass("odd")
+  }else{
+    $(`#${scriptId}`)//.addClass("even")
+  }
 }
+
 
 
 //when the html doc is ready
 $(document).ready(function(){
+
     //autocomplete list
     $( "#scripts" ).autocomplete({
       source: scriptNames,
       autoFocus :true,
       position: { my : "right+100% top", at: "right bottom-100%"},
       delay: 10,
+      classes: {
+        "ui-menu-item" : "search-item"
+      },
       select : function( event, ui ){
         selectScript(ui.item.value)
+      },
+      open: function (event, ui) {
+          $("li.ui-menu-item:odd").each(function () {
+              $(this).addClass("autocomplete-item-odd");
+          });
       }
     })
     //main menu list
@@ -164,6 +179,7 @@ $(document).ready(function(){
         //selectScript(ui.item.text())
       }
     });
+
 
 
     //make room for icons in the menu
@@ -178,8 +194,25 @@ $(document).ready(function(){
 
     //hide when clicked away
     $( "#scripts" ).on("blur",()=>{
-      myWindow.hide()
+      //myWindow.hide()
     })
+
+    //setup odd and even for protonSearch
+    for (var c in uniqCategories.sort()){
+      const categoryName = uniqCategories[c]
+      const categoryId = categoryName.replaceAll(" ","-")
+      console.log(categoryId)
+      const elements = $(`.${categoryId}`)
+      //console.log($($(elements)[0]))
+      for (var i=0; i < elements.length; i++){
+        if (isOdd(i)){
+          $(elements[i]).addClass("odd")
+        }else{
+          $(elements[i]).addClass("even")
+        }
+
+      }
+    }
 })
 
 
