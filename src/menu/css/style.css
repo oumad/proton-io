@@ -61,12 +61,3 @@ category-menu{
 ::-webkit-scrollbar-thumb:hover {
     background: #252525;
 }
-
-
-.ui-state-active{
-  padding-top : 0px !important;
-  padding-bottom :  0px !important;
-  max-top : 0px !important;
-  margin-bottom: 0px !important;
-  height:20px !important;
-}

@@ -223,10 +223,11 @@
 	line-height: 0;
 	border-width: 1px 0 0 0;
 }
+/*
 .ui-menu .ui-state-focus,
 .ui-menu .ui-state-active {
 	margin: -1px;
-}
+}*/
 
 /* icon support */
 .ui-menu-icons {
@@ -980,14 +981,20 @@ a.ui-button:focus {
 a.ui-button:active,
 .ui-button:active,
 .ui-button.ui-state-active:hover {
+	/*
 	border: 1px solid #003eff;
+	*/
 	background: #007fff;
+	/*
 	font-weight: normal;
+	*/
 	color: #ffffff;
 }
 .ui-icon-background,
 .ui-state-active .ui-icon-background {
+	/*
 	border: #003eff;
+	*/
 	background-color: #ffffff;
 }
 .ui-state-active a,
