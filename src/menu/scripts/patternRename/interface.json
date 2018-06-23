@@ -1,0 +1,24 @@
+{
+  "author": "Mohamed Oumoumad",
+  "description": "Rename batch of files in a directory based on a pattern",
+  "version": "0.0.1",
+  "category": "MISC",
+  "process": "python",
+  "script": "./exec.py",
+  "getDir": true,
+  "getSel": false,
+  "params": [
+    {
+      "type": "inputField",
+      "name": "Pattern",
+      "default": "",
+      "tooltip": "The pattern to search for"
+    },
+    {
+      "type": "inputField",
+      "name": "Title pattern",
+      "default": "",
+      "tooltip": "The pattern to rename with"
+    }
+  ]
+}
