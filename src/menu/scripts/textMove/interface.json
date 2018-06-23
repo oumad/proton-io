@@ -1,0 +1,42 @@
+{
+  "author": "Mohamed Oumoumad",
+  "description": "Re-order text inside the name of selected files",
+  "version": "0.0.1",
+  "category": "Rename Tools",
+  "process": "python",
+  "script": "./exec.py",
+  "getDir": false,
+  "getSel": true,
+  "params": [
+    {
+      "type": "inputField",
+      "name": "string",
+      "default": "shot",
+      "tooltip": "type the string you want to move"
+    },
+    {
+      "type": "inputCheckbox",
+      "name": "begining",
+      "default": "false",
+      "tooltip": "if you want to move the selected text to the beginning"
+    },
+    {
+      "type": "inputCheckbox",
+      "name": "end",
+      "default": "true",
+      "tooltip": "if you want to move the selected text to the end of the name"
+    },
+    {
+      "type": "inputField",
+      "name": "before",
+      "default": "",
+      "tooltip": "the text in which you want the selected string to be before it"
+    },
+    {
+      "type": "inputField",
+      "name": "after",
+      "default": "",
+      "tooltip": "the text in which you want the selected string to be after it"
+    }
+  ]
+}
