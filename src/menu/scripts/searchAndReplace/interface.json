@@ -11,13 +11,13 @@
     {
       "type": "inputField",
       "name": "search string",
-      "default": "Peugeot",
+      "default": "",
       "tooltip": "the text that will be matched"
     },
     {
       "type": "inputField",
       "name": "replace with",
-      "default": "Citroen",
+      "default": "",
       "tooltip": "the text it will be replaced with"
     }
   ]
