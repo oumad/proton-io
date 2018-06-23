@@ -1,0 +1,24 @@
+{
+  "author": "Mohamed Oumoumad",
+  "description": "script to add suffix and/or prefix to selected files",
+  "version": "0.0.1",
+  "category": "Rename Tools",
+  "process": "python",
+  "script": "./exec.py",
+  "getDir": false,
+  "getSel": true,
+  "params": [
+    {
+      "type": "inputField",
+      "name": "prefix",
+      "default": "",
+      "tooltip": "Type the text you want to prepend to the name as a prefix"
+    },
+    {
+      "type": "inputField",
+      "name": "suffix",
+      "default": "",
+      "tooltip": "Type the text you want to append to the name as a suffix"
+    }
+  ]
+}
