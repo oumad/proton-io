@@ -1,19 +1,19 @@
-const path = require('path')
-const fs = require('fs')
-const kill = require('tree-kill')
-const {dialog,getGlobal} = require('electron').remote
-const ipcRenderer = require('electron').ipcRenderer
+const path = require('path');
+const fs = require('fs');
+const kill = require('tree-kill');
+const {dialog,getGlobal} = require('electron').remote;
+const ipcRenderer = require('electron').ipcRenderer;
 
 //get selected Files in explorer
-const selectedFiles = getGlobal('selectedFiles') || 'None'
+const selectedFiles = getGlobal('selectedFiles') || 'None';
 //get current directory in explorer
-const currentDir = getGlobal('currentDir').stdout || 'None'
+const currentDir = getGlobal('currentDir').stdout || 'None';
 //get returned script name from the menu
-const selectedScript = getGlobal('menuReturns').script
+const selectedScript = getGlobal('menuReturns').script;
 //get returned script name from the menu
-const myScripts = getGlobal('menuReturns').myScripts
+const myScripts = getGlobal('menuReturns').myScripts;
 // get the config.json
-const myConfig = getGlobal('myConfig')
+const myConfig = getGlobal('myConfig');
 
 
 
@@ -26,7 +26,7 @@ const scriptFileName = path.join(scriptsDir,selectedScript,myScripts[selectedScr
 const scriptJson = path.join(scriptsDir,selectedScript,myConfig.interfaceFile) || path.join(scriptsDir,selectedScript,`interface.json`)
 const libsPath = myConfig.libsPath || path.join(__dirname,'libs')
 const pythonExe = path.join(libsPath,'python/python.exe')
-
+const parallelDirs = myConfig.parallelDirs || false
 
 String.prototype.replaceAll = function(search, replacement) {
     var target = this;
@@ -393,7 +393,9 @@ function buildCommandFromInput(obj){
 
     for (var f=0;f<selectedFiles.length; f++){
       const selectedFile = selectedFiles[f]
-      selectedFilesEscaped.push(selectedFile)
+      if (selectedFile.includes(currentDir) || parallelDirs) {
+        selectedFilesEscaped.push(selectedFile)
+      }
     }
     console.log(selectedFilesEscaped)
 

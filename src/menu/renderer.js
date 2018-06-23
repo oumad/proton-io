@@ -151,7 +151,6 @@ for (var p in scriptNames){
 }
 
 
-
 //when the html doc is ready
 $(document).ready(function(){
 
@@ -176,7 +175,7 @@ $(document).ready(function(){
     //main menu list
     $( "#category-menu" ).menu({
       select : function( event, ui ){
-        //selectScript(ui.item.text())
+        selectScript(ui.item.text())
       }
     });
 
@@ -218,7 +217,7 @@ $(document).ready(function(){
 
 //what happens when user selects a script from the menu
 function selectScript(selectedScript){
-
+  console.log("am here")
   const paramsNum = myScripts[selectedScript].params.length;
 
   // check if there are parameters or not
@@ -234,7 +233,7 @@ function selectScript(selectedScript){
     secondWindow(paramsNum)
   }
   //reload scripts list after execution
-  location.reload();
+  //location.reload();
 }
 
 //creating the parameters window
@@ -293,17 +292,6 @@ function adjustWindowPosition(myWindow,width,height){
 
     myWindow.setPosition(xWindow, yWindow);
 }
-
-//script builder window TO DO
-function scriptBuilder(){
-  let scriptBuilderWindow = new BrowserWindow({
-    width:560,
-    height:500,
-    frame:false,
-  })
-}
-
-
 
 
 //direct execution without parameters
@@ -380,10 +368,17 @@ function myParamExecute(selectedScript){
     }
   }
 
-  console.log(myScripts[selectedScript].process,myArgs)
+  let myProcess;
+  if (myScripts[selectedScript].process == 'python' ){
+    myProcess = pythonExe
+  }else{
+    myProcess = myScripts[selectedScript].process
+  }
+
+  console.log(myProcess,myArgs)
 
 
-  const child = spawn(myScripts[selectedScript].process, myArgs,{shell: true, detached: true,windowsVerbatimArguments: true});
+  const child = spawn(myProcess, myArgs,{shell: true, detached: true,windowsVerbatimArguments: true});
 
 }
 

@@ -10,7 +10,7 @@ body {
 .user-hotkeys-contain{
   display:flex;
 }
-.user-path,.user-hotkeys-contain{
+.user-path,.user-hotkeys-contain,.system-options{
   background-color:#545453;
   padding:4px;
   border-radius : 4px;
@@ -40,7 +40,8 @@ button{
 
 .user-hotkeys-contain,
 .user-path,
-.prefs-save{
+.prefs-save,
+.system-options{
   margin:10px;
 }
 
@@ -123,4 +124,12 @@ select{
 
 .directory-input span{
   pointer-events: none;
+}
+
+.system-options{
+  display: flex;
+}
+
+.system-options input{
+  margin:2px 4px 0px 2px;
 }

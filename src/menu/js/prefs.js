@@ -13,6 +13,7 @@ const directKeydown = myConfig.directKeydown || "ctrlKey"
 const scriptsPath = myConfig.scriptsPath || path.join(__dirname,"menu","scripts")
 const libsPath = myConfig.libsPath || path.join(__dirname,"menu","libs")
 const autoLaunch = myConfig.autoLaunch
+const parallelDirs = myConfig.parallelDirs || false
 
 //Set config.json values to the DOM
 function setInitialValues(){
@@ -22,6 +23,7 @@ function setInitialValues(){
 	$(".hotkey-input").text(mainHotkey)
 	$("#directKeydown").val(directKeydown)
 	$("#startup-launch input").prop("checked",autoLaunch)
+	$("#parallel-dirs input").prop("checked",parallelDirs)
 }
 
 //what happens when key recording starts
@@ -88,6 +90,7 @@ $(function(){
 		myConfig.scriptsPath = $("#scripts-path input").val()
 		myConfig.libsPath = $("#libraries-path input").val()
 		myConfig.autoLaunch = $("#startup-launch input").prop("checked")
+		myConfig.parallelDirs = $("#parallel-dirs input").prop("checked")
 
 		//send the new myConfig object to the main process
 		ipcRenderer.send('myConfig-edit',{myConfig : myConfig})
