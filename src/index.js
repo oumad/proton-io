@@ -70,7 +70,7 @@ let managerWindow
 function preferencesWindow(){
   prefWindow = new BrowserWindow({
     width:600,
-    height:300,
+    height:400,
     //frame:false,
     autoHideMenuBar: true,
     backgroundColor:"#333333",
