@@ -3,6 +3,7 @@ const fs = require('fs');
 const kill = require('tree-kill');
 const {dialog,getGlobal} = require('electron').remote;
 const ipcRenderer = require('electron').ipcRenderer;
+import swal from 'sweetalert';
 
 //get selected Files in explorer
 const selectedFiles = getGlobal('selectedFiles') || 'None';
@@ -248,18 +249,42 @@ function save(){
       //const currentValue = $(`#${inputNameNoSpace} input`).attr('value')
       //const scriptFileName = `${scriptsDir}\\${selectedScript}`
       var scriptFile = require(scriptJson);
-
+      var defaultVals = []
       $('input,select').not("#debugger-mode input").each(function( index ) {
         //console.log($( this ).val());
         scriptFile.params[index].default = $( this ).val();
+        defaultVals.push($( this ).val())
       });
+      //modal to input preset name
+      swal({
+        text: 'Preset name:',
+        content: "input",
+        button: {
+          text: "Save preset",
+          //closeModal: false,
+        },
+      })
+      .then(name => {
+        if (!name) throw null;
+        //update presets in object
+        scriptFile.presets.push({
+          name : name,
+          values : defaultVals
+        })
+        //update script file
+        fs.writeFile(scriptJson, JSON.stringify(scriptFile, null, 2), function (err) {
+          if (err) return console.log(err);
 
-      fs.writeFile(scriptJson, JSON.stringify(scriptFile, null, 2), function (err) {
-        if (err) return console.log(err);
-        console.log(JSON.stringify(scriptFile, null, 2));
-        console.log('writing to ' + scriptJson);
-        ipcRenderer.send('reload-scripts')
-      });
+          console.log(JSON.stringify(scriptFile, null, 2));
+          swal("Updated script presets",scriptJson, "success", {
+            button: "Ok!",
+          });
+          //console.log('writing to ' + scriptJson);
+          ipcRenderer.send('reload-scripts')
+
+        });
+      })
+
     })
   )
 }
