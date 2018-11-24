@@ -53,23 +53,23 @@
         "current-path": "^2.0.0",
         "electron-compile": "^6.4.3",
         "electron-context-menu": "^0.9.1",
-        "electron-edge-js": "^8.3.6",
-        "sweetalert": "^2.1.0",
-        "tree-kill": "^1.2.0"
+        "electron-edge-js": "^8.3.8",
+        "sweetalert": "^2.1.2",
+        "tree-kill": "^1.2.1"
     },
     "devDependencies": {
         "babel-plugin-transform-async-to-generator": "^6.24.1",
         "babel-preset-env": "^1.7.0",
         "babel-preset-react": "^6.24.1",
-        "electron": "^2.0.3",
+        "electron": "^3.0.10",
         "electron-forge": "^4.3.0",
         "electron-prebuilt-compile": "1.7.9",
         "electron-squirrel-startup": "^1.0.0",
         "eslint": "^3.19.0",
         "eslint-config-airbnb": "^15.1.0",
-        "eslint-plugin-import": "^2.12.0",
+        "eslint-plugin-import": "^2.14.0",
         "eslint-plugin-jsx-a11y": "^5.1.1",
-        "eslint-plugin-react": "^7.9.1",
-        "node-gyp": "^3.7.0"
+        "eslint-plugin-react": "^7.11.1",
+        "node-gyp": "^3.8.0"
     }
 }

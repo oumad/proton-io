@@ -1,26 +1,26 @@
+import swal from 'sweetalert';
+
 const path = require('path');
 const fs = require('fs');
 const kill = require('tree-kill');
-const {dialog,getGlobal} = require('electron').remote;
-const ipcRenderer = require('electron').ipcRenderer;
-import swal from 'sweetalert';
+const electron = require('electron');
 
-//get selected Files in explorer
+const { dialog, getGlobal } = electron.remote;
+const ipcRenderer = electron.ipcRenderer;
+
+
+// get selected Files in explorer
 const selectedFiles = getGlobal('selectedFiles') || 'None';
-//get current directory in explorer
+// get current directory in explorer
 const currentDir = getGlobal('currentDir').stdout || 'None';
-//get returned script name from the menu
+// get returned script name from the menu
 const selectedScript = getGlobal('menuReturns').script;
-//get returned script name from the menu
+// get returned script name from the menu
 const myScripts = getGlobal('menuReturns').myScripts;
 // get the config.json
 const myConfig = getGlobal('myConfig');
 
-
-
-
-
-//directory of the scripts folder to get from config.json or hardcoded
+// directory of the scripts folder to get from config.json or hardcoded
 const scriptsDir = myConfig.scriptsPath || path.join(__dirname,'scripts')
 const selectedScriptDir = path.join(scriptsDir,selectedScript)
 const scriptFileName = path.join(scriptsDir,selectedScript,myScripts[selectedScript].script)
