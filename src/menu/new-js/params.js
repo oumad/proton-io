@@ -12,5 +12,13 @@ class Params {
       pythonExe: path.join(libsPath,'python/python.exe'),
       parallelDirs: myConfig.parallelDirs || false
     }
+    this.doms = {
+      container : document.getElementById("parameters-container")
+    }
+  }
+
+  inputField(inputName,inputContent,tooltip){
+    const inputNameNoSpace = inputName.replaceAll(' ','-');
+    const inputField = addElement("div",this.doms.container,inputNameNoSpace,`input-group`)
   }
 }
